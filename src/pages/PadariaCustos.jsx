@@ -18,6 +18,8 @@ export default function PadariaCustos() {
   // Custos Fixos Semanais/Mensais (rateados para a batelada)
   const [energiaForno, setEnergiaForno] = useState(30); // Eletricidade/Lenha por batelada
   const [padeiro, setPadeiro] = useState(40);           // Custo homem-hora por batelada
+  const [outrosDescricao, setOutrosDescricao] = useState(''); // Descricao do custo
+  const [outrosValor, setOutrosValor] = useState(0);          // Valor do custo extra
   
   // Rendimento
   const [rendimentoKp, setRendimentoKp] = useState(65); // Quantos Kg de pão pronto um Saco de 50kg de farinha crua gera (Devido a água)
@@ -27,14 +29,15 @@ export default function PadariaCustos() {
   // Cálculos da Batelada
   const totalVariaveis = farinha + fermento + embalagens;
   const totalFixos = energiaForno + padeiro;
-  const custoTotalBatelada = totalVariaveis + totalFixos;
+  const custoTotalBatelada = totalVariaveis + totalFixos + outrosValor;
   
   const custoKg = rendimentoKp > 0 ? (custoTotalBatelada / rendimentoKp) : 0;
   
   // Proporções
-  const percFarinha = (farinha / custoTotalBatelada) * 100;
-  const percApoio = ((fermento + embalagens) / custoTotalBatelada) * 100;
-  const percProducao = (totalFixos / custoTotalBatelada) * 100;
+  const percFarinha = custoTotalBatelada > 0 ? (farinha / custoTotalBatelada) * 100 : 0;
+  const percApoio = custoTotalBatelada > 0 ? ((fermento + embalagens) / custoTotalBatelada) * 100 : 0;
+  const percProducao = custoTotalBatelada > 0 ? (totalFixos / custoTotalBatelada) * 100 : 0;
+  const percOutros = custoTotalBatelada > 0 ? (outrosValor / custoTotalBatelada) * 100 : 0;
 
   return (
     <div className="container">
@@ -119,6 +122,20 @@ export default function PadariaCustos() {
                <hr style={{ borderColor: 'rgba(255,255,255,0.1)', margin: '1rem 0' }}/>
 
                <div>
+                 <label style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', color: '#a855f7' }}>
+                   <span>➕ Outros Custos (Descrição e Valor)</span>
+                   <span style={{ fontWeight: 'bold' }}>{formatCurrency(outrosValor)}</span>
+                 </label>
+                 <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+                    <input type="text" placeholder="Ex: Água, Frete Extra..." className="input-field" value={outrosDescricao} onChange={(e) => setOutrosDescricao(e.target.value)} style={{ flex: 2, padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(0,0,0,0.2)' }} />
+                    <input type="number" min="0" className="input-field" value={outrosValor} onChange={(e) => setOutrosValor(Number(e.target.value))} style={{ flex: 1, padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(0,0,0,0.2)' }} />
+                 </div>
+                 <input type="range" min="0" max="200" value={outrosValor} onChange={(e) => setOutrosValor(Number(e.target.value))} style={{ width: '100%', accentColor: '#a855f7' }} />
+               </div>
+
+               <hr style={{ borderColor: 'rgba(255,255,255,0.1)', margin: '1rem 0' }}/>
+
+               <div>
                  <label style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', color: '#10b981' }}>
                    <span>⚖️ Rendimento Final de Pão Assado (Água aumenta o peso)</span>
                    <span style={{ fontWeight: 'bold' }}>{rendimentoKp} Kg</span>
@@ -162,6 +179,7 @@ export default function PadariaCustos() {
                    <div style={{ width: `${percFarinha}%`, background: '#eab308' }} title={`Farinha: ${percFarinha.toFixed(1)}%`} />
                    <div style={{ width: `${percApoio}%`, background: 'var(--text-muted)' }} title={`Aditivos: ${percApoio.toFixed(1)}%`} />
                    <div style={{ width: `${percProducao}%`, background: '#3b82f6' }} title={`Fabricação (Fogo/Mão): ${percProducao.toFixed(1)}%`} />
+                   {percOutros > 0 && <div style={{ width: `${percOutros}%`, background: '#a855f7' }} title={`Outros: ${percOutros.toFixed(1)}%`} />}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
@@ -177,8 +195,39 @@ export default function PadariaCustos() {
                       <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#3b82f6' }}></div> Fogo & Força Padeiro</span>
                       <span style={{ fontWeight: 'bold' }}>{percProducao.toFixed(1)}%</span>
                    </div>
+                   {percOutros > 0 && (
+                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#a855f7' }}></div> {outrosDescricao || 'Outros Custos'}</span>
+                        <span style={{ fontWeight: 'bold' }}>{percOutros.toFixed(1)}%</span>
+                     </div>
+                   )}
                 </div>
              </div>
+
+             {/* CÁLCULO DETALHADO */}
+             <div className="glass-panel" style={{ padding: '2rem' }}>
+                <h3 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', color: 'var(--text-main)' }}>Demonstrativo de Separação de Custos</h3>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '1.5rem', borderRadius: '0.5rem', fontFamily: 'monospace', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                   
+                   <div style={{ color: '#eab308', fontWeight: 'bold', marginBottom: '0.25rem', borderBottom: '1px solid rgba(234, 179, 8, 0.3)', paddingBottom: '0.25rem' }}>CUSTOS VARIÁVEIS</div>
+                   <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Farinha de Trigo</span> <span>{formatCurrency(farinha)}</span></p>
+                   <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Aditivos (Fermento, Melhorador, Sal)</span> <span>{formatCurrency(fermento)}</span></p>
+                   <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Embalagens (Sacos Kraft e Bobinas)</span> <span>{formatCurrency(embalagens)}</span></p>
+                   {outrosValor > 0 && <p style={{ display: 'flex', justifyContent: 'space-between', color: '#a855f7' }}><span>Outros ({outrosDescricao || 'Não especificado'})</span> <span>{formatCurrency(outrosValor)}</span></p>}
+                   <p style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-main)', fontSize: '0.9rem', marginTop: '0.25rem' }}><span>Subtotal Variável</span> <span>{formatCurrency(totalVariaveis + outrosValor)}</span></p>
+
+                   <div style={{ color: '#3b82f6', fontWeight: 'bold', marginTop: '1rem', marginBottom: '0.25rem', borderBottom: '1px solid rgba(59, 130, 246, 0.3)', paddingBottom: '0.25rem' }}>CUSTOS FIXOS (Rateados)</div>
+                   <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Energia / Lenha do Forno</span> <span>{formatCurrency(energiaForno)}</span></p>
+                   <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Mão de Obra do Padeiro</span> <span>{formatCurrency(padeiro)}</span></p>
+                   <p style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-main)', fontSize: '0.9rem', marginTop: '0.25rem' }}><span>Subtotal Fixo</span> <span>{formatCurrency(totalFixos)}</span></p>
+
+                   <hr style={{ borderColor: 'rgba(255,255,255,0.1)', margin: '1rem 0 0.5rem 0' }}/>
+                   <p style={{ color: 'var(--primary)', fontWeight: 'bold', display: 'flex', justifyContent: 'space-between', fontSize: '1.1rem' }}>
+                      <span>SOMA TOTAL DA BATELADA</span> <span>{formatCurrency(custoTotalBatelada)}</span>
+                   </p>
+                </div>
+             </div>
+             
              
           </div>
 
