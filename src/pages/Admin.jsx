@@ -8,10 +8,15 @@ import {
   batchRegisterAlumns, 
   updateAllAlumnsPassword,
   updateAlumn,
-  updateSettings
+  updateSettings,
+  toggleAlumnBlock,
+  setAllAlumnsBlockStatus,
+  getAccessLogs
 } from '../utils/db';
 import { useSettings } from '../hooks/useSettings';
-import { RefreshCw, Trash2, Users, Home, Save, Edit, Key, Unlock, Shield } from 'lucide-react';
+import { RefreshCw, Trash2, Users, Home, Save, Edit, Key, Unlock, Shield, Lock, FileText, Download } from 'lucide-react';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 export default function Admin() {
   const { logout } = useAuth();
@@ -35,7 +40,9 @@ export default function Admin() {
   
   // Edit Student State
   const [editingEmail, setEditingEmail] = useState(null);
-  const [editForm, setEditForm] = useState({ name: '', email: '' });
+  // Access Logs State
+  const [logs, setLogs] = useState([]);
+  const [logFilterDate, setLogFilterDate] = useState('');
 
   // Settings Modules State from Real-time Firestore Hook
   const settings = useSettings();
@@ -43,6 +50,21 @@ export default function Admin() {
   useEffect(() => {
     loadUsers();
   }, []);
+
+  useEffect(() => {
+    if (activeTab === 'logs') {
+       loadLogs();
+    }
+  }, [activeTab, logFilterDate]);
+
+  const loadLogs = async () => {
+    try {
+      const data = await getAccessLogs(logFilterDate);
+      setLogs(data);
+    } catch(e) {
+      console.error(e);
+    }
+  };
 
   const loadUsers = async () => {
     try {
@@ -111,6 +133,65 @@ export default function Admin() {
      await updateSettings({ [key]: newVal });
   };
 
+  const handleToggleBlock = async (email, currentStatus) => {
+    const newStatus = !currentStatus;
+    try {
+      await toggleAlumnBlock(email, newStatus);
+      await loadUsers();
+    } catch(e) {
+      alert("Erro ao alterar bloqueio: " + e.message);
+    }
+  };
+
+  const handleGlobalBlock = async (isBlocked) => {
+    const action = isBlocked ? "BLOQUEAR" : "LIBERAR";
+    const isOk = window.confirm(`Certeza que deseja ${action} o acesso de TODOS os alunos?`);
+    if(isOk){
+      try {
+        await setAllAlumnsBlockStatus(isBlocked);
+        await loadUsers();
+        alert(`Todos os alunos foram ${isBlocked ? 'bloqueados' : 'liberados'} com sucesso!`);
+      } catch(e) {
+        alert("Erro: " + e.message);
+      }
+    }
+  };
+
+  const handleDownloadTXT = () => {
+     let content = `RELATÓRIO DE ACESSOS - ${logFilterDate || 'Todas as Datas'}\n\n`;
+     logs.forEach(log => {
+        content += `${log.dateString} ${log.timeString} - ${log.email}\n`;
+     });
+     
+     const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+     const url = URL.createObjectURL(blob);
+     const a = document.createElement('a');
+     a.href = url;
+     a.download = `acessos_${logFilterDate || 'todos'}.txt`;
+     a.click();
+     URL.revokeObjectURL(url);
+  };
+
+  const handleDownloadPDF = () => {
+     const doc = new jsPDF();
+     doc.text(`Relatório de Acessos - ${logFilterDate || 'Todas as Datas'}`, 14, 15);
+     
+     const tableColumn = ["Data", "Hora", "E-mail"];
+     const tableRows = [];
+
+     logs.forEach(log => {
+        tableRows.push([log.dateString, log.timeString, log.email]);
+     });
+
+     doc.autoTable({
+        head: [tableColumn],
+        body: tableRows,
+        startY: 20,
+     });
+     
+     doc.save(`acessos_${logFilterDate || 'todos'}.pdf`);
+  };
+
   return (
     <div className="container">
       <nav className="navbar" style={{ borderRadius: '1rem', marginBottom: '2rem' }}>
@@ -139,6 +220,13 @@ export default function Admin() {
            style={{ flex: 1, padding: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}
          >
            <Unlock size={18} /> Disponibilidade de Conteúdos
+         </button>
+         <button 
+           className={activeTab === 'logs' ? 'btn-primary' : 'btn-secondary'} 
+           onClick={() => setActiveTab('logs')}
+           style={{ flex: 1, padding: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}
+         >
+           <FileText size={18} /> Histórico de Acessos
          </button>
       </div>
 
@@ -179,9 +267,17 @@ export default function Admin() {
           </div>
 
           <div className="glass-panel" style={{ padding: '2rem' }}>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: 'var(--text-main)' }}>
-              Alunos Autorizados ({users.length})
-            </h2>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+              <h2 style={{ fontSize: '1.5rem', color: 'var(--text-main)' }}>
+                Alunos Autorizados ({users.length})
+              </h2>
+              {users.length > 0 && (
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <button className="btn-secondary" onClick={() => handleGlobalBlock(true)} style={{ color: '#ef4444', borderColor: 'rgba(239, 68, 68, 0.2)', display: 'flex', gap: '0.25rem', alignItems: 'center' }}><Lock size={16} /> Bloquear Todos</button>
+                  <button className="btn-secondary" onClick={() => handleGlobalBlock(false)} style={{ color: '#10b981', borderColor: 'rgba(16, 185, 129, 0.2)', display: 'flex', gap: '0.25rem', alignItems: 'center' }}><Unlock size={16} /> Liberar Todos</button>
+                </div>
+              )}
+            </div>
             
             {users.length === 0 ? (
               <p style={{ color: 'var(--text-muted)' }}>Nenhum aluno matriculado na whitelist do simulador ainda.</p>
@@ -210,6 +306,9 @@ export default function Admin() {
                         </td>
                         <td style={{ padding: '1.25rem 0.5rem' }}>
                           <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+                            <button className="btn-secondary" onClick={() => handleToggleBlock(u.email, u.isBlocked)} title={u.isBlocked ? "Liberar Acesso" : "Bloquear Acesso"} style={{ padding: '0.5rem', color: u.isBlocked ? '#ef4444' : '#10b981', borderColor: u.isBlocked ? 'rgba(239, 68, 68, 0.2)' : 'rgba(16, 185, 129, 0.2)' }}>
+                              {u.isBlocked ? <Lock size={16} /> : <Unlock size={16} />}
+                            </button>
                             {editingEmail === u.email ? (
                                <button className="btn-primary" onClick={() => saveEdit(u.email)} title="Salvar Alterações" style={{ padding: '0.5rem' }}>
                                  <Save size={16} />
@@ -284,6 +383,57 @@ export default function Admin() {
               </div>
 
            </div>
+        </div>
+      )}
+
+      {activeTab === 'logs' && (
+        <div className="animate-fade-in glass-panel" style={{ padding: '2rem' }}>
+           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+             <h2 style={{ fontSize: '1.5rem', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+               <FileText size={24} color="var(--primary)" /> Histórico de Acessos
+             </h2>
+             <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+               <div style={{ display: 'flex', flexDirection: 'column' }}>
+                 <label style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Filtrar por Data:</label>
+                 <input type="date" className="input-field" value={logFilterDate} onChange={e => setLogFilterDate(e.target.value)} style={{ padding: '0.5rem', color: 'black' }} />
+               </div>
+               <button className="btn-secondary" onClick={() => setLogFilterDate('')} style={{ height: 'max-content', alignSelf: 'flex-end', padding: '0.5rem 1rem' }}>Limpar Filtro</button>
+             </div>
+           </div>
+
+           <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
+              <button className="btn-primary" onClick={handleDownloadPDF} disabled={logs.length === 0} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem' }}>
+                <Download size={16} /> Baixar PDF
+              </button>
+              <button className="btn-secondary" onClick={handleDownloadTXT} disabled={logs.length === 0} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem' }}>
+                <Download size={16} /> Baixar TXT
+              </button>
+           </div>
+
+           {logs.length === 0 ? (
+              <p style={{ color: 'var(--text-muted)' }}>Nenhum acesso registrado {logFilterDate ? 'nesta data' : ''}.</p>
+           ) : (
+              <div style={{ overflowX: 'auto', background: 'rgba(0,0,0,0.2)', borderRadius: '0.5rem' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid var(--border-color)', color: 'var(--text-muted)' }}>
+                      <th style={{ padding: '1rem' }}>Data</th>
+                      <th style={{ padding: '1rem' }}>Hora</th>
+                      <th style={{ padding: '1rem' }}>E-mail</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {logs.map(log => (
+                      <tr key={log.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                        <td style={{ padding: '1rem', color: 'var(--text-muted)' }}>{log.dateString}</td>
+                        <td style={{ padding: '1rem', color: 'var(--text-muted)' }}>{log.timeString}</td>
+                        <td style={{ padding: '1rem', fontWeight: 500 }}>{log.email}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+           )}
         </div>
       )}
 

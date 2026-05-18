@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getUserByEmail, registerAlumn } from '../utils/db';
+import { getUserByEmail, registerAlumn, logAccess } from '../utils/db';
 
 const AuthContext = createContext(null);
 
@@ -35,9 +35,17 @@ export const AuthProvider = ({ children }) => {
         throw new Error('Acesso negado. Seu e-mail não foi liberado no sistema pelo professor.');
     }
 
+    if (dbUser.role === 'alumn' && dbUser.isBlocked) {
+        throw new Error('Acesso temporariamente bloqueado pelo professor.');
+    }
+
     if (dbUser.password === password) {
       localStorage.setItem('financas_session', JSON.stringify(dbUser));
       setUser(dbUser);
+      // Registrar log (sem await para não atrasar a resposta da tela)
+      if (dbUser.role === 'alumn') {
+          logAccess(dbUser.email);
+      }
       return true;
     }
     

@@ -4,6 +4,7 @@ import { db } from './firebase';
 
 const USERS_COLLECTION = 'users';
 const SETTINGS_DOC = 'globals/settings';
+const LOGS_COLLECTION = 'access_logs';
 
 // Admin Default Settings
 const initialSettings = {
@@ -64,7 +65,8 @@ export const registerAlumn = async (email, password = '123456') => {
     name,
     email: email.toLowerCase().trim(),
     password: password,
-    role: 'alumn'
+    role: 'alumn',
+    isBlocked: true
   };
 
   await setDoc(doc(db, USERS_COLLECTION, newId), newUser);
@@ -89,7 +91,8 @@ export const batchRegisterAlumns = async (emailsString, defaultPassword = '12345
         name: email.split('@')[0],
         email: email,
         password: defaultPassword,
-        role: 'alumn'
+        role: 'alumn',
+        isBlocked: true
       });
       addedCount++;
     }
@@ -142,6 +145,68 @@ export const updateAlumnPassword = async (email, newPassword) => {
     return true;
   }
   return false;
+};
+
+export const toggleAlumnBlock = async (email, isBlocked) => {
+  const usersRef = collection(db, USERS_COLLECTION);
+  const q = query(usersRef, where('email', '==', email.toLowerCase()));
+  const snapshot = await getDocs(q);
+  
+  if (!snapshot.empty) {
+    await updateDoc(snapshot.docs[0].ref, { isBlocked: isBlocked });
+    return true;
+  }
+  return false;
+};
+
+export const setAllAlumnsBlockStatus = async (isBlocked) => {
+  const snapshot = await getDocs(collection(db, USERS_COLLECTION));
+  const batch = writeBatch(db);
+  
+  snapshot.docs.forEach(docSnap => {
+    const data = docSnap.data();
+    if (data.role === 'alumn') {
+       batch.update(docSnap.ref, { isBlocked: isBlocked });
+    }
+  });
+
+  await batch.commit();
+};
+
+export const logAccess = async (email) => {
+  try {
+    const now = new Date();
+    // YYYY-MM-DD local
+    const dateString = now.toLocaleDateString('pt-BR').split('/').reverse().join('-'); 
+    const timeString = now.toLocaleTimeString('pt-BR');
+    
+    const newId = `log_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
+    const logDoc = {
+       id: newId,
+       email,
+       timestamp: now.getTime(),
+       dateString,
+       timeString
+    };
+    await setDoc(doc(db, LOGS_COLLECTION, newId), logDoc);
+  } catch(e) {
+    console.error("Erro ao registrar log de acesso", e);
+  }
+};
+
+export const getAccessLogs = async (filterDateString) => {
+  // filterDateString in YYYY-MM-DD
+  const logsRef = collection(db, LOGS_COLLECTION);
+  let q;
+  if (filterDateString) {
+     q = query(logsRef, where('dateString', '==', filterDateString));
+  } else {
+     q = query(logsRef);
+  }
+  const snapshot = await getDocs(q);
+  const results = snapshot.docs.map(doc => doc.data());
+  // Sort descending by timestamp
+  return results.sort((a, b) => b.timestamp - a.timestamp);
 };
 
 export const deleteUser = async (email) => {
