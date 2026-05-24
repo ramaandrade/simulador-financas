@@ -42,6 +42,11 @@ export default function Menu() {
           <BookOpen size={24} /> Consultoria 360º
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          {user?.role === 'admin' && (
+            <button className="btn-primary" style={{ padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }} onClick={() => navigate('/admin')}>
+              Painel Professor
+            </button>
+          )}
           <span style={{ fontWeight: 500, color: 'var(--text-muted)' }}>Olá, {user?.name || 'Aluno'}</span>
           <button className="btn-secondary" style={{ padding: '0.5rem 1rem' }} onClick={logout}>
             <LogOut size={16} /> Sair

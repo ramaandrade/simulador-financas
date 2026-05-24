@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { ArrowLeft, Home, ChefHat, Package, DollarSign, Calculator, Info, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Home, ChefHat, Package, DollarSign, Calculator, Info, CheckCircle2, GraduationCap, ShieldAlert, Eye, EyeOff } from 'lucide-react';
 import ChatIA from '../components/ChatIA';
 
 const SUGGESTED_DATA = {
@@ -333,6 +333,143 @@ export default function Marmitaria() {
                       </div>
                     </div>
                  </div>
+
+                 {/* VISÃO AVANÇADA DO PROFESSOR */}
+                 {user?.role === 'admin' && (
+                    <div className="glass-panel animate-fade-in" style={{ padding: '2.5rem', border: '2px solid #8b5cf6', background: 'rgba(139, 92, 246, 0.05)' }}>
+                      <h2 style={{ fontSize: '1.75rem', marginBottom: '0.5rem', color: '#8b5cf6', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                         <GraduationCap size={28} /> Painel do Professor: Aprofundamento
+                      </h2>
+                      <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', fontSize: '1.125rem' }}>
+                        Material de apoio exclusivo para discussão em sala.
+                      </p>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+                         {/* ENCARGOS TRABALHISTAS */}
+                         <div className="glass-panel" style={{ background: 'var(--bg-card)' }}>
+                            <h3 style={{ padding: '1rem 1.5rem', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#f43f5e' }}>
+                               <ShieldAlert size={20} /> O Custo Real de um Funcionário (CLT)
+                            </h3>
+                            <div style={{ padding: '1.5rem' }}>
+                               <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
+                                  Muitos alunos esquecem que um salário de R$ 1.800 custa muito mais para a empresa na modalidade CLT devido aos encargos indiretos mensais (provisão).
+                               </p>
+                               
+                               {(() => {
+                                  const salarioBruto = items['salario'] && items['salario'].selected 
+                                    ? (typeof items['salario'].value === 'string' ? parseFloat(items['salario'].value.replace(',', '.')) : items['salario'].value) || 0 
+                                    : 0;
+
+                                  if (salarioBruto === 0) {
+                                     return <p style={{ color: 'var(--warning)', fontStyle: 'italic' }}>Ative o item "Salário Cozinheiro" na tela anterior para ver o cálculo ao vivo.</p>;
+                                  }
+
+                                  const fgts = salarioBruto * 0.08;
+                                  const ferias13 = salarioBruto * 0.1111; // 1/12 de férias + 1/3 e 1/12 de 13º aprox
+                                  const previdenciaINSS = salarioBruto * 0.20; // 20% patronal se não for Simples Nacional ou dependendo do anexo, mas usaremos 27.8% como regra geral de mercado
+                                  const custoRealCLT = salarioBruto * 1.37; // Média de 37% a 40% (Simples) ou 68% (Lucro Real) - Usando Simples para pequena marmitaria
+
+                                  return (
+                                     <>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                           <span>Salário Base:</span>
+                                           <strong>{formatCurrency(salarioBruto)}</strong>
+                                        </div>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+                                           <span>+ Férias e 13º (Provisão):</span>
+                                           <span>{formatCurrency(ferias13)}</span>
+                                        </div>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+                                           <span>+ FGTS (8%):</span>
+                                           <span>{formatCurrency(fgts)}</span>
+                                        </div>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+                                           <span>+ Rescisão / Outros (Aprox):</span>
+                                           <span>{formatCurrency(custoRealCLT - salarioBruto - ferias13 - fgts)}</span>
+                                        </div>
+                                        
+                                        <div style={{ padding: '1rem', background: 'rgba(244, 63, 94, 0.1)', borderRadius: '0.5rem', borderLeft: '4px solid #f43f5e' }}>
+                                           <div style={{ fontSize: '0.875rem', marginBottom: '0.25rem' }}>Custo Real Mensal na Empresa (CLT):</div>
+                                           <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#f43f5e' }}>{formatCurrency(custoRealCLT)}</div>
+                                        </div>
+                                        
+                                        <div style={{ marginTop: '1rem', padding: '1rem', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '0.5rem' }}>
+                                           <strong>Comparação com MEI (Freelancer):</strong>
+                                           <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
+                                              O custo seria exatamente os {formatCurrency(salarioBruto)}. Porém, caso haja horário fixo e subordinação, a marmitaria sofre alto risco de passivo trabalhista.
+                                           </p>
+                                        </div>
+                                     </>
+                                  );
+                               })()}
+                            </div>
+                         </div>
+
+                         {/* IMPOSTOS E TRIBUTAÇÃO */}
+                         <div className="glass-panel" style={{ background: 'var(--bg-card)' }}>
+                            <h3 style={{ padding: '1rem 1.5rem', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#eab308' }}>
+                               <Calculator size={20} /> Impacto dos Impostos (Tributação)
+                            </h3>
+                            <div style={{ padding: '1.5rem' }}>
+                               <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
+                                  Onde e como o imposto é pago altera a forma como o contabilizamos na formação do custo da marmita.
+                               </p>
+
+                               <div style={{ marginBottom: '1rem', padding: '1rem', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '0.5rem', borderLeft: '4px solid #94a3b8' }}>
+                                  <strong style={{ color: '#f8fafc' }}>1. MEI (Microempreendedor Individual)</strong>
+                                  <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginTop: '0.25rem', marginBottom: '0.5rem' }}>
+                                     Paga uma guia fixa mensal (DAS) em torno de R$ 75,00, não importando se faturou mil ou dez mil.
+                                  </p>
+                                  <span style={{ fontSize: '0.75rem', background: 'rgba(99, 102, 241, 0.2)', color: '#818cf8', padding: '0.2rem 0.5rem', borderRadius: '0.25rem' }}>Classificação: Custo Fixo</span>
+                               </div>
+
+                               <div style={{ marginBottom: '1rem', padding: '1rem', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '0.5rem', borderLeft: '4px solid #3b82f6' }}>
+                                  <strong style={{ color: '#f8fafc' }}>2. Simples Nacional</strong>
+                                  <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginTop: '0.25rem', marginBottom: '0.5rem' }}>
+                                     Paga uma porcentagem sobre o que vender (ex: 4%). Se vender 1000 marmitas a R$ 25, fatura R$ 25.000 e paga R$ 1.000 de imposto. Se não vender nada, paga zero.
+                                  </p>
+                                  <span style={{ fontSize: '0.75rem', background: 'rgba(234, 179, 8, 0.2)', color: '#facc15', padding: '0.2rem 0.5rem', borderRadius: '0.25rem' }}>Classificação: Despesa Variável (Dedução)</span>
+                               </div>
+
+                               <div style={{ padding: '1rem', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '0.5rem', borderLeft: '4px solid #ec4899' }}>
+                                  <strong style={{ color: '#f8fafc' }}>3. Lucro Presumido / Real</strong>
+                                  <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginTop: '0.25rem', marginBottom: '0.5rem' }}>
+                                     Indicado para operações maiores. Os impostos (PIS, COFINS, ICMS) incidem em cascata ou por crédito, tornando a precificação (Markup) um desafio muito mais matemático.
+                                  </p>
+                                  
+                                  <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '1rem' }}>
+                                    <button 
+                                      className="btn-secondary" 
+                                      onClick={() => navigate('/marmitaria/nf')}
+                                      style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem', fontSize: '0.875rem', borderColor: 'rgba(236, 72, 153, 0.3)', color: '#ec4899', background: 'rgba(236, 72, 153, 0.1)' }}
+                                    >
+                                      Exemplo NF (Créditos/Débitos) →
+                                    </button>
+
+                                    <button 
+                                      className="btn-secondary" 
+                                      onClick={() => navigate('/marmitaria/exercicios')}
+                                      style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem', fontSize: '0.875rem', borderColor: 'rgba(236, 72, 153, 0.3)', color: '#ec4899', background: 'rgba(236, 72, 153, 0.1)' }}
+                                    >
+                                      Ver Exercícios Práticos Resolvidos →
+                                    </button>
+
+                                    <button 
+                                      className="btn-secondary" 
+                                      onClick={() => navigate('/marmitaria/regimes')}
+                                      style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem', fontSize: '0.875rem', borderColor: 'rgba(236, 72, 153, 0.3)', color: '#ec4899', background: 'rgba(236, 72, 153, 0.1)' }}
+                                    >
+                                      Resumo: Regimes e Tipos de Empresas →
+                                    </button>
+                                  </div>
+                               </div>
+
+                            </div>
+                         </div>
+
+                      </div>
+                    </div>
+                 )}
                </>
              )
            })()}
