@@ -11,6 +11,8 @@ export default function ModaCustos() {
   const settings = useSettings();
   const consultoraLiberada = user?.role === 'admin' || settings?.consultoria_moda === true;
 
+  const [step, setStep] = useState(0);
+
   // Custos Diretos de Peça Pronta (Landed Cost Fashion)
   const [custoBruto, setCustoBruto] = useState(35); // Custo do Brás/Bom Retiro
   const [freteRateado, setFreteRateado] = useState(3.50); // Custo ônibus de excursão ou correio por peça

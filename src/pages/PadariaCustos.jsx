@@ -11,6 +11,8 @@ export default function PadariaCustos() {
   const settings = useSettings();
   const consultoraLiberada = user?.role === 'admin' || settings?.consultoria_padaria === true;
 
+  const [step, setStep] = useState(0);
+
   // Custos Variáveis (Para 1 Saco de 50kg de Farinha)
   const [farinha, setFarinha] = useState(120);    // Preço do saco de 50kg
   const [fermento, setFermento] = useState(20);   // Fermento, Sal, Melhorador
