@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { ArrowLeft, Home, ChefHat, Package, DollarSign, Calculator, Info, CheckCircle2, GraduationCap, ShieldAlert, Eye, EyeOff } from 'lucide-react';
+import { ArrowLeft, Home, ChefHat, Package, DollarSign, Calculator, Info, CheckCircle2, GraduationCap, ShieldAlert, Eye, EyeOff, BookOpen } from 'lucide-react';
 import ChatIA from '../components/ChatIA';
 
 const SUGGESTED_DATA = {
@@ -119,9 +119,48 @@ export default function Marmitaria() {
       {step === 0 && (
         <div className="glass-panel animate-fade-in" style={{ padding: '3rem', textAlign: 'center' }}>
           <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Bem-vindo à sua nova Marmitaria!</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '3rem', fontSize: '1.125rem' }}>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', fontSize: '1.125rem' }}>
             Para começarmos a consultoria, como você deseja inserir os dados financeiros dos elementos da sua empresa?
           </p>
+
+          {/* BOTÃO CONSULTORIA */}
+          <div
+            style={{
+              background: 'linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(139,92,246,0.10) 100%)',
+              border: '1px solid rgba(99,102,241,0.4)',
+              borderRadius: '1rem',
+              padding: '1.5rem 2rem',
+              marginBottom: '2.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '1rem',
+              textAlign: 'left',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+              <div style={{ background: 'rgba(99,102,241,0.2)', borderRadius: '0.75rem', padding: '0.75rem', flexShrink: 0 }}>
+                <BookOpen size={24} color="var(--primary)" />
+              </div>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+                  <span style={{ fontWeight: 700, fontSize: '1.05rem' }}>Antes de simular, aprenda com casos reais</span>
+                  <span style={{ background: 'var(--primary)', color: 'white', fontSize: '0.7rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '2rem', letterSpacing: '0.05em' }}>NOVO</span>
+                </div>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.5 }}>
+                  Veja como Indústria, Comércio e Serviço classificam seus custos — e depois resolva seu desafio de consultoria.
+                </p>
+              </div>
+            </div>
+            <button
+              className="btn-primary"
+              onClick={() => navigate('/marmitaria/consultoria-custos')}
+              style={{ padding: '0.75rem 1.5rem', flexShrink: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+            >
+              Acessar Consultoria →
+            </button>
+          </div>
 
           <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <div 

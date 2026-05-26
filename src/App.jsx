@@ -15,6 +15,7 @@ import MarmitariaFinanciamento from './pages/MarmitariaFinanciamento';
 import MarmitariaInvestimentos from './pages/MarmitariaInvestimentos';
 import MarmitariaIndicadores from './pages/MarmitariaIndicadores';
 import MarmitariaExercicios from './pages/MarmitariaExercicios';
+import MarmitariaConsultoriaCustos from './pages/MarmitariaConsultoriaCustos';
 import MarmitariaNF from './pages/MarmitariaNF';
 import MarmitariaRegimes from './pages/MarmitariaRegimes';
 import PadariaDashboard from './pages/PadariaDashboard';
@@ -98,6 +99,12 @@ export default function App() {
           <Route path="/marmitaria/indicadores" element={
             <ProtectedRoute>
               <MarmitariaIndicadores />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/marmitaria/consultoria-custos" element={
+            <ProtectedRoute>
+              <MarmitariaConsultoriaCustos />
             </ProtectedRoute>
           } />
 
