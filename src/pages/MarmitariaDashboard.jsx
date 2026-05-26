@@ -19,7 +19,7 @@ export default function MarmitariaDashboard() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const settings = useSettings();
-  const consultoraLiberada = user?.role === 'admin' || settings?.consultoria_marmitaria === true;
+  const consultoraLiberada = (num) => user?.role === 'admin' || settings?.[`consultoria_marmitaria_${num}`] === true;
 
   const options = [
     {
@@ -129,12 +129,12 @@ export default function MarmitariaDashboard() {
             <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: '1rem', gap: '0.75rem' }}>
               {opt.id === 1 && (
                 <button
-                  onClick={(e) => { e.stopPropagation(); if (consultoraLiberada) navigate('/marmitaria/consultoria-custos'); }}
+                  onClick={(e) => { e.stopPropagation(); if (consultoraLiberada(opt.id)) navigate('/marmitaria/consultoria-custos'); }}
                   style={{
                     fontSize: '0.75rem', fontWeight: 600, padding: '0.3rem 0.75rem',
-                    borderRadius: '2rem', border: 'none', cursor: consultoraLiberada ? 'pointer' : 'default',
-                    background: consultoraLiberada ? 'rgba(99,102,241,0.2)' : 'rgba(255,255,255,0.06)',
-                    color: consultoraLiberada ? 'var(--primary)' : 'var(--text-muted)',
+                    borderRadius: '2rem', border: 'none', cursor: consultoraLiberada(opt.id) ? 'pointer' : 'default',
+                    background: consultoraLiberada(opt.id) ? 'rgba(99,102,241,0.2)' : 'rgba(255,255,255,0.06)',
+                    color: consultoraLiberada(opt.id) ? 'var(--primary)' : 'var(--text-muted)',
                     display: 'flex', alignItems: 'center', gap: '0.3rem',
                     transition: 'all 0.2s',
                   }}

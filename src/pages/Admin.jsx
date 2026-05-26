@@ -338,76 +338,99 @@ export default function Admin() {
 
       {activeTab === 'modules' && (
         <div className="animate-fade-in glass-panel" style={{ padding: '2rem' }}>
-           <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: 'var(--text-main)' }}>Travar & Destravar Aulas (SubMódulos)</h2>
-           <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>Quando um módulo for travado aqui, o aluno o visualizará bloqueado (cinza e inacessível) durante a execução de seu próprio painel. Módulos que ainda não foram ensinados na sua disciplina devem permanecer trancados.</p>
+           <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: 'var(--text-main)' }}>Travar & Destravar Aulas e Consultorias</h2>
+           <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>Controle o acesso dos alunos a cada módulo e sua consultoria correspondente de forma independente.</p>
+
+           {/* Legenda */}
+           <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
+             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+               <div style={{ width: '1rem', height: '1rem', background: 'rgba(255,255,255,0.15)', borderRadius: '0.2rem', border: '1px solid var(--border-color)' }} />
+               Aula — acesso ao módulo de simulação
+             </div>
+             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+               <div style={{ width: '1rem', height: '1rem', background: 'rgba(99,102,241,0.3)', borderRadius: '0.2rem', border: '1px solid var(--primary)' }} />
+               Consultoria — atividade de aprofundamento
+             </div>
+           </div>
            
            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>
               
-              {/* Marmitaria Blocks */}
+              {/* Marmitaria */}
               <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.05)' }}>
-                 <h3 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', color: '#10b981', borderBottom: '1px solid rgba(16, 185, 129, 0.2)', paddingBottom: '0.5rem' }}>🍗 Trilhas da Marmitaria</h3>
+                 <h3 style={{ fontSize: '1.25rem', marginBottom: '0.75rem', color: '#10b981', borderBottom: '1px solid rgba(16, 185, 129, 0.2)', paddingBottom: '0.5rem' }}>🍗 Trilhas da Marmitaria</h3>
+                 <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1.5rem', marginBottom: '0.5rem', paddingRight: '0.25rem' }}>
+                   <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Aula</span>
+                   <span style={{ fontSize: '0.7rem', color: '#6366f1', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Consul.</span>
+                 </div>
                  {moduleNames.map((name, index) => {
                     const num = index + 1;
+                    const aulaKey = `marmitaria_${num}`;
+                    const consulKey = `consultoria_marmitaria_${num}`;
                     return (
-                    <label key={`marmita_${num}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', padding: '0.5rem', background: settings[`marmitaria_${num}`] ? 'rgba(16, 185, 129, 0.05)' : 'rgba(255,255,255,0.05)', borderRadius: '0.5rem', cursor: 'pointer' }}>
-                       <span style={{ color: settings[`marmitaria_${num}`] ? 'var(--text-main)' : 'var(--text-muted)' }}>0{num}. {name}</span>
-                       <input type="checkbox" checked={settings[`marmitaria_${num}`] || false} onChange={() => toggleModule(`marmitaria_${num}`)} style={{ width: '1.25rem', height: '1.25rem', accentColor: '#10b981' }}/>
-                    </label>
+                    <div key={aulaKey} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem', padding: '0.5rem 0.75rem', background: settings[aulaKey] ? 'rgba(16, 185, 129, 0.05)' : 'rgba(255,255,255,0.03)', borderRadius: '0.5rem', gap: '0.5rem' }}>
+                       <span style={{ color: settings[aulaKey] ? 'var(--text-main)' : 'var(--text-muted)', fontSize: '0.875rem', flex: 1 }}>0{num}. {name}</span>
+                       <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+                         <input type="checkbox" checked={settings[aulaKey] || false} onChange={() => toggleModule(aulaKey)} style={{ width: '1.1rem', height: '1.1rem', accentColor: '#10b981', cursor: 'pointer' }}/>
+                         <input type="checkbox" checked={settings[consulKey] || false} onChange={() => toggleModule(consulKey)} style={{ width: '1.1rem', height: '1.1rem', accentColor: '#6366f1', cursor: 'pointer' }}/>
+                       </div>
+                    </div>
                  )})}
-              </div>
-
-              {/* Padaria Blocks */}
-              <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.05)' }}>
-                 <h3 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', color: '#f59e0b', borderBottom: '1px solid rgba(245, 158, 11, 0.2)', paddingBottom: '0.5rem' }}>🥖 Trilhas da Padaria</h3>
-                 {moduleNames.map((name, index) => {
-                    const num = index + 1;
-                    return (
-                    <label key={`padaria_${num}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', padding: '0.5rem', background: settings[`padaria_${num}`] ? 'rgba(245, 158, 11, 0.05)' : 'rgba(255,255,255,0.05)', borderRadius: '0.5rem', cursor: 'pointer' }}>
-                       <span style={{ color: settings[`padaria_${num}`] ? 'var(--text-main)' : 'var(--text-muted)' }}>0{num}. {name}</span>
-                       <input type="checkbox" checked={settings[`padaria_${num}`] || false} onChange={() => toggleModule(`padaria_${num}`)} style={{ width: '1.25rem', height: '1.25rem', accentColor: '#f59e0b' }}/>
-                    </label>
-                 )})}
-              </div>
-
-              {/* Moda Fast Fashion Blocks */}
-              <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.05)' }}>
-                 <h3 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', color: '#a855f7', borderBottom: '1px solid rgba(168, 85, 247, 0.2)', paddingBottom: '0.5rem' }}>👗 Trilhas da Loja de Moda</h3>
-                 {moduleNames.map((name, index) => {
-                    const num = index + 1;
-                    return (
-                    <label key={`moda_${num}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', padding: '0.5rem', background: settings[`moda_${num}`] ? 'rgba(168, 85, 247, 0.05)' : 'rgba(255,255,255,0.05)', borderRadius: '0.5rem', cursor: 'pointer' }}>
-                       <span style={{ color: settings[`moda_${num}`] ? 'var(--text-main)' : 'var(--text-muted)' }}>0{num}. {name}</span>
-                       <input type="checkbox" checked={settings[`moda_${num}`] || false} onChange={() => toggleModule(`moda_${num}`)} style={{ width: '1.25rem', height: '1.25rem', accentColor: '#a855f7' }}/>
-                    </label>
-                 )})}
-              </div>
-
-           </div>
-
-           {/* CONTROLE DE CONSULTORIAS */}
-           <div className="glass-panel" style={{ padding: '2rem', marginTop: '2rem', borderTop: '2px solid rgba(99,102,241,0.3)' }}>
-             <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem', color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-               🔒 Liberar Consultorias Práticas
-             </h3>
-             <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-               As consultorias são atividades de aprofundamento. Libere após os alunos terem contato inicial com a simulação de cada trilha.
-             </p>
-             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
-               {[
-                 { key: 'consultoria_marmitaria', label: '🍱 Consultoria — Marmitaria', cor: '#10b981' },
-                 { key: 'consultoria_padaria', label: '🥖 Consultoria — Padaria', cor: '#f59e0b' },
-                 { key: 'consultoria_moda', label: '👗 Consultoria — Moda', cor: '#ec4899' },
-                 { key: 'consultoria_desafios', label: '🏆 Desafios Avançados', cor: '#6366f1' },
-               ].map(({ key, label, cor }) => (
-                 <label key={key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', background: settings[key] ? `rgba(${cor === '#10b981' ? '16,185,129' : cor === '#f59e0b' ? '245,158,11' : cor === '#ec4899' ? '236,72,153' : '99,102,241'}, 0.08)` : 'rgba(255,255,255,0.04)', borderRadius: '0.75rem', cursor: 'pointer', border: `1px solid ${settings[key] ? cor : 'var(--border-color)'}`, transition: 'all 0.2s' }}>
-                   <span style={{ fontWeight: 600, fontSize: '0.9rem', color: settings[key] ? 'var(--text-main)' : 'var(--text-muted)' }}>{label}</span>
-                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                     <span style={{ fontSize: '0.75rem', color: settings[key] ? cor : 'var(--text-muted)', fontWeight: 600 }}>{settings[key] ? 'Liberado' : 'Bloqueado'}</span>
-                     <input type="checkbox" checked={settings[key] || false} onChange={() => toggleModule(key)} style={{ width: '1.25rem', height: '1.25rem', accentColor: cor }} />
+                 {/* Desafios Avançados */}
+                 <div style={{ marginTop: '1rem', paddingTop: '0.75rem', borderTop: '1px dashed var(--border-color)' }}>
+                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.5rem 0.75rem', background: settings['consultoria_desafios'] ? 'rgba(99,102,241,0.08)' : 'rgba(255,255,255,0.03)', borderRadius: '0.5rem' }}>
+                     <span style={{ color: 'var(--text-muted)', fontSize: '0.875rem', flex: 1 }}>🏆 Desafios Avançados</span>
+                     <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+                       <div style={{ width: '1.1rem' }} />
+                       <input type="checkbox" checked={settings['consultoria_desafios'] || false} onChange={() => toggleModule('consultoria_desafios')} style={{ width: '1.1rem', height: '1.1rem', accentColor: '#6366f1', cursor: 'pointer' }}/>
+                     </div>
                    </div>
-                 </label>
-               ))}
-             </div>
+                 </div>
+              </div>
+
+              {/* Padaria */}
+              <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.05)' }}>
+                 <h3 style={{ fontSize: '1.25rem', marginBottom: '0.75rem', color: '#f59e0b', borderBottom: '1px solid rgba(245, 158, 11, 0.2)', paddingBottom: '0.5rem' }}>🥖 Trilhas da Padaria</h3>
+                 <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1.5rem', marginBottom: '0.5rem', paddingRight: '0.25rem' }}>
+                   <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Aula</span>
+                   <span style={{ fontSize: '0.7rem', color: '#6366f1', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Consul.</span>
+                 </div>
+                 {moduleNames.map((name, index) => {
+                    const num = index + 1;
+                    const aulaKey = `padaria_${num}`;
+                    const consulKey = `consultoria_padaria_${num}`;
+                    return (
+                    <div key={aulaKey} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem', padding: '0.5rem 0.75rem', background: settings[aulaKey] ? 'rgba(245, 158, 11, 0.05)' : 'rgba(255,255,255,0.03)', borderRadius: '0.5rem', gap: '0.5rem' }}>
+                       <span style={{ color: settings[aulaKey] ? 'var(--text-main)' : 'var(--text-muted)', fontSize: '0.875rem', flex: 1 }}>0{num}. {name}</span>
+                       <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+                         <input type="checkbox" checked={settings[aulaKey] || false} onChange={() => toggleModule(aulaKey)} style={{ width: '1.1rem', height: '1.1rem', accentColor: '#f59e0b', cursor: 'pointer' }}/>
+                         <input type="checkbox" checked={settings[consulKey] || false} onChange={() => toggleModule(consulKey)} style={{ width: '1.1rem', height: '1.1rem', accentColor: '#6366f1', cursor: 'pointer' }}/>
+                       </div>
+                    </div>
+                 )})}
+              </div>
+
+              {/* Moda */}
+              <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.05)' }}>
+                 <h3 style={{ fontSize: '1.25rem', marginBottom: '0.75rem', color: '#a855f7', borderBottom: '1px solid rgba(168, 85, 247, 0.2)', paddingBottom: '0.5rem' }}>👗 Trilhas da Loja de Moda</h3>
+                 <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1.5rem', marginBottom: '0.5rem', paddingRight: '0.25rem' }}>
+                   <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Aula</span>
+                   <span style={{ fontSize: '0.7rem', color: '#6366f1', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Consul.</span>
+                 </div>
+                 {moduleNames.map((name, index) => {
+                    const num = index + 1;
+                    const aulaKey = `moda_${num}`;
+                    const consulKey = `consultoria_moda_${num}`;
+                    return (
+                    <div key={aulaKey} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem', padding: '0.5rem 0.75rem', background: settings[aulaKey] ? 'rgba(168, 85, 247, 0.05)' : 'rgba(255,255,255,0.03)', borderRadius: '0.5rem', gap: '0.5rem' }}>
+                       <span style={{ color: settings[aulaKey] ? 'var(--text-main)' : 'var(--text-muted)', fontSize: '0.875rem', flex: 1 }}>0{num}. {name}</span>
+                       <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+                         <input type="checkbox" checked={settings[aulaKey] || false} onChange={() => toggleModule(aulaKey)} style={{ width: '1.1rem', height: '1.1rem', accentColor: '#a855f7', cursor: 'pointer' }}/>
+                         <input type="checkbox" checked={settings[consulKey] || false} onChange={() => toggleModule(consulKey)} style={{ width: '1.1rem', height: '1.1rem', accentColor: '#6366f1', cursor: 'pointer' }}/>
+                       </div>
+                    </div>
+                 )})}
+              </div>
+
            </div>
         </div>
       )}

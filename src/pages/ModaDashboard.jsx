@@ -9,7 +9,7 @@ export default function ModaDashboard() {
   const navigate = useNavigate();
   const [activeModule, setActiveModule] = useState(null);
   const settings = useSettings();
-  const consultoraLiberada = user?.role === 'admin' || settings?.consultoria_moda === true;
+  const consultoraLiberada = (num) => user?.role === 'admin' || settings?.[`consultoria_moda_${num}`] === true;
 
   const modules = [
     {
@@ -124,12 +124,12 @@ export default function ModaDashboard() {
             <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: '1rem', gap: '0.75rem' }}>
               {mod.id === 1 && (
                 <button
-                  onClick={(e) => { e.stopPropagation(); if (consultoraLiberada) navigate('/moda/consultoria-custos'); }}
+                  onClick={(e) => { e.stopPropagation(); if (consultoraLiberada(mod.id)) navigate('/moda/consultoria-custos'); }}
                   style={{
                     fontSize: '0.75rem', fontWeight: 600, padding: '0.3rem 0.75rem',
-                    borderRadius: '2rem', border: 'none', cursor: consultoraLiberada ? 'pointer' : 'default',
-                    background: consultoraLiberada ? 'rgba(236,72,153,0.2)' : 'rgba(255,255,255,0.06)',
-                    color: consultoraLiberada ? '#ec4899' : 'var(--text-muted)',
+                    borderRadius: '2rem', border: 'none', cursor: consultoraLiberada(mod.id) ? 'pointer' : 'default',
+                    background: consultoraLiberada(mod.id) ? 'rgba(236,72,153,0.2)' : 'rgba(255,255,255,0.06)',
+                    color: consultoraLiberada(mod.id) ? '#ec4899' : 'var(--text-muted)',
                     display: 'flex', alignItems: 'center', gap: '0.3rem',
                     transition: 'all 0.2s',
                   }}
