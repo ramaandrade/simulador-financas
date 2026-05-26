@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { ArrowLeft, Home, Calculator, Wheat, Zap, Flame, DollarSign, Package, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Home, Calculator, Wheat, Zap, Flame, DollarSign, Package, AlertCircle, BookOpen, Lock } from 'lucide-react';
 import ChatIA from '../components/ChatIA';
+import { useSettings } from '../hooks/useSettings';
 
 export default function PadariaCustos() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  
-  const [step, setStep] = useState(0);
+  const settings = useSettings();
+  const consultoraLiberada = user?.role === 'admin' || settings?.consultoria_padaria === true;
 
   // Custos Variáveis (Para 1 Saco de 50kg de Farinha)
   const [farinha, setFarinha] = useState(120);    // Preço do saco de 50kg
@@ -60,9 +61,34 @@ export default function PadariaCustos() {
         <div className="glass-panel animate-fade-in" style={{ padding: '3rem', textAlign: 'center' }}>
           <Wheat size={64} color="#eab308" style={{ marginBottom: '1rem', opacity: 0.8 }} />
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>A Ciência da Farinha e o Fogo</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '3rem', fontSize: '1.25rem', maxWidth: '800px', margin: '0 auto 3rem auto', lineHeight: 1.6 }}>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', fontSize: '1.25rem', maxWidth: '800px', margin: '0 auto 2rem auto', lineHeight: 1.6 }}>
              Na Padaria, não custeamos um pão isolado. Nós custeamos a <strong>Batelada</strong> (A quantidade de massa que sai de um Saco de 50kg de Farinha). Aqui a água aumenta o peso do produto final (yield), mas os fornos elétricos devoram a conta de energia. Vamos descobrir exatamente quanto custa tirar 1 Kg de Pão Francês.
           </p>
+
+          {/* BOTÃO CONSULTORIA */}
+          <div style={{ background: consultoraLiberada ? 'linear-gradient(135deg, rgba(234,179,8,0.12) 0%, rgba(245,158,11,0.08) 100%)' : 'rgba(255,255,255,0.03)', border: consultoraLiberada ? '1px solid rgba(234,179,8,0.4)' : '1px solid rgba(255,255,255,0.08)', borderRadius: '1rem', padding: '1.5rem 2rem', marginBottom: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', textAlign: 'left', maxWidth: '700px', margin: '0 auto 2.5rem auto' }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+              <div style={{ background: consultoraLiberada ? 'rgba(234,179,8,0.2)' : 'rgba(255,255,255,0.06)', borderRadius: '0.75rem', padding: '0.75rem', flexShrink: 0 }}>
+                {consultoraLiberada ? <BookOpen size={24} color="#eab308" /> : <Lock size={24} color="var(--text-muted)" />}
+              </div>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+                  <span style={{ fontWeight: 700, fontSize: '1.05rem', color: consultoraLiberada ? 'var(--text-main)' : 'var(--text-muted)' }}>
+                    {consultoraLiberada ? 'Aprenda antes de simular' : 'Consultoria de Custos e Despesas'}
+                  </span>
+                  {consultoraLiberada
+                    ? <span style={{ background: '#eab308', color: '#000', fontSize: '0.7rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '2rem' }}>NOVO</span>
+                    : <span style={{ background: 'rgba(255,255,255,0.1)', color: 'var(--text-muted)', fontSize: '0.7rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '2rem' }}>🔒 BLOQUEADO</span>}
+                </div>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.5 }}>
+                  {consultoraLiberada ? 'Veja exemplos reais de Indústria, Comércio e Serviço e resolva um desafio de consultoria.' : 'Será liberado pelo professor no momento oportuno da disciplina.'}
+                </p>
+              </div>
+            </div>
+            <button className={consultoraLiberada ? 'btn-primary' : 'btn-secondary'} onClick={() => consultoraLiberada && navigate('/padaria/consultoria-custos')} disabled={!consultoraLiberada} style={{ padding: '0.75rem 1.5rem', flexShrink: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', background: consultoraLiberada ? '#eab308' : undefined, border: 'none', color: consultoraLiberada ? '#000' : undefined, opacity: consultoraLiberada ? 1 : 0.5, cursor: consultoraLiberada ? 'pointer' : 'not-allowed' }}>
+              {consultoraLiberada ? 'Acessar Consultoria →' : <><Lock size={14} /> Bloqueado</>}
+            </button>
+          </div>
 
           <button className="btn-primary" onClick={() => setStep(1)} style={{ padding: '1rem 3rem', fontSize: '1.25rem' }}>
             Abrir Amassadeira de Custos

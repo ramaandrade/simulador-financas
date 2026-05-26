@@ -383,6 +383,32 @@ export default function Admin() {
               </div>
 
            </div>
+
+           {/* CONTROLE DE CONSULTORIAS */}
+           <div className="glass-panel" style={{ padding: '2rem', marginTop: '2rem', borderTop: '2px solid rgba(99,102,241,0.3)' }}>
+             <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem', color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+               🔒 Liberar Consultorias Práticas
+             </h3>
+             <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
+               As consultorias são atividades de aprofundamento. Libere após os alunos terem contato inicial com a simulação de cada trilha.
+             </p>
+             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
+               {[
+                 { key: 'consultoria_marmitaria', label: '🍱 Consultoria — Marmitaria', cor: '#10b981' },
+                 { key: 'consultoria_padaria', label: '🥖 Consultoria — Padaria', cor: '#f59e0b' },
+                 { key: 'consultoria_moda', label: '👗 Consultoria — Moda', cor: '#ec4899' },
+                 { key: 'consultoria_desafios', label: '🏆 Desafios Avançados', cor: '#6366f1' },
+               ].map(({ key, label, cor }) => (
+                 <label key={key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', background: settings[key] ? `rgba(${cor === '#10b981' ? '16,185,129' : cor === '#f59e0b' ? '245,158,11' : cor === '#ec4899' ? '236,72,153' : '99,102,241'}, 0.08)` : 'rgba(255,255,255,0.04)', borderRadius: '0.75rem', cursor: 'pointer', border: `1px solid ${settings[key] ? cor : 'var(--border-color)'}`, transition: 'all 0.2s' }}>
+                   <span style={{ fontWeight: 600, fontSize: '0.9rem', color: settings[key] ? 'var(--text-main)' : 'var(--text-muted)' }}>{label}</span>
+                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                     <span style={{ fontSize: '0.75rem', color: settings[key] ? cor : 'var(--text-muted)', fontWeight: 600 }}>{settings[key] ? 'Liberado' : 'Bloqueado'}</span>
+                     <input type="checkbox" checked={settings[key] || false} onChange={() => toggleModule(key)} style={{ width: '1.25rem', height: '1.25rem', accentColor: cor }} />
+                   </div>
+                 </label>
+               ))}
+             </div>
+           </div>
         </div>
       )}
 

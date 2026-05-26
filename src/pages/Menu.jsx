@@ -1,11 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LogOut, BookOpen, Star, TrendingUp } from 'lucide-react';
+import { LogOut, BookOpen, Star, TrendingUp, Trophy, Lock } from 'lucide-react';
+import { useSettings } from '../hooks/useSettings';
 
 export default function Menu() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const settings = useSettings();
+  const desafiosLiberados = user?.role === 'admin' || settings?.consultoria_desafios === true;
 
   // Images will be replaced with real generated ones
   const modules = [
@@ -32,6 +35,15 @@ export default function Menu() {
       image: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&q=80&w=400',
       path: '/moda',
       isNew: true
+    },
+    {
+      id: 'desafios',
+      title: 'Desafios Avançados',
+      desc: 'Prove suas habilidades de consultor em setores além da trilha: Farmácia, Barbearia e Restaurante.',
+      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=400',
+      path: '/desafios-avancados',
+      isNew: false,
+      isChallenge: true
     }
   ];
 
@@ -68,7 +80,14 @@ export default function Menu() {
           <div 
             key={mod.id} 
             className="module-card glass-panel"
-            onClick={() => mod.path !== '#' ? navigate(mod.path) : alert('Módulo em breve!')}
+            onClick={() => {
+              if (mod.id === 'desafios') {
+                if (desafiosLiberados) navigate(mod.path);
+              } else {
+                mod.path !== '#' ? navigate(mod.path) : alert('Módulo em breve!');
+              }
+            }}
+            style={{ cursor: mod.id === 'desafios' && !desafiosLiberados ? 'not-allowed' : 'pointer', opacity: mod.id === 'desafios' && !desafiosLiberados ? 0.5 : 1 }}
           >
             {mod.isNew && (
               <span style={{ 
@@ -80,6 +99,19 @@ export default function Menu() {
                 boxShadow: '0 4px 12px rgba(99, 102, 241, 0.4)'
               }}>
                 <Star size={12} fill="white" /> DESTAQUE
+              </span>
+            )}
+            {mod.isChallenge && (
+              <span style={{ 
+                position: 'absolute', top: '1rem', right: '1rem', 
+                background: desafiosLiberados ? '#f59e0b' : 'rgba(255,255,255,0.15)',
+                color: 'white', 
+                padding: '0.25rem 0.5rem', borderRadius: '0.5rem', 
+                fontSize: '0.75rem', fontWeight: 600, zIndex: 10,
+                display: 'flex', alignItems: 'center', gap: '0.25rem',
+                boxShadow: desafiosLiberados ? '0 4px 12px rgba(245, 158, 11, 0.4)' : 'none'
+              }}>
+                {desafiosLiberados ? <><Trophy size={12} fill="white" /> AVANÇADO</> : <><Lock size={12} /> BLOQUEADO</>}
               </span>
             )}
             <img src={mod.image} alt={mod.title} className="module-card-img" />

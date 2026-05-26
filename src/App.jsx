@@ -16,6 +16,9 @@ import MarmitariaInvestimentos from './pages/MarmitariaInvestimentos';
 import MarmitariaIndicadores from './pages/MarmitariaIndicadores';
 import MarmitariaExercicios from './pages/MarmitariaExercicios';
 import MarmitariaConsultoriaCustos from './pages/MarmitariaConsultoriaCustos';
+import PadariaConsultoriaCustos from './pages/PadariaConsultoriaCustos';
+import ModaConsultoriaCustos from './pages/ModaConsultoriaCustos';
+import DesafiosAvancados from './pages/DesafiosAvancados';
 import MarmitariaNF from './pages/MarmitariaNF';
 import MarmitariaRegimes from './pages/MarmitariaRegimes';
 import PadariaDashboard from './pages/PadariaDashboard';
@@ -105,6 +108,24 @@ export default function App() {
           <Route path="/marmitaria/consultoria-custos" element={
             <ProtectedRoute>
               <MarmitariaConsultoriaCustos />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/padaria/consultoria-custos" element={
+            <ProtectedRoute>
+              <PadariaConsultoriaCustos />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/moda/consultoria-custos" element={
+            <ProtectedRoute>
+              <ModaConsultoriaCustos />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/desafios-avancados" element={
+            <ProtectedRoute>
+              <DesafiosAvancados />
             </ProtectedRoute>
           } />
 

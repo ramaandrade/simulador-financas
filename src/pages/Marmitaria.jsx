@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { ArrowLeft, Home, ChefHat, Package, DollarSign, Calculator, Info, CheckCircle2, GraduationCap, ShieldAlert, Eye, EyeOff, BookOpen } from 'lucide-react';
+import { ArrowLeft, Home, ChefHat, Package, DollarSign, Calculator, Info, CheckCircle2, GraduationCap, ShieldAlert, Eye, EyeOff, BookOpen, Lock } from 'lucide-react';
 import ChatIA from '../components/ChatIA';
+import { useSettings } from '../hooks/useSettings';
 
 const SUGGESTED_DATA = {
   // Variáveis (por marmita)
@@ -25,6 +26,8 @@ const SUGGESTED_DATA = {
 export default function Marmitaria() {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const settings = useSettings();
+  const consultoraLiberada = user?.role === 'admin' || settings?.consultoria_marmitaria === true;
   const [step, setStep] = useState(0); // 0: Config, 1: Cozinha, 2: Relatório
   const [mode, setMode] = useState(''); // 'suggested' or 'manual'
   
@@ -126,8 +129,12 @@ export default function Marmitaria() {
           {/* BOTÃO CONSULTORIA */}
           <div
             style={{
-              background: 'linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(139,92,246,0.10) 100%)',
-              border: '1px solid rgba(99,102,241,0.4)',
+              background: consultoraLiberada
+                ? 'linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(139,92,246,0.10) 100%)'
+                : 'rgba(255,255,255,0.03)',
+              border: consultoraLiberada
+                ? '1px solid rgba(99,102,241,0.4)'
+                : '1px solid rgba(255,255,255,0.08)',
               borderRadius: '1rem',
               padding: '1.5rem 2rem',
               marginBottom: '2.5rem',
@@ -140,25 +147,33 @@ export default function Marmitaria() {
             }}
           >
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
-              <div style={{ background: 'rgba(99,102,241,0.2)', borderRadius: '0.75rem', padding: '0.75rem', flexShrink: 0 }}>
-                <BookOpen size={24} color="var(--primary)" />
+              <div style={{ background: consultoraLiberada ? 'rgba(99,102,241,0.2)' : 'rgba(255,255,255,0.06)', borderRadius: '0.75rem', padding: '0.75rem', flexShrink: 0 }}>
+                {consultoraLiberada ? <BookOpen size={24} color="var(--primary)" /> : <Lock size={24} color="var(--text-muted)" />}
               </div>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                  <span style={{ fontWeight: 700, fontSize: '1.05rem' }}>Antes de simular, aprenda com casos reais</span>
-                  <span style={{ background: 'var(--primary)', color: 'white', fontSize: '0.7rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '2rem', letterSpacing: '0.05em' }}>NOVO</span>
+                  <span style={{ fontWeight: 700, fontSize: '1.05rem', color: consultoraLiberada ? 'var(--text-main)' : 'var(--text-muted)' }}>
+                    {consultoraLiberada ? 'Antes de simular, aprenda com casos reais' : 'Consultoria de Custos e Despesas'}
+                  </span>
+                  {consultoraLiberada
+                    ? <span style={{ background: 'var(--primary)', color: 'white', fontSize: '0.7rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '2rem', letterSpacing: '0.05em' }}>NOVO</span>
+                    : <span style={{ background: 'rgba(255,255,255,0.1)', color: 'var(--text-muted)', fontSize: '0.7rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '2rem' }}>🔒 BLOQUEADO</span>
+                  }
                 </div>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.5 }}>
-                  Veja como Indústria, Comércio e Serviço classificam seus custos — e depois resolva seu desafio de consultoria.
+                  {consultoraLiberada
+                    ? 'Veja como Indústria, Comércio e Serviço classificam seus custos — e resolva seu desafio de consultoria.'
+                    : 'Será liberado pelo professor no momento oportuno da disciplina.'}
                 </p>
               </div>
             </div>
             <button
-              className="btn-primary"
-              onClick={() => navigate('/marmitaria/consultoria-custos')}
-              style={{ padding: '0.75rem 1.5rem', flexShrink: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+              className={consultoraLiberada ? 'btn-primary' : 'btn-secondary'}
+              onClick={() => consultoraLiberada && navigate('/marmitaria/consultoria-custos')}
+              disabled={!consultoraLiberada}
+              style={{ padding: '0.75rem 1.5rem', flexShrink: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: consultoraLiberada ? 1 : 0.5, cursor: consultoraLiberada ? 'pointer' : 'not-allowed' }}
             >
-              Acessar Consultoria →
+              {consultoraLiberada ? 'Acessar Consultoria →' : <><Lock size={14} /> Bloqueado</>}
             </button>
           </div>
 
