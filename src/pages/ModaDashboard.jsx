@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useSettings } from '../hooks/useSettings';
-import { Shirt, Tag, DollarSign, CalendarHeart, PenTool, MonitorPlay, Target, Home, Sparkles } from 'lucide-react';
+import { Shirt, Tag, DollarSign, CalendarHeart, PenTool, MonitorPlay, Target, Home, Sparkles, BookOpen } from 'lucide-react';
 
 export default function ModaDashboard() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [activeModule, setActiveModule] = useState(null);
   const settings = useSettings();
+  const consultoraLiberada = user?.role === 'admin' || settings?.consultoria_moda === true;
 
   const modules = [
     {
@@ -120,14 +121,25 @@ export default function ModaDashboard() {
             <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{mod.title}</h3>
             <p className="module-card-desc">{mod.desc}</p>
             
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem' }}>
-               <span style={{ 
-                  color: mod.available ? 'var(--primary)' : 'var(--text-muted)', 
-                  fontWeight: 600, 
-                  fontSize: '0.875rem' 
-               }}>
-                  {mod.available ? 'Simular →' : 'Trancado'}
-               </span>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: '1rem', gap: '0.75rem' }}>
+              {mod.id === 1 && (
+                <button
+                  onClick={(e) => { e.stopPropagation(); if (consultoraLiberada) navigate('/moda/consultoria-custos'); }}
+                  style={{
+                    fontSize: '0.75rem', fontWeight: 600, padding: '0.3rem 0.75rem',
+                    borderRadius: '2rem', border: 'none', cursor: consultoraLiberada ? 'pointer' : 'default',
+                    background: consultoraLiberada ? 'rgba(236,72,153,0.2)' : 'rgba(255,255,255,0.06)',
+                    color: consultoraLiberada ? '#ec4899' : 'var(--text-muted)',
+                    display: 'flex', alignItems: 'center', gap: '0.3rem',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <BookOpen size={12} /> Consultoria
+                </button>
+              )}
+              <span style={{ color: mod.available ? 'var(--primary)' : 'var(--text-muted)', fontWeight: 600, fontSize: '0.875rem' }}>
+                {mod.available ? 'Simular →' : 'Trancado'}
+              </span>
             </div>
           </div>
         ))}

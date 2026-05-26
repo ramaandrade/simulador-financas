@@ -65,31 +65,6 @@ export default function ModaCustos() {
              Ele esquece a excursão arriscada para São Paulo, a transportadora, e principalmente o <strong>Unboxing</strong>: A sacola térmica caríssima com sua logomarca que joga o custo da blusa nas alturas. Vamos descobrir quanto te custa pendurar *uma única T-Shirt* na arara.
           </p>
 
-          {/* BOTÃO CONSULTORIA */}
-          <div style={{ background: consultoraLiberada ? 'linear-gradient(135deg, rgba(236,72,153,0.12) 0%, rgba(168,85,247,0.08) 100%)' : 'rgba(255,255,255,0.03)', border: consultoraLiberada ? '1px solid rgba(236,72,153,0.4)' : '1px solid rgba(255,255,255,0.08)', borderRadius: '1rem', padding: '1.5rem 2rem', marginBottom: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', textAlign: 'left', maxWidth: '700px', margin: '0 auto 2.5rem auto' }}>
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
-              <div style={{ background: consultoraLiberada ? 'rgba(236,72,153,0.2)' : 'rgba(255,255,255,0.06)', borderRadius: '0.75rem', padding: '0.75rem', flexShrink: 0 }}>
-                {consultoraLiberada ? <BookOpen size={24} color="#ec4899" /> : <Lock size={24} color="var(--text-muted)" />}
-              </div>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                  <span style={{ fontWeight: 700, fontSize: '1.05rem', color: consultoraLiberada ? 'var(--text-main)' : 'var(--text-muted)' }}>
-                    {consultoraLiberada ? 'Aprenda antes de simular' : 'Consultoria de Custos e Despesas'}
-                  </span>
-                  {consultoraLiberada
-                    ? <span style={{ background: '#ec4899', color: 'white', fontSize: '0.7rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '2rem' }}>NOVO</span>
-                    : <span style={{ background: 'rgba(255,255,255,0.1)', color: 'var(--text-muted)', fontSize: '0.7rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '2rem' }}>🔒 BLOQUEADO</span>}
-                </div>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.5 }}>
-                  {consultoraLiberada ? 'Veja exemplos de Confecção, Varejo de Moda e Personal Stylist e resolva seu desafio.' : 'Será liberado pelo professor no momento oportuno da disciplina.'}
-                </p>
-              </div>
-            </div>
-            <button className={consultoraLiberada ? 'btn-primary' : 'btn-secondary'} onClick={() => consultoraLiberada && navigate('/moda/consultoria-custos')} disabled={!consultoraLiberada} style={{ padding: '0.75rem 1.5rem', flexShrink: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', background: consultoraLiberada ? '#ec4899' : undefined, border: 'none', color: consultoraLiberada ? 'white' : undefined, opacity: consultoraLiberada ? 1 : 0.5, cursor: consultoraLiberada ? 'pointer' : 'not-allowed' }}>
-              {consultoraLiberada ? 'Acessar Consultoria →' : <><Lock size={14} /> Bloqueado</>}
-            </button>
-          </div>
-
           <button className="btn-primary" onClick={() => setStep(1)} style={{ padding: '1rem 3rem', fontSize: '1.25rem', background: '#ec4899', borderColor: '#db2777' }}>
             Abrir Caixa da Confecção
           </button>

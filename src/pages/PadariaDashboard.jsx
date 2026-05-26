@@ -11,13 +11,15 @@ import {
   TrendingUp, 
   Landmark, 
   Briefcase, 
-  PieChart 
+  PieChart,
+  BookOpen
 } from 'lucide-react';
 
 export default function PadariaDashboard() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const settings = useSettings();
+  const consultoraLiberada = user?.role === 'admin' || settings?.consultoria_padaria === true;
 
   const options = [
     {
@@ -124,7 +126,22 @@ export default function PadariaDashboard() {
             <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{opt.title}</h3>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', flex: 1 }}>{opt.desc}</p>
             
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: '1rem', gap: '0.75rem' }}>
+              {opt.id === 1 && (
+                <button
+                  onClick={(e) => { e.stopPropagation(); if (consultoraLiberada) navigate('/padaria/consultoria-custos'); }}
+                  style={{
+                    fontSize: '0.75rem', fontWeight: 600, padding: '0.3rem 0.75rem',
+                    borderRadius: '2rem', border: 'none', cursor: consultoraLiberada ? 'pointer' : 'default',
+                    background: consultoraLiberada ? 'rgba(234,179,8,0.2)' : 'rgba(255,255,255,0.06)',
+                    color: consultoraLiberada ? '#eab308' : 'var(--text-muted)',
+                    display: 'flex', alignItems: 'center', gap: '0.3rem',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <BookOpen size={12} /> Consultoria
+                </button>
+              )}
               <span style={{ color: opt.available ? 'var(--primary)' : 'var(--text-muted)', fontWeight: 600, fontSize: '0.875rem' }}>
                 {opt.available ? 'Abrir Fornos →' : 'Em Breve'}
               </span>

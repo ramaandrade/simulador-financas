@@ -122,60 +122,9 @@ export default function Marmitaria() {
       {step === 0 && (
         <div className="glass-panel animate-fade-in" style={{ padding: '3rem', textAlign: 'center' }}>
           <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Bem-vindo à sua nova Marmitaria!</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', fontSize: '1.125rem' }}>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '3rem', fontSize: '1.125rem' }}>
             Para começarmos a consultoria, como você deseja inserir os dados financeiros dos elementos da sua empresa?
           </p>
-
-          {/* BOTÃO CONSULTORIA */}
-          <div
-            style={{
-              background: consultoraLiberada
-                ? 'linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(139,92,246,0.10) 100%)'
-                : 'rgba(255,255,255,0.03)',
-              border: consultoraLiberada
-                ? '1px solid rgba(99,102,241,0.4)'
-                : '1px solid rgba(255,255,255,0.08)',
-              borderRadius: '1rem',
-              padding: '1.5rem 2rem',
-              marginBottom: '2.5rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '1rem',
-              textAlign: 'left',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
-              <div style={{ background: consultoraLiberada ? 'rgba(99,102,241,0.2)' : 'rgba(255,255,255,0.06)', borderRadius: '0.75rem', padding: '0.75rem', flexShrink: 0 }}>
-                {consultoraLiberada ? <BookOpen size={24} color="var(--primary)" /> : <Lock size={24} color="var(--text-muted)" />}
-              </div>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                  <span style={{ fontWeight: 700, fontSize: '1.05rem', color: consultoraLiberada ? 'var(--text-main)' : 'var(--text-muted)' }}>
-                    {consultoraLiberada ? 'Antes de simular, aprenda com casos reais' : 'Consultoria de Custos e Despesas'}
-                  </span>
-                  {consultoraLiberada
-                    ? <span style={{ background: 'var(--primary)', color: 'white', fontSize: '0.7rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '2rem', letterSpacing: '0.05em' }}>NOVO</span>
-                    : <span style={{ background: 'rgba(255,255,255,0.1)', color: 'var(--text-muted)', fontSize: '0.7rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '2rem' }}>🔒 BLOQUEADO</span>
-                  }
-                </div>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.5 }}>
-                  {consultoraLiberada
-                    ? 'Veja como Indústria, Comércio e Serviço classificam seus custos — e resolva seu desafio de consultoria.'
-                    : 'Será liberado pelo professor no momento oportuno da disciplina.'}
-                </p>
-              </div>
-            </div>
-            <button
-              className={consultoraLiberada ? 'btn-primary' : 'btn-secondary'}
-              onClick={() => consultoraLiberada && navigate('/marmitaria/consultoria-custos')}
-              disabled={!consultoraLiberada}
-              style={{ padding: '0.75rem 1.5rem', flexShrink: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: consultoraLiberada ? 1 : 0.5, cursor: consultoraLiberada ? 'pointer' : 'not-allowed' }}
-            >
-              {consultoraLiberada ? 'Acessar Consultoria →' : <><Lock size={14} /> Bloqueado</>}
-            </button>
-          </div>
 
           <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <div 
