@@ -127,9 +127,9 @@ export default function PadariaDashboard() {
             <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', flex: 1 }}>{opt.desc}</p>
             
             <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: '1rem', gap: '0.75rem' }}>
-              {(opt.id === 1 || opt.id === 2) && (
+              {(opt.id === 1 || opt.id === 2 || opt.id === 3) && (
                 <button
-                  onClick={(e) => { e.stopPropagation(); if (consultoraLiberada(opt.id)) navigate(opt.id === 1 ? '/padaria/consultoria-custos' : '/padaria/consultoria-precificacao'); }}
+                  onClick={(e) => { e.stopPropagation(); if (consultoraLiberada(opt.id)) navigate(opt.id === 1 ? '/padaria/consultoria-custos' : opt.id === 2 ? '/padaria/consultoria-precificacao' : '/padaria/consultoria-capital-giro'); }}
                   style={{
                     fontSize: '0.75rem', fontWeight: 600, padding: '0.3rem 0.75rem',
                     borderRadius: '2rem', border: 'none', cursor: consultoraLiberada(opt.id) ? 'pointer' : 'default',

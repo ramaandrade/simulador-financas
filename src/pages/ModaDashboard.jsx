@@ -122,9 +122,9 @@ export default function ModaDashboard() {
             <p className="module-card-desc">{mod.desc}</p>
             
             <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: '1rem', gap: '0.75rem' }}>
-              {(mod.id === 1 || mod.id === 2) && (
+              {(mod.id === 1 || mod.id === 2 || mod.id === 3) && (
                 <button
-                  onClick={(e) => { e.stopPropagation(); if (consultoraLiberada(mod.id)) navigate(mod.id === 1 ? '/moda/consultoria-custos' : '/moda/consultoria-precificacao'); }}
+                  onClick={(e) => { e.stopPropagation(); if (consultoraLiberada(mod.id)) navigate(mod.id === 1 ? '/moda/consultoria-custos' : mod.id === 2 ? '/moda/consultoria-precificacao' : '/moda/consultoria-capital-giro'); }}
                   style={{
                     fontSize: '0.75rem', fontWeight: 600, padding: '0.3rem 0.75rem',
                     borderRadius: '2rem', border: 'none', cursor: consultoraLiberada(mod.id) ? 'pointer' : 'default',
