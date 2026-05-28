@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  ArrowLeft, Home, ChevronRight, ChevronLeft, Printer,
+  ArrowLeft, Home, ChevronRight, Download,
   BarChart4, FileText, Plus, Trash2, Lightbulb,
   TrendingUp, RefreshCcw, Target
 } from 'lucide-react';
@@ -465,7 +465,7 @@ export default function ConsultoriaRestaurante() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
             <h2 style={{ fontSize: '1.35rem', color: COR, display: 'flex', alignItems: 'center', gap: '0.5rem' }}><FileText size={22} /> Relatório Pronto</h2>
             <button onClick={() => window.print()} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: COR, border: 'none', borderRadius: '0.6rem', padding: '0.75rem 1.5rem', color: 'white', fontWeight: 700, cursor: 'pointer' }}>
-              <Printer size={18} /> Imprimir / Salvar PDF
+              <Download size={18} /> Imprimir / Salvar PDF
             </button>
           </div>
           <div style={{ background: `rgba(249,115,22,0.06)`, border: `1px solid rgba(249,115,22,0.2)`, borderRadius: '0.75rem', padding: '0.75rem 1rem', marginBottom: '1.5rem', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
@@ -479,7 +479,7 @@ export default function ConsultoriaRestaurante() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid var(--border-color)' }}>
         <button onClick={() => setEtapa(e => Math.max(0, e - 1))} disabled={etapa === 0}
           style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '0.6rem', border: '2px solid var(--border-color)', background: 'transparent', color: etapa === 0 ? 'var(--text-muted)' : 'var(--text-main)', cursor: etapa === 0 ? 'default' : 'pointer', fontWeight: 600 }}>
-          <ChevronLeft size={18} /> Anterior
+          <ArrowLeft size={18} /> Anterior
         </button>
         <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{ETAPAS[etapa]?.label}</span>
         {etapa < total - 1 ? (
