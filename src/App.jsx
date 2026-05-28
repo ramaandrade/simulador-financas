@@ -153,11 +153,11 @@ export default function App() {
           <Route path="/desafios-avancados" element={
             <ProtectedRoute>
               <DesafiosAvancados />
+            </ProtectedRoute>
+          } />
           <Route path="/desafios-avancados/farmacia" element={<ProtectedRoute><ConsultoriaFarmacia /></ProtectedRoute>} />
           <Route path="/desafios-avancados/barbearia" element={<ProtectedRoute><ConsultoriaBarbearia /></ProtectedRoute>} />
           <Route path="/desafios-avancados/restaurante" element={<ProtectedRoute><ConsultoriaRestaurante /></ProtectedRoute>} />
-            </ProtectedRoute>
-          } />
 
           <Route path="/marmitaria/exercicios" element={
             <ProtectedRoute requiredRole="admin">
