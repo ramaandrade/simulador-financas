@@ -101,6 +101,10 @@ export default function DesafiosAvancados() {
   const nota = desafio && enviado ? Math.round((acertos / desafio.itens.length) * 100) : 0;
 
   const iniciarDesafio = (id) => {
+    // Navegar para a consultoria completa
+    if (id === 'farmacia') { navigate('/desafios-avancados/farmacia'); return; }
+    if (id === 'barbearia') { navigate('/desafios-avancados/barbearia'); return; }
+    if (id === 'restaurante') { navigate('/desafios-avancados/restaurante'); return; }
     setDesafioAtivo(id);
     setRespostas({});
     setEnviado(false);

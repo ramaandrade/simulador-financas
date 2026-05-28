@@ -37,6 +37,9 @@ import ModaConsultoriaFinanciamento from './pages/ModaConsultoriaFinanciamento';
 import ModaConsultoriaInvestimentos from './pages/ModaConsultoriaInvestimentos';
 import ModaConsultoriaIndicadores from './pages/ModaConsultoriaIndicadores';
 import DesafiosAvancados from './pages/DesafiosAvancados';
+import ConsultoriaFarmacia from './pages/ConsultoriaFarmacia';
+import ConsultoriaBarbearia from './pages/ConsultoriaBarbearia';
+import ConsultoriaRestaurante from './pages/ConsultoriaRestaurante';
 import MarmitariaNF from './pages/MarmitariaNF';
 import MarmitariaRegimes from './pages/MarmitariaRegimes';
 import PadariaDashboard from './pages/PadariaDashboard';
@@ -150,6 +153,9 @@ export default function App() {
           <Route path="/desafios-avancados" element={
             <ProtectedRoute>
               <DesafiosAvancados />
+          <Route path="/desafios-avancados/farmacia" element={<ProtectedRoute><ConsultoriaFarmacia /></ProtectedRoute>} />
+          <Route path="/desafios-avancados/barbearia" element={<ProtectedRoute><ConsultoriaBarbearia /></ProtectedRoute>} />
+          <Route path="/desafios-avancados/restaurante" element={<ProtectedRoute><ConsultoriaRestaurante /></ProtectedRoute>} />
             </ProtectedRoute>
           } />
 
