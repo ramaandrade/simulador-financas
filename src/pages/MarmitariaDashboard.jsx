@@ -127,9 +127,9 @@ export default function MarmitariaDashboard() {
             <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', flex: 1 }}>{opt.desc}</p>
             
             <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: '1rem', gap: '0.75rem' }}>
-              {(opt.id === 1 || opt.id === 2 || opt.id === 3 || opt.id === 4 || opt.id === 5) && (
+              {(opt.id === 1 || opt.id === 2 || opt.id === 3 || opt.id === 4 || opt.id === 5 || opt.id === 6) && (
                 <button
-                  onClick={(e) => { e.stopPropagation(); if (consultoraLiberada(opt.id)) navigate(opt.id === 1 ? '/marmitaria/consultoria-custos' : opt.id === 2 ? '/marmitaria/consultoria-precificacao' : opt.id === 3 ? '/marmitaria/consultoria-capital-giro' : opt.id === 4 ? '/marmitaria/consultoria-planejamento' : '/marmitaria/consultoria-financiamento'); }}
+                  onClick={(e) => { e.stopPropagation(); if (consultoraLiberada(opt.id)) navigate(opt.id === 1 ? '/marmitaria/consultoria-custos' : opt.id === 2 ? '/marmitaria/consultoria-precificacao' : opt.id === 3 ? '/marmitaria/consultoria-capital-giro' : opt.id === 4 ? '/marmitaria/consultoria-planejamento' : opt.id === 5 ? '/marmitaria/consultoria-financiamento' : '/marmitaria/consultoria-investimentos'); }}
                   style={{
                     fontSize: '0.75rem', fontWeight: 600, padding: '0.3rem 0.75rem',
                     borderRadius: '2rem', border: 'none', cursor: consultoraLiberada(opt.id) ? 'pointer' : 'default',
