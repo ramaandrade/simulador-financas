@@ -25,14 +25,17 @@ import MarmitariaConsultoriaCapitalGiro from './pages/MarmitariaConsultoriaCapit
 import MarmitariaConsultoriaPlanejamento from './pages/MarmitariaConsultoriaPlanejamento';
 import MarmitariaConsultoriaFinanciamento from './pages/MarmitariaConsultoriaFinanciamento';
 import MarmitariaConsultoriaInvestimentos from './pages/MarmitariaConsultoriaInvestimentos';
+import MarmitariaConsultoriaIndicadores from './pages/MarmitariaConsultoriaIndicadores';
 import PadariaConsultoriaCapitalGiro from './pages/PadariaConsultoriaCapitalGiro';
 import PadariaConsultoriaPlanejamento from './pages/PadariaConsultoriaPlanejamento';
 import PadariaConsultoriaFinanciamento from './pages/PadariaConsultoriaFinanciamento';
 import PadariaConsultoriaInvestimentos from './pages/PadariaConsultoriaInvestimentos';
+import PadariaConsultoriaIndicadores from './pages/PadariaConsultoriaIndicadores';
 import ModaConsultoriaCapitalGiro from './pages/ModaConsultoriaCapitalGiro';
 import ModaConsultoriaPlanejamento from './pages/ModaConsultoriaPlanejamento';
 import ModaConsultoriaFinanciamento from './pages/ModaConsultoriaFinanciamento';
 import ModaConsultoriaInvestimentos from './pages/ModaConsultoriaInvestimentos';
+import ModaConsultoriaIndicadores from './pages/ModaConsultoriaIndicadores';
 import DesafiosAvancados from './pages/DesafiosAvancados';
 import MarmitariaNF from './pages/MarmitariaNF';
 import MarmitariaRegimes from './pages/MarmitariaRegimes';
