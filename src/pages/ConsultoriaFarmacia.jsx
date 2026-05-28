@@ -2,9 +2,8 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ArrowLeft, Home, ChevronRight, ChevronLeft, Printer,
-  Building2, DollarSign, Tag, RefreshCcw, TrendingUp,
-  BarChart4, FileText, CheckCircle, Plus, Trash2, AlertTriangle,
-  Star, ArrowRight, Lightbulb, Target
+  BarChart4, FileText, Plus, Trash2,
+  Lightbulb, Target, TrendingUp, RefreshCcw
 } from 'lucide-react';
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
@@ -14,13 +13,13 @@ const num = (v) => parseFloat(String(v).replace(',', '.')) || 0;
 
 const COR = '#22c55e';
 const ETAPAS = [
-  { id: 0, label: 'Identificação', icon: Building2, emoji: '🏥' },
-  { id: 1, label: 'Custos Fixos', icon: DollarSign, emoji: '📌' },
-  { id: 2, label: 'Custos Variáveis', icon: RefreshCcw, emoji: '🔄' },
-  { id: 3, label: 'Precificação', icon: Tag, emoji: '🏷️' },
-  { id: 4, label: 'Capital de Giro', icon: TrendingUp, emoji: '💧' },
-  { id: 5, label: 'Indicadores', icon: BarChart4, emoji: '📊' },
-  { id: 6, label: 'Relatório', icon: FileText, emoji: '📋' },
+  { id: 0, label: 'Identificação', emoji: '🏥' },
+  { id: 1, label: 'Custos Fixos', emoji: '📌' },
+  { id: 2, label: 'Custos Variáveis', emoji: '🔄' },
+  { id: 3, label: 'Precificação', emoji: '🏷️' },
+  { id: 4, label: 'Capital de Giro', emoji: '💧' },
+  { id: 5, label: 'Indicadores', emoji: '📊' },
+  { id: 6, label: 'Relatório', emoji: '📋' },
 ];
 
 // ─── DEFAULTS ────────────────────────────────────────────────────────────────

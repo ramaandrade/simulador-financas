@@ -2,8 +2,8 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ArrowLeft, Home, ChevronRight, ChevronLeft, Printer,
-  Building2, DollarSign, Tag, RefreshCcw, TrendingUp,
-  BarChart4, FileText, Plus, Trash2, Lightbulb, UtensilsCrossed
+  BarChart4, FileText, Plus, Trash2, Lightbulb,
+  TrendingUp, RefreshCcw, Target
 } from 'lucide-react';
 
 const fmt = (v) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v || 0);

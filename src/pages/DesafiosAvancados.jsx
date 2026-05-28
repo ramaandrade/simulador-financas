@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ArrowLeft, Home, Target, CheckCircle2, XCircle,
-  AlertCircle, Award, Star, Trophy, RotateCcw
+  AlertCircle, Award, RotateCcw, Target, TrendingUp
 } from 'lucide-react';
 
 const desafios = [
@@ -130,7 +130,7 @@ export default function DesafiosAvancados() {
             </button>
           </div>
           <div className="navbar-brand">
-            <Trophy size={22} /> Desafios Avançados de Consultoria
+            <Target size={22} /> Desafios Avançados de Consultoria
           </div>
           <div style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>URCA · Educação Financeira</div>
         </nav>
@@ -138,7 +138,7 @@ export default function DesafiosAvancados() {
         {/* HERO */}
         <div className="glass-panel animate-fade-in" style={{ padding: '2.5rem', marginBottom: '2rem', background: 'linear-gradient(135deg, rgba(99,102,241,0.12) 0%, rgba(168,85,247,0.08) 100%)', borderColor: 'rgba(99,102,241,0.3)', textAlign: 'center' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(99,102,241,0.2)', color: '#818cf8', padding: '0.4rem 1rem', borderRadius: '2rem', fontSize: '0.8rem', fontWeight: 600, marginBottom: '1rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
-            <Star size={14} /> Nível Avançado
+            <Award size={14} /> Nível Avançado
           </div>
           <h1 style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>Desafios de Consultoria</h1>
           <p style={{ color: 'var(--text-muted)', maxWidth: '640px', margin: '0 auto 2rem auto', lineHeight: 1.7 }}>
