@@ -23,10 +23,13 @@ import ModaConsultoriaCustos from './pages/ModaConsultoriaCustos';
 import ModaConsultoriaPrecificacao from './pages/ModaConsultoriaPrecificacao';
 import MarmitariaConsultoriaCapitalGiro from './pages/MarmitariaConsultoriaCapitalGiro';
 import MarmitariaConsultoriaPlanejamento from './pages/MarmitariaConsultoriaPlanejamento';
+import MarmitariaConsultoriaFinanciamento from './pages/MarmitariaConsultoriaFinanciamento';
 import PadariaConsultoriaCapitalGiro from './pages/PadariaConsultoriaCapitalGiro';
 import PadariaConsultoriaPlanejamento from './pages/PadariaConsultoriaPlanejamento';
+import PadariaConsultoriaFinanciamento from './pages/PadariaConsultoriaFinanciamento';
 import ModaConsultoriaCapitalGiro from './pages/ModaConsultoriaCapitalGiro';
 import ModaConsultoriaPlanejamento from './pages/ModaConsultoriaPlanejamento';
+import ModaConsultoriaFinanciamento from './pages/ModaConsultoriaFinanciamento';
 import DesafiosAvancados from './pages/DesafiosAvancados';
 import MarmitariaNF from './pages/MarmitariaNF';
 import MarmitariaRegimes from './pages/MarmitariaRegimes';
@@ -118,16 +121,19 @@ export default function App() {
           <Route path="/marmitaria/consultoria-precificacao" element={<ProtectedRoute><MarmitariaConsultoriaPrecificacao /></ProtectedRoute>} />
           <Route path="/marmitaria/consultoria-capital-giro" element={<ProtectedRoute><MarmitariaConsultoriaCapitalGiro /></ProtectedRoute>} />
           <Route path="/marmitaria/consultoria-planejamento" element={<ProtectedRoute><MarmitariaConsultoriaPlanejamento /></ProtectedRoute>} />
+          <Route path="/marmitaria/consultoria-financiamento" element={<ProtectedRoute><MarmitariaConsultoriaFinanciamento /></ProtectedRoute>} />
 
           <Route path="/padaria/consultoria-custos" element={<ProtectedRoute><PadariaConsultoriaCustos /></ProtectedRoute>} />
           <Route path="/padaria/consultoria-precificacao" element={<ProtectedRoute><PadariaConsultoriaPrecificacao /></ProtectedRoute>} />
           <Route path="/padaria/consultoria-capital-giro" element={<ProtectedRoute><PadariaConsultoriaCapitalGiro /></ProtectedRoute>} />
           <Route path="/padaria/consultoria-planejamento" element={<ProtectedRoute><PadariaConsultoriaPlanejamento /></ProtectedRoute>} />
+          <Route path="/padaria/consultoria-financiamento" element={<ProtectedRoute><PadariaConsultoriaFinanciamento /></ProtectedRoute>} />
 
           <Route path="/moda/consultoria-custos" element={<ProtectedRoute><ModaConsultoriaCustos /></ProtectedRoute>} />
           <Route path="/moda/consultoria-precificacao" element={<ProtectedRoute><ModaConsultoriaPrecificacao /></ProtectedRoute>} />
           <Route path="/moda/consultoria-capital-giro" element={<ProtectedRoute><ModaConsultoriaCapitalGiro /></ProtectedRoute>} />
           <Route path="/moda/consultoria-planejamento" element={<ProtectedRoute><ModaConsultoriaPlanejamento /></ProtectedRoute>} />
+          <Route path="/moda/consultoria-financiamento" element={<ProtectedRoute><ModaConsultoriaFinanciamento /></ProtectedRoute>} />
 
           <Route path="/desafios-avancados" element={
             <ProtectedRoute>
