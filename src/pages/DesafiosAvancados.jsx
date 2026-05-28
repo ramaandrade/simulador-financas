@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ArrowLeft, Home, Target, CheckCircle2, XCircle,
-  AlertCircle, Award, RotateCcw, Target, TrendingUp
+  AlertCircle, Award, RotateCcw, TrendingUp
 } from 'lucide-react';
 
 const desafios = [
