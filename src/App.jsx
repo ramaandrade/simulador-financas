@@ -126,6 +126,7 @@ export default function App() {
           <Route path="/marmitaria/consultoria-planejamento" element={<ProtectedRoute><MarmitariaConsultoriaPlanejamento /></ProtectedRoute>} />
           <Route path="/marmitaria/consultoria-financiamento" element={<ProtectedRoute><MarmitariaConsultoriaFinanciamento /></ProtectedRoute>} />
           <Route path="/marmitaria/consultoria-investimentos" element={<ProtectedRoute><MarmitariaConsultoriaInvestimentos /></ProtectedRoute>} />
+          <Route path="/marmitaria/consultoria-indicadores" element={<ProtectedRoute><MarmitariaConsultoriaIndicadores /></ProtectedRoute>} />
 
           <Route path="/padaria/consultoria-custos" element={<ProtectedRoute><PadariaConsultoriaCustos /></ProtectedRoute>} />
           <Route path="/padaria/consultoria-precificacao" element={<ProtectedRoute><PadariaConsultoriaPrecificacao /></ProtectedRoute>} />
@@ -133,6 +134,7 @@ export default function App() {
           <Route path="/padaria/consultoria-planejamento" element={<ProtectedRoute><PadariaConsultoriaPlanejamento /></ProtectedRoute>} />
           <Route path="/padaria/consultoria-financiamento" element={<ProtectedRoute><PadariaConsultoriaFinanciamento /></ProtectedRoute>} />
           <Route path="/padaria/consultoria-investimentos" element={<ProtectedRoute><PadariaConsultoriaInvestimentos /></ProtectedRoute>} />
+          <Route path="/padaria/consultoria-indicadores" element={<ProtectedRoute><PadariaConsultoriaIndicadores /></ProtectedRoute>} />
 
           <Route path="/moda/consultoria-custos" element={<ProtectedRoute><ModaConsultoriaCustos /></ProtectedRoute>} />
           <Route path="/moda/consultoria-precificacao" element={<ProtectedRoute><ModaConsultoriaPrecificacao /></ProtectedRoute>} />
@@ -140,6 +142,7 @@ export default function App() {
           <Route path="/moda/consultoria-planejamento" element={<ProtectedRoute><ModaConsultoriaPlanejamento /></ProtectedRoute>} />
           <Route path="/moda/consultoria-financiamento" element={<ProtectedRoute><ModaConsultoriaFinanciamento /></ProtectedRoute>} />
           <Route path="/moda/consultoria-investimentos" element={<ProtectedRoute><ModaConsultoriaInvestimentos /></ProtectedRoute>} />
+          <Route path="/moda/consultoria-indicadores" element={<ProtectedRoute><ModaConsultoriaIndicadores /></ProtectedRoute>} />
 
           <Route path="/desafios-avancados" element={
             <ProtectedRoute>
