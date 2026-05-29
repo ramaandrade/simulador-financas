@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { ArrowLeft, Home, Tag, Calculator, Percent, DollarSign, AlertCircle, ArrowRight } from 'lucide-react';
+import { ArrowLeft, Home, Tag, Calculator, Percent, DollarSign, AlertCircle, ArrowRight, BookOpen } from 'lucide-react';
 import ChatIA from '../components/ChatIA';
 
 export default function MarmitariaPrecificacao() {
@@ -75,11 +75,14 @@ export default function MarmitariaPrecificacao() {
     <div className="container">
       <nav className="navbar" style={{ borderRadius: '1rem', marginBottom: '2rem' }}>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
-          <button className="btn-secondary" onClick={() => step > 0 ? setStep(step - 1) : navigate('/marmitaria')} style={{ padding: '0.5rem 1rem' }}>
+          <button className="btn-secondary" onClick={() => navigate('/marmitaria/precificacao')} style={{ padding: '0.5rem 1rem' }}>
             <ArrowLeft size={16} /> Voltar
           </button>
           <button className="btn-secondary" onClick={() => navigate('/')} style={{ padding: '0.5rem 1rem', background: 'rgba(255,255,255,0.05)' }}>
             <Home size={16} /> Início
+          </button>
+          <button className="btn-secondary" onClick={() => navigate('/marmitaria/metodos-precificacao')} style={{ padding: '0.5rem 1rem', background: 'rgba(245,158,11,0.15)', borderColor: 'rgba(245,158,11,0.4)', color: '#fbbf24' }}>
+            <BookOpen size={16} /> 8 Métodos de Precificação
           </button>
         </div>
         <div className="navbar-brand">

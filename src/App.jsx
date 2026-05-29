@@ -37,6 +37,7 @@ import ModaConsultoriaFinanciamento from './pages/ModaConsultoriaFinanciamento';
 import ModaConsultoriaInvestimentos from './pages/ModaConsultoriaInvestimentos';
 import ModaConsultoriaIndicadores from './pages/ModaConsultoriaIndicadores';
 import DesafiosAvancados from './pages/DesafiosAvancados';
+import MetodosPrecificacao from './pages/MetodosPrecificacao';
 import ConsultoriaFarmacia from './pages/ConsultoriaFarmacia';
 import ConsultoriaBarbearia from './pages/ConsultoriaBarbearia';
 import ConsultoriaRestaurante from './pages/ConsultoriaRestaurante';
@@ -126,6 +127,7 @@ export default function App() {
             </ProtectedRoute>
           } />
 
+          <Route path="/marmitaria/metodos-precificacao" element={<ProtectedRoute><MetodosPrecificacao /></ProtectedRoute>} />
           <Route path="/marmitaria/consultoria-custos" element={<ProtectedRoute><MarmitariaConsultoriaCustos /></ProtectedRoute>} />
           <Route path="/marmitaria/consultoria-precificacao" element={<ProtectedRoute><MarmitariaConsultoriaPrecificacao /></ProtectedRoute>} />
           <Route path="/marmitaria/consultoria-capital-giro" element={<ProtectedRoute><MarmitariaConsultoriaCapitalGiro /></ProtectedRoute>} />
