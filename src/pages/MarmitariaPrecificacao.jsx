@@ -1,3 +1,4 @@
+// v3 - botao metodos precificacao
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -75,14 +76,11 @@ export default function MarmitariaPrecificacao() {
     <div className="container">
       <nav className="navbar" style={{ borderRadius: '1rem', marginBottom: '2rem' }}>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
-          <button className="btn-secondary" onClick={() => navigate('/marmitaria/precificacao')} style={{ padding: '0.5rem 1rem' }}>
+          <button className="btn-secondary" onClick={() => step > 0 ? setStep(step - 1) : navigate('/marmitaria')} style={{ padding: '0.5rem 1rem' }}>
             <ArrowLeft size={16} /> Voltar
           </button>
           <button className="btn-secondary" onClick={() => navigate('/')} style={{ padding: '0.5rem 1rem', background: 'rgba(255,255,255,0.05)' }}>
             <Home size={16} /> Início
-          </button>
-          <button className="btn-secondary" onClick={() => navigate('/marmitaria/metodos-precificacao')} style={{ padding: '0.5rem 1rem', background: 'rgba(245,158,11,0.15)', borderColor: 'rgba(245,158,11,0.4)', color: '#fbbf24' }}>
-            <BookOpen size={16} /> 8 Métodos de Precificação
           </button>
         </div>
         <div className="navbar-brand">
@@ -105,6 +103,31 @@ export default function MarmitariaPrecificacao() {
           <button className="btn-primary" onClick={() => setStep(1)} style={{ padding: '1rem 3rem', fontSize: '1.25rem' }}>
             Entrar no Laboratório de Preços <ArrowRight style={{ marginLeft: '0.5rem' }} />
           </button>
+
+          {/* Botão de estudo complementar */}
+          <div style={{ marginTop: '1.5rem' }}>
+            <button
+              onClick={() => navigate('/marmitaria/metodos-precificacao')}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                background: 'rgba(245,158,11,0.12)',
+                border: '2px solid rgba(245,158,11,0.4)',
+                borderRadius: '0.75rem',
+                padding: '0.75rem 1.75rem',
+                color: '#fbbf24',
+                cursor: 'pointer',
+                fontWeight: 600,
+                fontSize: '0.95rem',
+                transition: 'all 0.2s',
+              }}
+            >
+              <BookOpen size={18} />
+              📚 Estudar os 8 Métodos de Precificação
+            </button>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '0.5rem' }}>
+              Markup, Mercado, Valor Percebido, Psicológico e mais — com exemplos práticos
+            </p>
+          </div>
         </div>
       )}
 
@@ -259,6 +282,33 @@ export default function MarmitariaPrecificacao() {
                         Os seus valiosos {formatPercent(engine.margemPercentual)} líquidos salvaguardados de impostos (que os amadores deixam vazar da composição).
                       </p>
                     </div>
+                 </div>
+
+                 {/* Botão de métodos de precificação */}
+                 <div style={{ textAlign: 'center', padding: '1.5rem', background: 'rgba(245,158,11,0.07)', borderRadius: '1rem', border: '1px solid rgba(245,158,11,0.25)' }}>
+                   <p style={{ color: 'var(--text-muted)', marginBottom: '1rem', fontSize: '0.95rem' }}>
+                     O Markup Divisor é um dos <strong style={{ color: '#fbbf24' }}>8 métodos de precificação</strong> que um bom gestor domina.
+                   </p>
+                   <button
+                     onClick={() => navigate('/marmitaria/metodos-precificacao')}
+                     style={{
+                       display: 'inline-flex', alignItems: 'center', gap: '0.75rem',
+                       background: 'rgba(245,158,11,0.15)',
+                       border: '2px solid rgba(245,158,11,0.5)',
+                       borderRadius: '0.75rem',
+                       padding: '0.875rem 2rem',
+                       color: '#fbbf24',
+                       cursor: 'pointer',
+                       fontWeight: 700,
+                       fontSize: '1rem',
+                     }}
+                   >
+                     <BookOpen size={20} />
+                     📚 Estudar os 8 Métodos de Precificação
+                   </button>
+                   <p style={{ color: 'var(--text-muted)', fontSize: '0.78rem', marginTop: '0.6rem' }}>
+                     Markup · Mercado · Valor Percebido · Psicológico · Dinâmico + exemplos com marmita, padaria e moda
+                   </p>
                  </div>
                </>
              )
