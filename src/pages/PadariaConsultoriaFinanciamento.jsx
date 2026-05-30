@@ -101,6 +101,7 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
+      dica: { titulo: 'Cálculo de PMT (Sistema Price)', formula: 'PMT = PV × [ i ÷ (1 − (1+i)^−n) ]\n\nCalcule a parcela mensal → multiplique pelo prazo → subtraia o capital financiado para encontrar os juros totais.', raciocinio: 'Compare o total pago com o valor do bem. Um bom financiamento não deve custar mais que 1,4× o valor original do bem.' },
       contexto: 'Proposta A: BNDES Finame, entrada R$19.000, financia R$76.000 em SAC a 1,15%. Calcule a primeira parcela, a última e o total pago. Por que a amortização constante importa?',
       opcoes: [
         { id: 'a', texto: 'Parcela inicial R$2.140, final R$1.281, total R$101.607. SAC reduz juros mês a mês e protege o fluxo futuro' },
@@ -113,6 +114,7 @@ const dossie = {
     },
     {
       id: 'c2',
+      dica: { titulo: 'Sistema SAC — Parcelas Decrescentes', formula: 'Amortização = PV ÷ n (fixa)\nJuros(k) = Saldo(k) × i\nParcela(k) = Amortização + Juros(k)\n\nSaldo cai a cada mês → juros caem → parcela cai.', raciocinio: 'No SAC a primeira parcela é a mais cara e a última é a mais barata. O total pago é menor que no Price para o mesmo prazo e taxa.' },
       contexto: 'Proposta B: Pronampe via Caixa, R$95.000 em Price a 1,38% em 48 meses, sem entrada. Qual a parcela e o total? Seu Zé tem limite suficiente no Pronampe?',
       opcoes: [
         { id: 'a', texto: 'Parcela R$2.721, total R$130.608. Limite Pronampe: R$100.800 (30% × R$336.000/ano). Aprovado!' },
@@ -125,6 +127,7 @@ const dossie = {
     },
     {
       id: 'c3',
+      dica: { titulo: 'BNDES Finame — Crédito Produtivo', formula: 'Compare o custo efetivo total (CET):\nCET = taxa nominal + IOF + tarifas\n\nPayback = Investimento ÷ Lucro extra mensal\nViabilidade: Payback < prazo do financiamento', raciocinio: 'Linhas BNDES têm taxa subsidiada mas exigem laudo técnico e podem ter prazo de análise de 30-60 dias. O custo menor justifica a burocracia maior para valores altos.' },
       contexto: 'Proposta C: Banco privado R$95.000 em Price a 3,1% em 36 meses. Qual o custo real e por que é a pior escolha?',
       opcoes: [
         { id: 'a', texto: 'Parcela R$3.792, total R$136.512. Apesar do prazo menor, taxa 2,7x maior que Finame gera custo exorbitante' },
@@ -165,6 +168,7 @@ const dossie = {
 export default function PadariaConsultoriaFinanciamento() {
   const navigate = useNavigate();
   const [secao, setSecao] = useState('teoria');
+  const [dicasAbertas, setDicasAbertas] = useState({});
   const [exemploAtivo, setExemploAtivo] = useState('finame');
   const [expandido, setExpandido] = useState({});
   const [respostas, setRespostas] = useState({});
@@ -366,7 +370,40 @@ export default function PadariaConsultoriaFinanciamento() {
                   <span style={{ background: 'rgba(244,63,94,0.2)', color: '#fda4af', borderRadius: '0.4rem', padding: '0.2rem 0.6rem', fontWeight: 700, fontSize: '0.85rem', flexShrink: 0 }}>Q{idx + 1}</span>
                   <p style={{ color: 'var(--text-main)', lineHeight: 1.6 }}>{q.contexto}</p>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                
+                {/* Botão de dica contextual */}
+                {q.dica && !enviado && (
+                  <div style={{ marginBottom: '0.75rem' }}>
+                    <button
+                      onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
+                      style={{
+                        display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                        background: dicasAbertas[q.id] ? 'rgba(250,204,21,0.12)' : 'rgba(250,204,21,0.06)',
+                        border: '1px solid rgba(250,204,21,0.3)',
+                        borderRadius: '0.4rem',
+                        padding: '0.35rem 0.75rem',
+                        color: '#facc15',
+                        cursor: 'pointer',
+                        fontSize: '0.8rem',
+                        fontWeight: 600,
+                      }}
+                    >
+                      <Lightbulb size={13} />
+                      {dicasAbertas[q.id] ? 'Ocultar dica' : '💡 Ver fórmula e raciocínio'}
+                    </button>
+                    {dicasAbertas[q.id] && (
+                      <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                          <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+<div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   {q.opcoes.map(op => (
                     <button key={op.id} disabled={enviado} onClick={() => setRespostas(p => ({ ...p, [q.id]: op.id }))} style={{ padding: '0.875rem 1rem', borderRadius: '0.5rem', textAlign: 'left', fontSize: '0.875rem', cursor: enviado ? 'default' : 'pointer', border: respostas[q.id] === op.id ? `2px solid ${COR}` : '2px solid var(--border-color)', background: enviado ? op.id === q.correta ? 'rgba(34,197,94,0.1)' : respostas[q.id] === op.id ? 'rgba(239,68,68,0.1)' : 'transparent' : respostas[q.id] === op.id ? 'rgba(244,63,94,0.1)' : 'transparent', color: enviado ? op.id === q.correta ? '#22c55e' : respostas[q.id] === op.id ? '#ef4444' : 'var(--text-muted)' : respostas[q.id] === op.id ? '#fda4af' : 'var(--text-muted)', transition: 'all 0.15s', display: 'flex', alignItems: 'flex-start', gap: '0.5rem', lineHeight: 1.5 }}>
                       {enviado && op.id === q.correta && <CheckCircle2 size={16} color="#22c55e" style={{ flexShrink: 0, marginTop: '2px' }} />}

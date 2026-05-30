@@ -133,6 +133,11 @@ const dossie = {
     {
       id: 'c1',
       contexto: 'Proposta A: Banco Digital a 3,8% a.m. em 48x Price, com entrada de R$2.000. Capital financiado: R$20.000. Qual o custo real total e a parcela?',
+      dica: {
+        titulo: 'Fórmula Price (PMT)',
+        formula: 'PMT = PV × [ i ÷ (1 − (1+i)^−n) ]\n\nPV = R$ 20.000 (valor financiado)\ni  = 0,038 (taxa mensal)\nn  = 48 (parcelas)\n\nCusto total = PMT × n\nJuros totais = Custo total − PV',
+        raciocinio: 'No sistema Price todas as parcelas são iguais. O truque: calcule a PMT → multiplique pelo número de parcelas → subtraia o valor financiado. O resultado são os juros que você vai pagar a mais.',
+      },
       opcoes: [
         { id: 'a', texto: 'Parcela R$893/mês. Total pago R$42.864 — Aparecida pagará 2,14x o valor do bem' },
         { id: 'b', texto: 'Parcela R$760/mês. Total pago R$36.480 — razoável para 4 anos' },
@@ -145,6 +150,11 @@ const dossie = {
     {
       id: 'c2',
       contexto: 'Proposta B: Pronampe (Caixa) a 1,65% a.m. em 36x SAC, sem entrada. Qual a primeira parcela, a última parcela e o total pago? Compare com a Proposta A.',
+      dica: {
+        titulo: 'Fórmula SAC (Amortização Constante)',
+        formula: 'Amortização = PV ÷ n  (igual todo mês)\nJuros mês k = Saldo devedor(k) × i\nParcela(k)  = Amortização + Juros(k)\n\nPV = R$ 22.000 | i = 0,0165 | n = 36\n\nMês 1: saldo = R$ 22.000\nMês 36: saldo = R$ 611 (só a última amortização)',
+        raciocinio: 'No SAC a amortização é constante, mas os juros caem a cada mês — logo a parcela diminui progressivamente. Calcule o mês 1 (maior) e o mês final (menor). O total pago é a soma de todas as parcelas.',
+      },
       opcoes: [
         { id: 'a', texto: 'Parcela inicial R$974, final R$617, total R$35.622. Mais caro que A no começo, muito mais barato no total' },
         { id: 'b', texto: 'Parcela inicial R$975, final R$617, total R$28.386. Economiza R$14.478 vs Proposta A' },
@@ -157,6 +167,11 @@ const dossie = {
     {
       id: 'c3',
       contexto: 'Proposta C: BNB Crediamigo a 1,2% a.m. em 24x Price, sem entrada. Qual o valor da parcela e o total? É a melhor opção para Aparecida?',
+      dica: {
+        titulo: 'Price com taxa menor — comparando CET',
+        formula: 'PMT = PV × [ i ÷ (1 − (1+i)^−n) ]\n\nPV = R$ 22.000 | i = 0,012 | n = 24\n\nCusto total = PMT × 24\nJuros = Custo − R$ 22.000\n\nComparação: taxa menor ≠ melhor opção\nAnalisar: capacidade de caixa para a parcela',
+        raciocinio: 'Taxa menor não é sempre a melhor escolha se a parcela for muito alta. Com prazo menor (24 meses vs 36), a parcela será maior. Calcule se o caixa da marmitaria suporta essa parcela mensalmente antes de decidir.',
+      },
       opcoes: [
         { id: 'a', texto: 'Parcela R$1.042/mês, total R$25.008. Menor custo total, mas parcela mais alta pode comprometer o caixa' },
         { id: 'b', texto: 'Parcela R$870/mês, total R$20.880 — mais barato que o bem original' },
@@ -169,6 +184,11 @@ const dossie = {
     {
       id: 'c4',
       contexto: 'O forno aumentará a capacidade em 60% — potencial de R$8.640/mês a mais de receita. Com margem de contribuição de 45%, qual a receita adicional líquida e o ROI de cada proposta?',
+      dica: {
+        titulo: 'ROI do Investimento e Viabilidade',
+        formula: 'Receita extra bruta = faturamento × % capacidade\nReceita líquida extra = receita extra × MC%\n\nROI mensal = Receita líquida extra ÷ Parcela × 100\nPayback = Parcela ÷ Receita líquida extra (meses)\n\nProjeto é viável se: receita extra líquida > parcela',
+        raciocinio: 'Primeiro calcule o que o forno vai gerar: R$14.400 × 60% = R$8.640 de receita extra. Aplique a MC% para ter o lucro real adicional. Compare esse lucro com cada parcela. Se lucro > parcela → investimento se paga.',
+      },
       opcoes: [
         { id: 'a', texto: 'Receita extra líquida: R$3.888/mês. ROI Proposta A: 335%, B: 299%, C: 273% — todas viáveis' },
         { id: 'b', texto: 'Receita extra líquida: R$3.888/mês. Com qualquer proposta, o lucro extra supera a parcela — investimento válido' },
@@ -181,6 +201,11 @@ const dossie = {
     {
       id: 'c5',
       contexto: 'Qual sua recomendação final para Dona Aparecida? Considere custo total, ROI, capacidade de caixa e burocracia.',
+      dica: {
+        titulo: 'Framework de Decisão de Crédito',
+        formula: 'Critérios de avaliação (em ordem):\n1. Custo total (menor = melhor)\n2. Taxa de juros mensal\n3. Capacidade de caixa para a parcela\n4. Elegibilidade / burocracia\n5. Prazo de aprovação vs urgência\n\nProposta ideal: menor custo total + parcela suportável\n+ elegibilidade confirmada',
+        raciocinio: 'Compare as 3 propostas em 5 critérios: custo total (A=R$44.864, B=R$28.386, C=R$25.008), parcela (A=R$893, B=R$974, C=R$1.042), prazo (A=48m, B=36m, C=24m), elegibilidade (A=fácil, B=média, C=verificar). A resposta correta pondera todos esses fatores — não olha só a taxa.',
+      },
       opcoes: [
         { id: 'a', texto: 'Proposta A — aprovação rápida vale a pena para não perder o forno disponível agora' },
         { id: 'b', texto: 'Proposta B (Pronampe) — melhor equilíbrio entre taxa, prazo e custo total. Aguardar 15 dias compensa R$14.000 de economia' },
@@ -198,6 +223,7 @@ export default function MarmitariaConsultoriaFinanciamento() {
   const navigate = useNavigate();
   const [secao, setSecao] = useState('teoria');
   const [exemploAtivo, setExemploAtivo] = useState('microcredito');
+  const [dicasAbertas, setDicasAbertas] = useState({});
   const [expandido, setExpandido] = useState({});
   const [respostas, setRespostas] = useState({});
   const [enviado, setEnviado] = useState(false);
@@ -439,6 +465,44 @@ export default function MarmitariaConsultoriaFinanciamento() {
                     <p style={{ color: 'var(--text-main)', lineHeight: 1.6 }}>{q.contexto}</p>
                   </div>
                 </div>
+
+                {/* Botão de dica */}
+                {q.dica && !enviado && (
+                  <div style={{ marginBottom: '0.75rem' }}>
+                    <button
+                      onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
+                      style={{
+                        display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                        background: dicasAbertas[q.id] ? 'rgba(250,204,21,0.12)' : 'rgba(250,204,21,0.06)',
+                        border: '1px solid rgba(250,204,21,0.3)',
+                        borderRadius: '0.4rem',
+                        padding: '0.35rem 0.75rem',
+                        color: '#facc15',
+                        cursor: 'pointer',
+                        fontSize: '0.8rem',
+                        fontWeight: 600,
+                      }}
+                    >
+                      <Lightbulb size={13} />
+                      {dicasAbertas[q.id] ? 'Ocultar dica' : '💡 Ver fórmula e raciocínio'}
+                    </button>
+
+                    {dicasAbertas[q.id] && (
+                      <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>
+                          🧮 {q.dica.titulo}
+                        </div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>
+                          {q.dica.formula}
+                        </pre>
+                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                          <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   {q.opcoes.map(op => (
                     <button key={op.id} disabled={enviado} onClick={() => setRespostas(p => ({ ...p, [q.id]: op.id }))} style={{ padding: '0.875rem 1rem', borderRadius: '0.5rem', textAlign: 'left', fontSize: '0.875rem', cursor: enviado ? 'default' : 'pointer', border: respostas[q.id] === op.id ? `2px solid ${COR}` : '2px solid var(--border-color)', background: enviado ? op.id === q.correta ? 'rgba(34,197,94,0.1)' : respostas[q.id] === op.id ? 'rgba(239,68,68,0.1)' : 'transparent' : respostas[q.id] === op.id ? 'rgba(244,63,94,0.1)' : 'transparent', color: enviado ? op.id === q.correta ? '#22c55e' : respostas[q.id] === op.id ? '#ef4444' : 'var(--text-muted)' : respostas[q.id] === op.id ? '#fda4af' : 'var(--text-muted)', transition: 'all 0.15s', display: 'flex', alignItems: 'flex-start', gap: '0.5rem', lineHeight: 1.5 }}>
