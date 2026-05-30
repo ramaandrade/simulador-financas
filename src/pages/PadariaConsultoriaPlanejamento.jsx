@@ -91,7 +91,6 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
-      dica: { titulo: 'Ponto de Pedido — Gestão de Estoque', formula: 'Ponto de Pedido = Consumo diário × Lead time + Estoque de Segurança\n\nEstoque de Segurança = Consumo diário × Dias de variação\nLead time = prazo de entrega do fornecedor', raciocinio: 'O ponto de pedido é o nível de estoque que sinaliza "hora de pedir". Calcule: consumo diário × dias de entrega + segurança. Quando o estoque atingir esse nível, faça o pedido.' },
       
       contexto: 'Com consumo de 12 sacos/dia de farinha, tempo de entrega de 4 dias e estoque de segurança de 25 sacos, qual o Ponto de Pedido? O que acontece se Seu Manoel ignorar isso?',
       opcoes: [
@@ -105,7 +104,6 @@ const dossie = {
     },
     {
       id: 'c2',
-      dica: { titulo: 'Sazonalidade e Variação Mensal', formula: 'Variação = (Mês pico − Mês vale) ÷ Média\n\nReserva mínima = CF × meses de variação\n\nIndice de sazonalidade = Mês ÷ Média anual\n→ > 1: acima da média (pico)\n→ < 1: abaixo da média (vale)', raciocinio: 'Calcule a diferença entre o melhor e o pior mês. Essa diferença precisa estar coberta pela reserva de emergência. Negócios com alta sazonalidade precisam de mais reserva.' },
       
       contexto: 'Analisando o histórico de 8 meses, qual a variação entre o melhor e o pior mês e o que isso significa para o planejamento financeiro anual?',
       opcoes: [
@@ -119,7 +117,6 @@ const dossie = {
     },
     {
       id: 'c3',
-      dica: { titulo: 'Viabilidade de Expansão com Novo CF', formula: 'Receita extra = capacidade extra × preço médio\nMC extra = receita extra × MC%\nLucro extra = MC extra − CF adicional\n\nExpansão viável se: Lucro extra > 0\nPayback = CF adicional ÷ Lucro extra', raciocinio: 'Calcule quanto o novo equipamento gera de receita extra. Aplique a margem de contribuição. Subtraia o custo fixo adicional (financiamento + manutenção). Se sobrar lucro, a expansão é viável.' },
       
       contexto: 'O segundo forno custa R$8.800 e aumenta a capacidade em 40% (principalmente bolos). O CF mensal sobe R$900 (energia + manutenção). Com faturamento médio atual de R$18.500, qual o payback do investimento?',
       opcoes: [
@@ -133,7 +130,6 @@ const dossie = {
     },
     {
       id: 'c4',
-      dica: { titulo: 'Reserva de Emergência Mínima', formula: 'Reserva mínima = CF × 3 meses\n\nOU\n\nReserva = (Mês pior − Mês médio) × 2\n\nManter em: CDB liquidez diária ou Tesouro Selic', raciocinio: 'A reserva cobre os meses ruins sem precisar de empréstimo emergencial. Se o pior mês gerou quase prejuízo, a reserva precisa cobrir pelo menos o custo fixo por 3 meses.' },
       
       contexto: 'Fevereiro foi quase catastrófico (lucro R$340). Qual reserva mínima Seu Manoel deveria ter constituído nos meses anteriores para atravessar Fevereiro com tranquilidade?',
       opcoes: [
@@ -147,7 +143,6 @@ const dossie = {
     },
     {
       id: 'c5',
-      dica: { titulo: 'Recomendação Completa de Consultor', formula: 'Estrutura da recomendação:\n1. Diagnóstico atual (PE, reserva, tendência)\n2. Viabilidade da expansão (payback, CF novo)\n3. Pré-requisito: reserva mínima constituída\n4. Sequência: reserva → depois expansão', raciocinio: 'A ordem importa: nunca recomendar expansão antes de constituir reserva. Se a reserva ainda não existe, o plano é: (1) poupar para a reserva, (2) expandir quando estiver coberto.' },
       
       contexto: 'Qual é sua recomendação completa como consultor para Seu Manoel sobre o segundo forno e o planejamento do próximo ano?',
       opcoes: [
@@ -160,6 +155,50 @@ const dossie = {
       explicacao: 'Esta é a recomendação de um consultor experiente: baseada em dados, escalonada e que minimiza risco. Etapa 1: reserva elimina a crise de Jan/Fev. Etapa 2: pré-vendas de bolo confirmam a demanda real antes do investimento (evita comprar capacidade que não será usada). Etapa 3: comprar o forno com caixa próprio de Junho é a melhor opção financeira — sem juros, sem risco de endividamento. O financiamento (opção D) a 2-3% a.m. em 12x custa R$1.000-1.500 de juros desnecessários quando o dinheiro estará disponível em 3-4 meses.',
     },
   ],
+};
+
+const DICAS = {
+  c1: {
+    titulo: `Ponto de Pedido - Gestao de Estoque`,
+    formula: `Ponto de Pedido = Consumo diario x Lead time + Estoque de Seguranca
+Est. Seguranca = Consumo diario x Dias de variacao
+Lead time = prazo de entrega do fornecedor`,
+    raciocinio: `O ponto de pedido e o nivel de estoque que sinaliza hora de pedir. Quando o estoque atingir esse nivel, faca o pedido para nao faltar.`,
+  },
+  c2: {
+    titulo: `Sazonalidade e Variacao Mensal`,
+    formula: `Variacao = (Mes pico - Mes vale) / Media
+Reserva minima = CF x meses de variacao
+Indice de sazonalidade = Mes / Media anual
+> 1: acima da media | < 1: abaixo da media`,
+    raciocinio: `Calcule a diferenca entre o melhor e o pior mes. Essa diferenca precisa estar coberta pela reserva de emergencia.`,
+  },
+  c3: {
+    titulo: `Viabilidade de Expansao`,
+    formula: `Receita extra = capacidade extra x preco medio
+MC extra = receita extra x MC%
+Lucro extra = MC extra - CF adicional
+Expansao viavel se: Lucro extra maior que 0
+Payback = CF adicional / Lucro extra`,
+    raciocinio: `Calcule quanto o novo equipamento gera de receita extra. Aplique a margem de contribuicao. Subtraia o custo fixo adicional. Se sobrar lucro, a expansao e viavel.`,
+  },
+  c4: {
+    titulo: `Reserva de Emergencia Minima`,
+    formula: `Reserva minima = CF x 3 meses
+OU
+Reserva = (Mes pior - Mes medio) x 2
+Manter em: CDB liquidez diaria ou Tesouro Selic`,
+    raciocinio: `A reserva cobre os meses ruins sem precisar de emprestimo emergencial. Se o pior mes gerou quase prejuizo, a reserva precisa cobrir pelo menos 3 meses de custo fixo.`,
+  },
+  c5: {
+    titulo: `Recomendacao Completa`,
+    formula: `Estrutura da recomendacao:
+1. Diagnostico atual (PE, reserva, tendencia)
+2. Viabilidade da expansao (payback, CF novo)
+3. Pre-requisito: reserva minima constituida
+4. Sequencia: reserva depois expansao`,
+    raciocinio: `A ordem importa: nunca recomendar expansao antes de constituir reserva. Se a reserva ainda nao existe, o plano e: poupar para a reserva, depois expandir.`,
+  },
 };
 
 export default function PadariaConsultoriaPlanejamento() {
@@ -359,7 +398,7 @@ export default function PadariaConsultoriaPlanejamento() {
                   </div>
                 </div>
                                 {/* Dica contextual */}
-                {q.dica && !enviado && (
+                {DICAS[q.id] && !enviado && (
                   <div style={{ marginBottom: '0.75rem' }}>
                     <button
                       onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
@@ -370,11 +409,11 @@ export default function PadariaConsultoriaPlanejamento() {
                     </button>
                     {dicasAbertas[q.id] && (
                       <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
-                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
-                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {DICAS[q.id].titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{DICAS[q.id].formula}</pre>
                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
                           <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
-                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{DICAS[q.id].raciocinio}</p>
                         </div>
                       </div>
                     )}

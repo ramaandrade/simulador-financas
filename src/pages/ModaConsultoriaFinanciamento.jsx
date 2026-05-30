@@ -107,7 +107,6 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
-      dica: { titulo: 'PMT Price — Custo Real do Crédito', formula: 'PMT = PV × [ i ÷ (1 − (1+i)^−n) ]\nCusto total = PMT × n\nJuros = Custo total − PV\nMultiplicador = Custo total ÷ PV', raciocinio: 'Calcule o multiplicador: quantas vezes você paga o valor do bem. Acima de 1,5× é caro. Abaixo de 1,2× é razoável para crédito produtivo.' },
       contexto: 'Proposta A: Banco digital R$48.000 em Price a 3,4% por 36 meses. Qual o custo total e como isso afeta a viabilidade da reforma simples?',
       opcoes: [
         { id: 'a', texto: 'Parcela R$1.973, total R$71.028. Juros de R$23.028 sobre reforma de R$48.000. Payback: R$71.028 ÷ R$2.232 lucro extra = 31,8 meses — dentro do prazo de 36 meses ✅' },
@@ -120,7 +119,6 @@ const dossie = {
     },
     {
       id: 'c2',
-      dica: { titulo: 'Comparando Price vs SAC', formula: 'Price: parcelas iguais, amortização crescente\nSAC: amortização fixa, parcelas decrescentes\n\nPrice: menor parcela inicial → mais confortável\nSAC: menor custo total → mais econômico', raciocinio: 'Para quem tem caixa apertado no início: Price é mais fácil. Para quem quer pagar menos no total: SAC é melhor. Compare os totais pagos, não só as parcelas.' },
       contexto: 'Proposta B: Pronampe R$48.000 em SAC a 1,55% por 48 meses. Compare com a Proposta A: quanto Renata economiza e qual o payback?',
       opcoes: [
         { id: 'a', texto: 'Parcela inicial R$1.748, total ~R$60.384. Economia vs A: R$10.644. Payback: R$60.384 ÷ R$2.232 = 27 meses — 9 meses antes do vencimento ✅' },
@@ -133,7 +131,6 @@ const dossie = {
     },
     {
       id: 'c3',
-      dica: { titulo: 'Cartão BNDES — Crédito Rotativo Produtivo', formula: 'Cartão BNDES: taxa fixa anual (≈1,5% a.m.)\nLimite: até R$ 500.000\nUso: compra de equipamentos de fornecedores credenciados\n\nVantagem: parcelamento sem entrada, crédito pré-aprovado', raciocinio: 'O Cartão BNDES exige CNPJ ativo e fornecedor credenciado. Verifique se o equipamento está na lista BNDES antes de recomendar esta opção.' },
       contexto: 'Proposta C: Pronampe R$78.000 (expansão completa) em SAC a 1,55% por 60 meses. O lucro extra estimado é R$6.820/mês. Vale a pena dobrar o espaço em vez de só reformar?',
       opcoes: [
         { id: 'a', texto: 'Parcela inicial ~R$2.511, total ~R$101.790. Payback: R$101.790 ÷ R$6.820 = 14,9 meses. Com 60 meses de prazo, payback em 25% do contrato → ✅ Muito superior à Proposta B' },
@@ -169,6 +166,54 @@ const dossie = {
       explicacao: 'A Proposta C é a recomendação correta por três razões: (1) ROI superior — payback 16,8 meses vs 29,7 meses da B; (2) Oportunidade irrepetível — o espaço do vizinho não estará disponível depois; (3) Análise de sensibilidade mostra viabilidade mesmo com 40% de queda na receita. A Proposta B é mais segura numericamente, mas desperdiça a oportunidade estratégica. O consultor deve recomendar a C com uma condição: Renata ter pelo menos 3 meses de reserva de custos fixos (R$25.500) em caixa antes de fechar o Pronampe — isso cria o colchão para absorver os primeiros meses de adaptação do novo espaço.',
     },
   ],
+};
+
+const DICAS = {
+  c1: {
+    titulo: `PMT Price - Custo Real`,
+    formula: `PMT = PV x [i / (1 - (1+i)^-n)]
+Custo total = PMT x n
+Juros = Custo total - PV
+Multiplicador = Custo total / PV`,
+    raciocinio: `Calcule o multiplicador: acima de 1.5x e caro. Abaixo de 1.2x e razoavel para credito produtivo.`,
+  },
+  c2: {
+    titulo: `Comparando Price vs SAC`,
+    formula: `Price: parcelas iguais, amortizacao crescente
+SAC: amortizacao fixa, parcelas decrescentes
+Price: menor parcela inicial
+SAC: menor custo total
+Compare os totais pagos`,
+    raciocinio: `Para caixa apertado no inicio: Price e mais facil. Para pagar menos no total: SAC e melhor.`,
+  },
+  c3: {
+    titulo: `Cartao BNDES - Credito Rotativo`,
+    formula: `Cartao BNDES: taxa fixa anual (aprox 1.5%/mes)
+Limite: ate R$500.000
+Uso: equipamentos de fornecedores credenciados
+Vantagem: parcelamento sem entrada, credito pre-aprovado`,
+    raciocinio: `O Cartao BNDES exige CNPJ ativo e fornecedor credenciado. Verifique se o equipamento esta na lista BNDES antes de recomendar.`,
+  },
+  c4: {
+    titulo: `Viabilidade do Investimento`,
+    formula: `Receita extra = clientes extras x ticket medio
+MC extra = Receita extra x MC%
+Sobra mensal = MC extra - Parcela
+Payback = Investimento / MC extra
+Cenario conservador = 60% da projecao`,
+    raciocinio: `O investimento e viavel se a MC extra superar a parcela em todos os cenarios. Calcule o cenario conservador para garantir margem de seguranca.`,
+  },
+  c5: {
+    titulo: `Decisao Final: Pontuacao Multicriterio`,
+    formula: `Pontue 1-5 em cada criterio:
+- Custo total (peso 30%)
+- Parcela vs caixa (peso 25%)
+- Taxa de juros (peso 20%)
+- Elegibilidade (peso 15%)
+- Prazo aprovacao (peso 10%)
+Melhor = maior pontuacao ponderada`,
+    raciocinio: `Na pratica, o consultor pondera todos os fatores e explica o trade-off ao cliente. Nunca recomendar so pelo criterio mais obvio.`,
+  },
 };
 
 export default function ModaConsultoriaFinanciamento() {
@@ -385,7 +430,7 @@ export default function ModaConsultoriaFinanciamento() {
                 </div>
                 
                 {/* Botão de dica contextual */}
-                {q.dica && !enviado && (
+                {DICAS[q.id] && !enviado && (
                   <div style={{ marginBottom: '0.75rem' }}>
                     <button
                       onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
@@ -406,11 +451,11 @@ export default function ModaConsultoriaFinanciamento() {
                     </button>
                     {dicasAbertas[q.id] && (
                       <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
-                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
-                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {DICAS[q.id].titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{DICAS[q.id].formula}</pre>
                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
                           <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
-                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{DICAS[q.id].raciocinio}</p>
                         </div>
                       </div>
                     )}

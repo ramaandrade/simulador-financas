@@ -55,7 +55,6 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
-      dica: { titulo: 'Taxa de Conversão', formula: 'Conversão = Vendas ÷ Visitantes × 100\n\nReferências:\n< 10%: baixa (problema de atendimento ou vitrine)\n10-18%: média\n> 20%: boa\n> 25%: excelente\n\nImpacto: +1% × visitantes = vendas extras/mês', raciocinio: 'Calcule para cada mês: vendas ÷ visitantes. Compare os três meses. Se conversão cai enquanto visitantes sobe, o problema é interno (atendimento, vitrine) — não é falta de tráfego.' },
       
       contexto: 'Calcule a taxa de conversão dos 3 meses (vendas ÷ visitantes). O que a tendência revela sobre a loja de Clarice?',
       opcoes: [
@@ -69,7 +68,6 @@ const dossie = {
     },
     {
       id: 'c2',
-      dica: { titulo: 'UPT e Preço Médio por Peça', formula: 'UPT = Peças vendidas ÷ Vendas fechadas\nPreço médio = Faturamento ÷ Peças vendidas\nTicket = Faturamento ÷ Vendas = Preço médio × UPT\n\nSe ticket sobe mas UPT cai:\n→ cliente compra menos peças, mais caras\n→ tendência de premiumização', raciocinio: 'Decompor o ticket em preço × UPT revela a causa de variações. Se o ticket subiu, verifique se foi pelo preço ou pelo UPT. Cada causa tem uma solução diferente.' },
       
       contexto: 'Calcule o UPT (unidades/transação) e o preço médio por peça nos 3 meses. O que esses indicadores revelam?',
       opcoes: [
@@ -83,7 +81,6 @@ const dossie = {
     },
     {
       id: 'c3',
-      dica: { titulo: 'Giro de Estoque e PME', formula: 'Giro = CMV ÷ Estoque médio\nPME = 30 ÷ Giro (dias)\n\nModa jovem: PME ideal < 60 dias\nPME 46-60d: atenção\nPME > 60d: estoque acumulando → risco de encalhe\n\nEstoque cresce mais que vendas = PME subindo', raciocinio: 'Se o estoque cresce mais rápido que as vendas, o PME está subindo — sinal de acúmulo. Compare o crescimento % do estoque com o crescimento % do CMV para identificar a tendência.' },
       
       contexto: 'Em março, o estoque subiu para R$36.000 (era R$32.000 em janeiro). O CMV foi R$22.156. Calcule o giro de estoque e o PME. Isso é preocupante?',
       opcoes: [
@@ -97,7 +94,6 @@ const dossie = {
     },
     {
       id: 'c4',
-      dica: { titulo: 'Impacto da Conversão no Faturamento', formula: 'Vendas com nova conversão = Visitantes × Nova taxa\nFaturamento extra = Vendas extras × Ticket médio\nMC extra = Faturamento extra × MC%\n\nCusto do treinamento vs MC extra:\nPayback = Custo ÷ MC extra mensal', raciocinio: 'Calcule: visitantes × (taxa nova − taxa atual) = vendas extras. Multiplique pelo ticket médio para o faturamento adicional. Compare esse ganho com o custo do treinamento para o payback.' },
       
       contexto: 'Se Clarice treinar a equipe em técnicas de conversão e conseguir subir de 11% para 15% em março (mantendo os 810 visitantes), qual seria o impacto no faturamento? (Ticket médio R$429)',
       opcoes: [
@@ -111,7 +107,6 @@ const dossie = {
     },
     {
       id: 'c5',
-      dica: { titulo: '3 Prioridades em Ordem de Urgência', formula: 'Critério de priorização:\n1. Maior impacto imediato no lucro\n2. Menor custo de implementação\n3. Mais urgente (risco de perda)\n\nNão priorizar: aumentar tráfego quando conversão cai\n→ mais visitantes sem converter = desperdício', raciocinio: 'A ordem importa: primeiro corrija o que está perdendo dinheiro agora (conversão caindo), depois otimize (UPT), por último controle (estoque). Não adianta trazer mais clientes se a loja não converte.' },
       
       contexto: 'Diagnóstico completo: quais são as 3 prioridades de ação para Clarice, em ordem de urgência?',
       opcoes: [
@@ -124,6 +119,51 @@ const dossie = {
       explicacao: 'As 3 prioridades corretas em ordem: (1ª) Treinamento de conversão — impacto imediato (+R$14.138/mês se subir de 11% para 15%), custo único baixo (R$2.000-3.000), ROI absurdo em menos de 1 mês. A academia próxima trouxe mais visitantes — é urgente converter esse tráfego antes de perder o momento; (2ª) Técnica de look completo (UPT) — UPT caindo de 1,44 para 1,37 é tendência preocupante. Reverter para 1,60 seria +R$5.000/mês adicionais. Complementa o treinamento de conversão; (3ª) Controle de compras — estoque crescendo mais rápido que vendas. Pausar ou reduzir compras por 60 dias até o estoque chegar a R$32.000 libera R$4.000 de capital de giro. Tráfego e promoção (opção B) seriam corretos apenas se o problema fosse falta de visitantes — mas Clarice tem mais visitantes e está convertendo menos.',
     },
   ],
+};
+
+const DICAS = {
+  c1: {
+    titulo: `Taxa de Conversao`,
+    formula: `Conversao = Vendas / Visitantes x 100
+Referencias:
+< 10%: baixa | 10-18%: media | > 20%: boa
+Impacto: +1% x visitantes = vendas extras por mes`,
+    raciocinio: `Calcule para cada mes: vendas dividido por visitantes. Se conversao cai enquanto visitantes sobe, o problema e interno - nao e falta de trafego.`,
+  },
+  c2: {
+    titulo: `UPT e Preco Medio por Peca`,
+    formula: `UPT = Pecas vendidas / Vendas fechadas
+Preco medio = Faturamento / Pecas vendidas
+Ticket = Faturamento / Vendas = Preco medio x UPT
+Se ticket sobe mas UPT cai:
+-> cliente compra menos pecas, mais caras`,
+    raciocinio: `Decompor o ticket em preco x UPT revela a causa de variacoes. Se o ticket subiu, verifique se foi pelo preco ou pelo UPT. Cada causa tem uma solucao diferente.`,
+  },
+  c3: {
+    titulo: `Giro de Estoque e PME`,
+    formula: `Giro = CMV / Estoque medio
+PME = 30 / Giro (dias)
+Moda jovem: PME ideal < 60 dias
+Estoque cresce mais que vendas = PME subindo`,
+    raciocinio: `Se o estoque cresce mais rapido que as vendas, o PME esta subindo - sinal de acumulo. Compare o crescimento do estoque com o crescimento do CMV.`,
+  },
+  c4: {
+    titulo: `Impacto da Conversao no Faturamento`,
+    formula: `Vendas com nova conversao = Visitantes x Nova taxa
+Faturamento extra = Vendas extras x Ticket medio
+MC extra = Faturamento extra x MC%
+Payback = Custo treinamento / MC extra mensal`,
+    raciocinio: `Calcule: visitantes x (taxa nova - taxa atual) = vendas extras. Multiplique pelo ticket medio. Compare esse ganho com o custo do treinamento para o payback.`,
+  },
+  c5: {
+    titulo: `3 Prioridades em Ordem de Urgencia`,
+    formula: `Criterio de priorizacao:
+1. Maior impacto imediato no lucro
+2. Menor custo de implementacao
+3. Mais urgente (risco de perda)
+Nao priorizar: mais trafego quando conversao esta caindo`,
+    raciocinio: `A ordem importa: primeiro corrija o que perde dinheiro agora (conversao), depois otimize (UPT), por ultimo controle (estoque).`,
+  },
 };
 
 export default function ModaConsultoriaIndicadores() {
@@ -313,7 +353,7 @@ export default function ModaConsultoriaIndicadores() {
                   <p style={{ color: 'var(--text-main)', lineHeight: 1.6 }}>{q.contexto}</p>
                 </div>
                 {/* Dica contextual */}
-                {q.dica && !enviado && (
+                {DICAS[q.id] && !enviado && (
                   <div style={{ marginBottom: '0.75rem' }}>
                     <button
                       onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
@@ -324,11 +364,11 @@ export default function ModaConsultoriaIndicadores() {
                     </button>
                     {dicasAbertas[q.id] && (
                       <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
-                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
-                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {DICAS[q.id].titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{DICAS[q.id].formula}</pre>
                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
                           <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
-                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{DICAS[q.id].raciocinio}</p>
                         </div>
                       </div>
                     )}

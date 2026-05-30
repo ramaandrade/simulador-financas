@@ -113,7 +113,6 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
-      dica: { titulo: 'ROI e Payback — Eficiência do Capital', formula: 'ROI mensal = Lucro adicional ÷ Investimento × 100\nPayback = Investimento ÷ Lucro adicional mensal\n\nReferência:\nROI > 3%/mês: excelente vs Tesouro (0,85%)\nPayback < 12 meses: projeto rápido\nPayback > 24 meses: exige análise cuidadosa', raciocinio: 'Calcule ROI e Payback para cada projeto. O projeto com maior ROI mensal é o mais eficiente por real investido. Payback curto significa recuperar o capital rapidamente.' },
       
       contexto: 'Calcule o ROI mensal e o Payback do Projeto A (linha de bolos R$8.000 / R$2.800/mês) e compare com o Tesouro Selic (0,85%/mês). Qual o custo de oportunidade de não fazer o Projeto A?',
       opcoes: [
@@ -127,7 +126,6 @@ const dossie = {
     },
     {
       id: 'c2',
-      dica: { titulo: 'Projetos Complementares vs Excludentes', formula: 'Projetos excludentes: só um pode ser feito\n→ escolher o maior VPL\n\nProjetos complementares: se potencializam\n→ VPL conjunto > soma dos VPLs individuais\n→ Implementar em sequência lógica\n\nSinergia: o resultado conjunto é maior que as partes', raciocinio: 'Pergunte: "O projeto A muda o resultado do projeto B?" Se sim, são complementares. Analise o VPL dos dois juntos, não separadamente. A sinergia pode mudar completamente a decisão.' },
       
       contexto: 'O Projeto A (bolos) e o Projeto B (expositor) são apontados como complementares. O que isso significa e como avaliá-los?',
       opcoes: [
@@ -141,7 +139,6 @@ const dossie = {
     },
     {
       id: 'c3',
-      dica: { titulo: 'Concentração de Capital e Risco', formula: 'Regra geral: nenhum projeto único deve consumir\nmais de 70-80% do capital disponível\n\nCapital remanescente mínimo:\n= 3 meses de custo fixo\n\nSe projeto consome > 80% capital:\n→ Verificar se reserva ainda está adequada', raciocinio: 'Um projeto com retorno alto mas que consome quase todo o capital deixa o negócio vulnerável. Calcule o capital remanescente após o investimento e verifique se cobre 3 meses de operação.' },
       
       contexto: 'O Projeto D (franquia de gelato) tem o maior retorno absoluto (R$3.800/mês) mas exige R$35.000 (83% do capital). Por que ele pode ser a pior escolha apesar do maior lucro?',
       opcoes: [
@@ -155,7 +152,6 @@ const dossie = {
     },
     {
       id: 'c4',
-      dica: { titulo: 'Por que Tesouro não compete com Projetos Produtivos', formula: 'Reserva de emergência: função = proteção\nProjeto produtivo: função = crescimento\n\nComparação correta:\nSem reserva + crise: empréstimo a 8%/mês\nCom reserva (0,85%): evita custo de 8%\n\nROI real da reserva = custo evitado', raciocinio: 'A reserva não é comparada pelo retorno — é comparada pelo custo de não tê-la. Se uma crise forçar empréstimo emergencial, o custo mensal (8%) elimina meses de lucro. A reserva é um seguro.' },
       
       contexto: 'Por que o Projeto C (Tesouro R$12.000) não deve ser comparado com os outros projetos pelo ROI?',
       opcoes: [
@@ -169,7 +165,6 @@ const dossie = {
     },
     {
       id: 'c5',
-      dica: { titulo: 'Sequência de Alocação com Sinergia', formula: 'Sequência inteligente:\n1. Projeto de melhor ROI primeiro\n2. Esperar payback parcial (2-3 meses)\n3. Usar lucro extra para financiar projeto complementar\n\nBenefício: projeto B é parcialmente financiado\npelo lucro extra gerado pelo projeto A', raciocinio: 'Implementar o projeto de maior ROI primeiro gera caixa que financia o próximo. Isso evita comprometer todo o capital de uma vez e permite validar cada projeto antes de avançar.' },
       
       contexto: 'Qual a alocação ideal dos R$42.000 de Dona Fátima, considerando ROI, risco, sinergia entre projetos e reserva de emergência?',
       opcoes: [
@@ -182,6 +177,54 @@ const dossie = {
       explicacao: 'A sequência recomendada: Fase 1 (agora): R$8.000 Projeto A + R$12.000 Projeto C (reserva). Total: R$20.000 — sobram R$22.000 em conta. Fase 2 (3 meses depois, quando bolos já geram caixa): usar R$22.000 para o Projeto B. Lógica: Projeto A tem melhor ROI (35%/mês) e payback de 3 meses — já gerará R$8.400 de lucro extra antes de iniciar o Projeto B, parcialmente financiando o expositor com lucro próprio. A reserva de R$12.000 protege a operação. Projeto D fica descartado: concentra demais o capital, ROI inferior ao A, e risco operacional de segmento novo. Em 12 meses, a padaria terá A+B operando em sinergia e reserva intacta.',
     },
   ],
+};
+
+const DICAS = {
+  c1: {
+    titulo: `ROI e Payback - Eficiencia do Capital`,
+    formula: `ROI mensal = Lucro adicional / Investimento x 100
+Payback = Investimento / Lucro adicional mensal
+Referencia:
+ROI maior que 3%/mes: excelente vs Tesouro (0.85%)
+Payback menor que 12 meses: projeto rapido`,
+    raciocinio: `Calcule ROI e Payback para cada projeto. O projeto com maior ROI mensal e o mais eficiente por real investido.`,
+  },
+  c2: {
+    titulo: `Projetos Complementares vs Excludentes`,
+    formula: `Projetos excludentes: so um pode ser feito
+-> escolher o maior VPL
+Projetos complementares: se potencializam
+-> VPL conjunto maior que soma dos VPLs individuais
+-> Implementar em sequencia logica`,
+    raciocinio: `Pergunte: O projeto A muda o resultado do projeto B? Se sim, sao complementares. Analise o VPL dos dois juntos, nao separadamente.`,
+  },
+  c3: {
+    titulo: `Concentracao de Capital e Risco`,
+    formula: `Regra geral: nenhum projeto unico deve consumir mais de 70-80% do capital
+Capital remanescente minimo = 3 meses de custo fixo
+Se projeto consome mais que 80% do capital:
+-> Verificar se reserva ainda esta adequada`,
+    raciocinio: `Um projeto com retorno alto mas que consome quase todo o capital deixa o negocio vulneravel. Calcule o capital remanescente e verifique se cobre 3 meses de operacao.`,
+  },
+  c4: {
+    titulo: `Por que Tesouro nao compete com Projetos Produtivos`,
+    formula: `Reserva de emergencia: funcao = protecao
+Projeto produtivo: funcao = crescimento
+Comparacao correta:
+Sem reserva + crise: emprestimo a 8%/mes
+Com reserva (0.85%): evita custo de 8%
+ROI real da reserva = custo evitado`,
+    raciocinio: `A reserva nao e comparada pelo retorno - e comparada pelo custo de nao te-la. Uma crise sem reserva pode eliminar meses de lucro em dias.`,
+  },
+  c5: {
+    titulo: `Sequencia de Alocacao com Sinergia`,
+    formula: `Sequencia inteligente:
+1. Projeto de melhor ROI primeiro
+2. Esperar payback parcial (2-3 meses)
+3. Usar lucro extra para financiar projeto complementar
+Beneficio: projeto B e parcialmente financiado pelo lucro do projeto A`,
+    raciocinio: `Implementar o projeto de maior ROI primeiro gera caixa que financia o proximo. Evita comprometer todo o capital de uma vez.`,
+  },
 };
 
 export default function PadariaConsultoriaInvestimentos() {
@@ -366,7 +409,7 @@ export default function PadariaConsultoriaInvestimentos() {
                   <p style={{ color: 'var(--text-main)', lineHeight: 1.6 }}>{q.contexto}</p>
                 </div>
                 {/* Dica contextual */}
-                {q.dica && !enviado && (
+                {DICAS[q.id] && !enviado && (
                   <div style={{ marginBottom: '0.75rem' }}>
                     <button
                       onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
@@ -377,11 +420,11 @@ export default function PadariaConsultoriaInvestimentos() {
                     </button>
                     {dicasAbertas[q.id] && (
                       <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
-                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
-                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {DICAS[q.id].titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{DICAS[q.id].formula}</pre>
                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
                           <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
-                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{DICAS[q.id].raciocinio}</p>
                         </div>
                       </div>
                     )}

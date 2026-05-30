@@ -133,11 +133,6 @@ const dossie = {
     {
       id: 'c1',
       contexto: 'Proposta A: Banco Digital a 3,8% a.m. em 48x Price, com entrada de R$2.000. Capital financiado: R$20.000. Qual o custo real total e a parcela?',
-      dica: {
-        titulo: 'Fórmula Price (PMT)',
-        formula: 'PMT = PV × [ i ÷ (1 − (1+i)^−n) ]\n\nPV = R$ 20.000 (valor financiado = R$22.000 − R$2.000 entrada)\ni  = 0,038 (taxa mensal)\nn  = 48 (parcelas)\n\nCusto total = PMT × n + entrada\nJuros totais = Custo total − R$ 22.000',
-        raciocinio: 'No sistema Price todas as parcelas são iguais. O PV é o valor FINANCIADO (sem a entrada). Calcule a PMT → multiplique pelo número de parcelas → some a entrada → compare com o valor do bem.',
-      },
       opcoes: [
         { id: 'a', texto: 'Parcela R$912/mês. Total pago R$45.790 — Aparecida pagará 2,08x o valor do bem' },
         { id: 'b', texto: 'Parcela R$760/mês. Total pago R$36.480 — razoável para 4 anos' },
@@ -150,11 +145,6 @@ const dossie = {
     {
       id: 'c2',
       contexto: 'Proposta B: Pronampe (Caixa) a 1,65% a.m. em 36x SAC, sem entrada. Qual a primeira parcela, a última parcela e o total pago? Compare com a Proposta A.',
-      dica: {
-        titulo: 'Fórmula SAC (Amortização Constante)',
-        formula: 'Amortização = PV ÷ n  (igual todo mês)\nJuros mês k = Saldo devedor(k) × i\nParcela(k)  = Amortização + Juros(k)\n\nPV = R$ 22.000 | i = 0,0165 | n = 36\n\nMês 1: saldo = R$ 22.000\nMês 36: saldo = R$ 611 (só a última amortização)',
-        raciocinio: 'No SAC a amortização é constante, mas os juros caem a cada mês — logo a parcela diminui progressivamente. Calcule o mês 1 (maior) e o mês final (menor). O total pago é a soma de todas as parcelas.',
-      },
       opcoes: [
         { id: 'a', texto: 'Parcela inicial R$974, final R$621, total R$28.716. Economiza R$17.074 vs Proposta A' },
         { id: 'b', texto: 'Parcela inicial R$611, final R$611, total R$22.000 — só o principal' },
@@ -167,11 +157,6 @@ const dossie = {
     {
       id: 'c3',
       contexto: 'Proposta C: BNB Crediamigo a 1,2% a.m. em 24x Price, sem entrada. Qual o valor da parcela e o total? É a melhor opção para Aparecida?',
-      dica: {
-        titulo: 'Price com taxa menor — comparando pelo caixa',
-        formula: 'PMT = PV × [ i ÷ (1 − (1+i)^−n) ]\n\nPV = R$ 22.000 | i = 0,012 | n = 24\n\nCusto total = PMT × 24\nJuros = Custo total − R$ 22.000\n\nComparar: taxa menor ≠ melhor se parcela for alta demais',
-        raciocinio: 'Com prazo menor (24 meses vs 36), a parcela será maior mesmo com taxa menor. Calcule se o caixa da marmitaria suporta essa parcela antes de recomendar.',
-      },
       opcoes: [
         { id: 'a', texto: 'Parcela R$1.060/mês, total R$25.451. Menor custo total, mas parcela mais alta pode comprometer o caixa' },
         { id: 'b', texto: 'Parcela R$870/mês, total R$20.880 — mais barato que o bem original' },
@@ -184,11 +169,6 @@ const dossie = {
     {
       id: 'c4',
       contexto: 'O forno aumentará a capacidade em 60% — potencial de R$8.640/mês a mais de receita. Com margem de contribuição de 45%, qual a receita adicional líquida e o ROI de cada proposta?',
-      dica: {
-        titulo: 'ROI do Investimento e Viabilidade',
-        formula: 'Receita extra bruta = faturamento × % capacidade\nReceita líquida extra = receita extra × MC%\n\nROI mensal = Receita líquida extra ÷ Parcela × 100\nPayback = Parcela ÷ Receita líquida extra (meses)\n\nProjeto é viável se: receita extra líquida > parcela',
-        raciocinio: 'Primeiro calcule o que o forno vai gerar: R$14.400 × 60% = R$8.640 de receita extra. Aplique a MC% para ter o lucro real adicional. Compare esse lucro com cada parcela. Se lucro > parcela → investimento se paga.',
-      },
       opcoes: [
         { id: 'a', texto: 'Receita extra líquida: R$3.888/mês. ROI Proposta A: 335%, B: 299%, C: 273% — todas viáveis' },
         { id: 'b', texto: 'Receita extra líquida: R$3.888/mês. Com qualquer proposta, o lucro extra supera a parcela — investimento válido' },
@@ -201,11 +181,6 @@ const dossie = {
     {
       id: 'c5',
       contexto: 'Qual sua recomendação final para Dona Aparecida? Considere custo total, ROI, capacidade de caixa e burocracia.',
-      dica: {
-        titulo: 'Framework de Decisão de Crédito',
-        formula: 'Critérios de avaliação (em ordem):\n1. Custo total (menor = melhor)\n2. Taxa de juros mensal\n3. Capacidade de caixa para a parcela\n4. Elegibilidade / burocracia\n5. Prazo de aprovação vs urgência\n\nProposta ideal: menor custo total + parcela suportável\n+ elegibilidade confirmada',
-        raciocinio: 'Compare as 3 propostas em 5 critérios: custo total (A=R$45.790, B=R$28.716, C=R$25.451), parcela (A=R$912, B=R$974, C=R$1.060), prazo (A=48m, B=36m, C=24m), elegibilidade (A=fácil, B=média, C=verificar). A resposta correta pondera todos esses fatores — não olha só a taxa.',
-      },
       opcoes: [
         { id: 'a', texto: 'Proposta A — aprovação rápida vale a pena para não perder o forno disponível agora' },
         { id: 'b', texto: 'Proposta B (Pronampe) — melhor equilíbrio entre taxa, prazo e custo total. Aguardar 15 dias compensa R$14.000 de economia' },
@@ -219,6 +194,56 @@ const dossie = {
 };
 
 // ─── COMPONENTE ───────────────────────────────────────────────────────────────
+const DICAS = {
+  c1: {
+    titulo: `PMT Price - Formula Correta`,
+    formula: `PMT = PV x [i / (1 - (1+i)^-n)]
+PV = R$ 20.000 (financiado = R$22.000 - R$2.000 entrada)
+i = 0.038 | n = 48
+Custo total = PMT x n + entrada
+Juros totais = Custo total - R$ 22.000`,
+    raciocinio: `No Price todas as parcelas sao iguais. O PV e o valor FINANCIADO (sem a entrada). Calcule a PMT, multiplique pelo numero de parcelas, some a entrada e compare com o valor do bem.`,
+  },
+  c2: {
+    titulo: `Formula SAC - Amortizacao Constante`,
+    formula: `Amortizacao = PV / n (igual todo mes)
+Juros mes k = Saldo devedor(k) x i
+Parcela(k) = Amortizacao + Juros(k)
+PV = R$22.000 | i = 0.0165 | n = 36
+Mes 1: saldo = R$22.000 | Mes 36: saldo = R$611`,
+    raciocinio: `No SAC a amortizacao e constante, mas os juros caem a cada mes. Calcule o mes 1 (maior parcela) e o mes final (menor). O total pago e a soma de todas as parcelas.`,
+  },
+  c3: {
+    titulo: `Price com Taxa Menor - Analise pelo Caixa`,
+    formula: `PMT = PV x [i / (1 - (1+i)^-n)]
+PV = R$22.000 | i = 0.012 | n = 24
+Custo total = PMT x 24
+Juros = Custo total - R$22.000
+Taxa menor nao e sempre melhor se parcela for alta`,
+    raciocinio: `Com prazo menor (24 meses vs 36), a parcela sera maior mesmo com taxa menor. Calcule se o caixa suporta essa parcela antes de recomendar.`,
+  },
+  c4: {
+    titulo: `ROI do Investimento e Viabilidade`,
+    formula: `Receita extra bruta = faturamento x % capacidade
+Lucro extra = Receita extra x MC%
+ROI mensal = Lucro extra / Parcela x 100
+Payback = Parcela / Lucro extra (meses)
+Projeto viavel se: lucro extra maior que parcela`,
+    raciocinio: `Calcule o que o forno gera: faturamento x 60% = receita extra. Aplique a MC% para o lucro real. Compare com cada parcela. Se lucro maior que parcela, o investimento se paga.`,
+  },
+  c5: {
+    titulo: `Framework de Decisao de Credito`,
+    formula: `Criterios em ordem:
+1. Custo total (menor = melhor)
+2. Taxa de juros mensal
+3. Capacidade de caixa para a parcela
+4. Elegibilidade / burocracia
+5. Prazo de aprovacao vs urgencia
+Ideal: menor custo + parcela suportavel + elegibilidade`,
+    raciocinio: `Compare as 3 propostas em 5 criterios: custo total, parcela vs caixa, taxa, elegibilidade e prazo de aprovacao. A resposta pondera todos esses fatores.`,
+  },
+};
+
 export default function MarmitariaConsultoriaFinanciamento() {
   const navigate = useNavigate();
   const [secao, setSecao] = useState('teoria');
@@ -467,7 +492,7 @@ export default function MarmitariaConsultoriaFinanciamento() {
                 </div>
 
                 {/* Botão de dica */}
-                {q.dica && !enviado && (
+                {DICAS[q.id] && !enviado && (
                   <div style={{ marginBottom: '0.75rem' }}>
                     <button
                       onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
@@ -490,14 +515,14 @@ export default function MarmitariaConsultoriaFinanciamento() {
                     {dicasAbertas[q.id] && (
                       <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
                         <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>
-                          🧮 {q.dica.titulo}
+                          🧮 {DICAS[q.id].titulo}
                         </div>
                         <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>
-                          {q.dica.formula}
+                          {DICAS[q.id].formula}
                         </pre>
                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
                           <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
-                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{DICAS[q.id].raciocinio}</p>
                         </div>
                       </div>
                     )}

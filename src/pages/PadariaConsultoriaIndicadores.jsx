@@ -58,7 +58,6 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
-      dica: { titulo: 'MC% por Categoria de Produto', formula: 'MC% categoria = (Receita − CV) ÷ Receita × 100\n\nPeso no faturamento = Receita categoria ÷ Total\n\nMC ponderada = Σ (MC% cat. × Peso cat.)\n\nCategoria problemática: alto peso + baixa MC%', raciocinio: 'Calcule a MC% de cada categoria separadamente. Multiplique pelo peso no faturamento. Some tudo para a MC ponderada total. A categoria com maior peso e menor MC% é a prioridade de melhoria.' },
       
       contexto: 'Calcule a MC% de cada categoria. Qual categoria tem o maior peso no faturamento (44%) mas a menor MC%? Qual tem o menor peso mas a maior MC%?',
       opcoes: [
@@ -72,7 +71,6 @@ const dossie = {
     },
     {
       id: 'c2',
-      dica: { titulo: 'PE e Margem de Segurança do Mix Completo', formula: 'PE = CF ÷ MC% ponderada\nMargem de Segurança = (Fat − PE) ÷ Fat × 100\nLucro = Fat × MC% ponderada − CF\n\nDados: CF = R$23.000, Fat = R$84.000\nCalcule MC% ponderada primeiro, depois PE', raciocinio: 'Use a MC% ponderada (calculada na Q1) para encontrar o PE. Se a margem de segurança for alta, a padaria tem folga. Se for baixa, qualquer mês ruim gera prejuízo.' },
       
       contexto: 'O faturamento total é R$84.000 e o custo fixo é R$23.000. Calcule a MC% ponderada do mix e o PE. A padaria está saudável?',
       opcoes: [
@@ -86,7 +84,6 @@ const dossie = {
     },
     {
       id: 'c3',
-      dica: { titulo: 'Ticket Médio e Estratégia de Combo', formula: 'Ticket atual = Faturamento ÷ Clientes\nTicket meta = Receita necessária ÷ Clientes\n\nImpacto de combo:\nClientes que aderem × Ticket extra = Receita extra\nMC extra = Receita extra × MC% combo\n\nIdeal: combo com itens de alta MC%', raciocinio: 'O combo deve sempre incluir itens de alta margem (café, torta) como âncora. Calcule quantos clientes precisariam adotar o combo para atingir o ticket médio desejado.' },
       
       contexto: 'O ticket médio geral da padaria é R$9,79 (R$84.000 ÷ 8.580 clientes). Mas o ticket médio de confeitaria é R$20,59 (R$14.000 ÷ 680 clientes). Qual a estratégia para aumentar o ticket geral para R$12,00?',
       opcoes: [
@@ -100,7 +97,6 @@ const dossie = {
     },
     {
       id: 'c4',
-      dica: { titulo: 'ROI de Investimento em Área de Café', formula: 'ROI mensal = Lucro extra ÷ Investimento × 100\nPayback = Investimento ÷ Lucro extra mensal\n\nLucro extra = Receita extra × MC% bebidas\n\nMC% bebidas (café): geralmente 60-70%\nMaior MC% = maior ROI por real investido', raciocinio: 'Invista onde a MC% é mais alta. Bebidas têm MC% muito superior ao pão — cada R$ investido em área de café gera mais lucro que o mesmo R$ investido em produção de pão.' },
       
       contexto: 'Se Sebastiana investir R$8.000 para montar uma pequena área de café especial (máquina expresso + treinamento), e com isso aumentar as vendas de bebidas de R$18.000 para R$26.000/mês, qual o impacto no lucro?',
       opcoes: [
@@ -114,7 +110,6 @@ const dossie = {
     },
     {
       id: 'c5',
-      dica: { titulo: 'Estratégia de Rebalanceamento de Mix', formula: 'Cenário atual: MC ponderada = X%\nCenário meta: aumentar peso das categorias de alta MC%\n\nGanho de MC = (MC% nova − MC% atual) × Faturamento\n\nMeta: mover 10-15% do faturamento de pão → bebidas/confeitaria', raciocinio: 'Não é necessário vender menos pão — é necessário vender mais dos produtos de alta margem. O pão continua como isca; o café e a confeitaria pagam as contas.' },
       
       contexto: 'Diagnóstico final: qual a principal recomendação estratégica para Sebastiana, considerando todos os KPIs analisados?',
       opcoes: [
@@ -127,6 +122,51 @@ const dossie = {
       explicacao: 'O diagnóstico dos KPIs é claro: Pão = 49% do faturamento, MC% 28%. Bebidas + Confeitaria + Salgados = 51% do faturamento, MC% média de 63%. Se Sebastiana invertesse a proporção (50% das receitas em itens de alta margem), a MC% geral subiria de 45,5% para ~55% — o lucro aumentaria de R$15.260 para ~R$23.200/mês (+52%) sem mudar o faturamento. A recomendação: (1) Investir na área de café expresso; (2) Criar seção de confeitaria premium visível; (3) Treinar equipe para combo e sugestão. O pão continua — porque traz os 8.580 clientes que depois compram o que tem margem.',
     },
   ],
+};
+
+const DICAS = {
+  c1: {
+    titulo: `MC% por Categoria de Produto`,
+    formula: `MC% categoria = (Receita - CV) / Receita x 100
+Peso no faturamento = Receita categoria / Total
+MC ponderada = Soma(MC% cat x Peso cat)
+Problema: alto peso + baixa MC%`,
+    raciocinio: `Calcule a MC% de cada categoria. Multiplique pelo peso no faturamento. A categoria com maior peso e menor MC% e a prioridade de melhoria.`,
+  },
+  c2: {
+    titulo: `PE e Margem de Seguranca do Mix`,
+    formula: `PE = CF / MC% ponderada
+Margem de Seguranca = (Fat - PE) / Fat x 100
+Lucro = Fat x MC% ponderada - CF
+Dados: CF = R$23.000, Fat = R$84.000
+Calcule MC% ponderada primeiro`,
+    raciocinio: `Use a MC% ponderada calculada na Q1 para encontrar o PE. Se a margem de seguranca for alta, a padaria tem folga.`,
+  },
+  c3: {
+    titulo: `Ticket Medio e Estrategia de Combo`,
+    formula: `Ticket atual = Faturamento / Clientes
+Impacto de combo:
+Clientes que aderem x Ticket extra = Receita extra
+MC extra = Receita extra x MC% combo
+Ideal: combo com itens de alta MC%`,
+    raciocinio: `O combo deve incluir itens de alta margem como ancora. Calcule quantos clientes precisariam adotar o combo para atingir o ticket medio desejado.`,
+  },
+  c4: {
+    titulo: `ROI de Investimento em Area de Cafe`,
+    formula: `ROI mensal = Lucro extra / Investimento x 100
+Payback = Investimento / Lucro extra mensal
+Lucro extra = Receita extra x MC% bebidas
+MC% bebidas (cafe): geralmente 60-70%`,
+    raciocinio: `Invista onde a MC% e mais alta. Bebidas tem MC% muito superior ao pao - cada R$ investido em area de cafe gera mais lucro que o mesmo R$ em producao de pao.`,
+  },
+  c5: {
+    titulo: `Estrategia de Rebalanceamento de Mix`,
+    formula: `Cenario atual: MC ponderada = X%
+Cenario meta: aumentar peso das categorias de alta MC%
+Ganho de MC = (MC% nova - MC% atual) x Faturamento
+Meta: mover 10-15% do faturamento de pao para bebidas`,
+    raciocinio: `Nao e necessario vender menos pao - e vender mais dos produtos de alta margem. O pao continua como isca; o cafe e a confeitaria pagam as contas.`,
+  },
 };
 
 export default function PadariaConsultoriaIndicadores() {
@@ -331,7 +371,7 @@ export default function PadariaConsultoriaIndicadores() {
                   <p style={{ color: 'var(--text-main)', lineHeight: 1.6 }}>{q.contexto}</p>
                 </div>
                 {/* Dica contextual */}
-                {q.dica && !enviado && (
+                {DICAS[q.id] && !enviado && (
                   <div style={{ marginBottom: '0.75rem' }}>
                     <button
                       onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
@@ -342,11 +382,11 @@ export default function PadariaConsultoriaIndicadores() {
                     </button>
                     {dicasAbertas[q.id] && (
                       <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
-                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
-                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {DICAS[q.id].titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{DICAS[q.id].formula}</pre>
                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
                           <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
-                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{DICAS[q.id].raciocinio}</p>
                         </div>
                       </div>
                     )}

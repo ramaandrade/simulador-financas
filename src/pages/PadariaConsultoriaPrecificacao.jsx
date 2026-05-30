@@ -68,7 +68,6 @@ const exemplos = [
 const questoes = [
   {
     id: 'q1',
-    dica: { titulo: 'Markup Divisor — A Fórmula Correta', formula: 'Preço = Custo ÷ (1 − taxas − margem)\n\nDivisor = 1 − imposto% − comissão% − cartão% − margem%\n\nEx: 1 − 0,03 − 0,05 − 0,02 − 0,25 = 0,65\nPreço = R$10 ÷ 0,65 = R$15,38', raciocinio: 'Junte todas as taxas que incidem sobre o PREÇO de venda. Subtraia de 1. Divida o custo por esse número. O resultado garante matematicamente a margem desejada.' },
     enunciado: 'Uma padaria tem custo por kg de pão de R$ 4,00 e quebra de balcão de 10%. Qual o custo real por kg após considerar a quebra?',
     opcoes: [
       { id: 'a', texto: 'R$ 4,00 — a quebra não afeta o custo do kg vendido' },
@@ -81,7 +80,6 @@ const questoes = [
   },
   {
     id: 'q2',
-    dica: { titulo: '+X% no Custo vs Markup Divisor', formula: 'Método errado: Preço = Custo × (1 + margem%)\n→ A margem calculada é SOBRE O CUSTO\n\nMarkup divisor: Preço = Custo ÷ (1 − margem%)\n→ A margem é SOBRE O PREÇO\n\nEx: custo R$10, margem 30%:\nErrado: R$13,00 (margem real = 23%)\nCorreto: R$14,29 (margem real = 30%)', raciocinio: 'Margem sobre o custo ≠ margem sobre o preço. No Brasil, a convenção comercial é calcular margem sobre o preço de venda. O markup divisor garante essa equivalência.' },
     enunciado: 'Uma doceira gasta 3h para decorar um bolo. Seu valor-hora é R$ 20. Os ingredientes custam R$ 60. Qual o custo total correto do projeto?',
     opcoes: [
       { id: 'a', texto: 'R$ 60 — o tempo é trabalho dela, não é custo' },
@@ -94,7 +92,6 @@ const questoes = [
   },
   {
     id: 'q3',
-    dica: { titulo: 'Incluindo Taxas no Divisor', formula: 'Taxas que entram NO DIVISOR\n(incidem sobre o preço de venda):\n• Imposto (Simples, ISS)\n• Comissão de plataforma (iFood, Rappi)\n• Taxa de cartão\n• Comissão de vendedor\n\nNÃO entram no divisor:\n• CMV (já é o custo base)\n• Custos fixos', raciocinio: 'O divisor só recebe taxas percentuais que são descontadas do preço de venda. O CMV já está no numerador. Misturar os dois é o erro mais comum de precificação.' },
     enunciado: 'A padaria vende pão francês a R$ 12,90/kg. O custo corrigido é R$ 4,50/kg. Qual o markup sobre custo praticado?',
     opcoes: [
       { id: 'a', texto: 'Aproximadamente 150%' },
@@ -107,7 +104,6 @@ const questoes = [
   },
   {
     id: 'q4',
-    dica: { titulo: 'Margem de Contribuição e Preço', formula: 'MC% = (Preço − CV) ÷ Preço × 100\nMC$ = Preço × MC%\n\nRelação com Markup Divisor:\nSe Divisor = 1 − taxas − margem\nEntão MC% = margem\n\nPE = CF ÷ MC%\nVerifique: MC% × faturamento > CF?', raciocinio: 'A margem no markup divisor é exatamente a MC%. Depois de calcular o preço, verifique se a MC% gerada é suficiente para cobrir os custos fixos.' },
     enunciado: 'Uma padaria começa a aceitar cartão de crédito (taxa 3%) e iFood (comissão 25%). Como isso deve impactar o preço do pão?',
     opcoes: [
       { id: 'a', texto: 'Não muda — essas taxas são absorvidas pelo volume de vendas' },
@@ -120,7 +116,6 @@ const questoes = [
   },
   {
     id: 'q5',
-    dica: { titulo: 'Preço Mínimo e Preço Máximo', formula: 'Preço mínimo = Custo ÷ (1 − taxas obrigatórias)\n→ MC% = 0 (não tem lucro, mas não perde)\n\nPreço ideal = Custo ÷ (1 − taxas − margem desejada)\n\nPreço máximo = determinado pelo mercado\n\nZona de lucro: entre mínimo e máximo', raciocinio: 'O preço mínimo é onde a MC = 0 (só cobre impostos e CV). Nunca venda abaixo disso. O preço ideal é o calculado pelo markup divisor. O preço máximo é o que o cliente aceita pagar.' },
     enunciado: 'Por que o pão amanhecido de ontem deve influenciar o preço do pão fresco de hoje?',
     opcoes: [
       { id: 'a', texto: 'Não deve — são produtos diferentes com custos diferentes' },
@@ -134,6 +129,55 @@ const questoes = [
 ];
 
 const formatBRL = (v) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v);
+
+const DICAS = {
+  q1: {
+    titulo: `Markup Divisor - A Formula Correta`,
+    formula: `Preco = Custo / (1 - taxas - margem)
+Divisor = 1 - imposto% - comissao% - cartao% - margem%
+Ex: 1 - 0.03 - 0.05 - 0.02 - 0.25 = 0.65
+Preco = R$10 / 0.65 = R$15,38`,
+    raciocinio: `Reuna todas as taxas que incidem sobre o PRECO de venda. Subtraia de 1. Divida o custo pelo resultado. Garante matematicamente a margem desejada.`,
+  },
+  q2: {
+    titulo: `+X% no Custo vs Markup Divisor`,
+    formula: `Metodo errado: Preco = Custo x (1 + margem) -> margem sobre o custo
+Markup divisor: Preco = Custo / (1 - margem) -> margem sobre o preco
+Ex custo R$10, margem 30%:
+Errado: R$13,00 (margem real = 23%)
+Correto: R$14,29 (margem real = 30%)`,
+    raciocinio: `Margem sobre o custo nao e igual a margem sobre o preco. No Brasil, a convencao comercial e calcular sobre o preco. O markup divisor garante essa equivalencia.`,
+  },
+  q3: {
+    titulo: `Taxas no Divisor`,
+    formula: `Entram NO DIVISOR (incidem sobre o preco):
+- Imposto (Simples, ISS)
+- Comissao de plataforma
+- Taxa de cartao
+NAO entram no divisor:
+- CMV (ja e o custo base)
+- Custos fixos`,
+    raciocinio: `O divisor so recebe taxas percentuais descontadas do preco. O CMV ja esta no numerador. Misturar os dois e o erro mais comum de precificacao.`,
+  },
+  q4: {
+    titulo: `Margem de Contribuicao e Preco`,
+    formula: `MC% = (Preco - CV) / Preco x 100
+Relacao com Markup Divisor:
+Se Divisor = 1 - taxas - margem
+Entao MC% = margem desejada
+PE = CF / MC%
+Verifique: MC% x faturamento maior que CF?`,
+    raciocinio: `A margem no markup divisor e exatamente a MC%. Apos calcular o preco, verifique se a MC% e suficiente para cobrir os custos fixos.`,
+  },
+  q5: {
+    titulo: `Preco Minimo e Maximo`,
+    formula: `Preco minimo = Custo / (1 - taxas obrigatorias) -> MC = 0
+Preco ideal = Custo / (1 - taxas - margem desejada)
+Preco maximo = determinado pelo mercado
+Zona de lucro: entre minimo e maximo`,
+    raciocinio: `O preco minimo e onde a MC = 0 (so cobre impostos e CV). Nunca venda abaixo disso. O preco ideal e o calculado pelo markup divisor.`,
+  },
+};
 
 export default function PadariaConsultoriaPrecificacao() {
   const navigate = useNavigate();
@@ -271,7 +315,7 @@ export default function PadariaConsultoriaPrecificacao() {
                   <p style={{ color: 'var(--text-main)', lineHeight: 1.6 }}>{q.enunciado}</p>
                 </div>
                           {/* Dica contextual */}
-                {q.dica && !enviado && (
+                {DICAS[q.id] && !enviado && (
                   <div style={{ marginBottom: '0.75rem' }}>
                     <button
                       onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
@@ -282,11 +326,11 @@ export default function PadariaConsultoriaPrecificacao() {
                     </button>
                     {dicasAbertas[q.id] && (
                       <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
-                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
-                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {DICAS[q.id].titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{DICAS[q.id].formula}</pre>
                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
                           <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
-                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{DICAS[q.id].raciocinio}</p>
                         </div>
                       </div>
                     )}

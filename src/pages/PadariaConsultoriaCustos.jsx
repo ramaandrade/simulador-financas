@@ -314,7 +314,7 @@ export default function PadariaConsultoriaCustos() {
                       { cat: '🔄 Custo Variável', cor: '#22c55e', def: 'Cresce proporcionalmente às vendas. Zero produção = zero custo.', ex: 'Ingredientes, embalagens, comissão' },
                       { cat: '💸 Despesa', cor: '#f59e0b', def: 'Gasto necessário mas não ligado diretamente à produção.', ex: 'Marketing, taxa de cartão, imposto' },
                     ].map((k, i) => (
-                      <div key={i} style={{ background: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: '0.5rem', borderLeft: \`3px solid \${k.cor}\` }}>
+                      <div key={i} style={{ background: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: '0.5rem', borderLeft: `3px solid \${k.cor}` }}>
                         <div style={{ fontWeight: 700, color: k.cor, marginBottom: '0.3rem', fontSize: '0.82rem' }}>{k.cat}</div>
                         <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>{k.def}</div>
                         <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>Ex: {k.ex}</div>

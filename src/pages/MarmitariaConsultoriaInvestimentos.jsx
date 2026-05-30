@@ -117,7 +117,6 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
-      dica: { titulo: 'Custo de Oportunidade e Juros Compostos', formula: 'Juros compostos: M = PV × (1 + i)^n\n\nCusto de Oportunidade = Retorno A − Retorno B\n\nEx: R$28.000 no CDB 0,85%/mês por 12 meses:\nM = R$28.000 × (1,0085)^12 = R$30.964\nLucro CDB = R$2.964', raciocinio: 'Compare o retorno do CDB com o retorno do projeto produtivo no mesmo período e com o mesmo capital. A diferença é o custo de oportunidade de escolher o CDB.' },
       
       contexto: 'O marido quer colocar os R$28.000 todos no CDB a 0,85%/mês. Quanto isso renderá em 12 meses? Compare com o Projeto A (câmara fria) no mesmo período.',
       opcoes: [
@@ -131,7 +130,6 @@ const dossie = {
     },
     {
       id: 'c2',
-      dica: { titulo: 'ROI e Payback', formula: 'ROI mensal = Lucro adicional ÷ Investimento × 100\nPayback = Investimento ÷ Lucro adicional mensal\n\nEx: câmara fria R$12.000, lucro R$2.100/mês\nROI = R$2.100 ÷ R$12.000 = 17,5%/mês\nPayback = R$12.000 ÷ R$2.100 = 5,7 meses', raciocinio: 'O ROI mensal do projeto produtivo deve ser comparado com a taxa do CDB (0,85%/mês). Se ROI > taxa CDB, o projeto é melhor. Calcule ambos e mostre a diferença.' },
       
       contexto: 'Compare o ROI e o Payback do Projeto A (câmara fria R$12.000 / R$2.100/mês) e do Projeto B (van R$22.000 / R$1.800/mês). Qual é melhor financeiramente?',
       opcoes: [
@@ -145,7 +143,6 @@ const dossie = {
     },
     {
       id: 'c3',
-      dica: { titulo: 'Função da Reserva de Emergência', formula: 'Reserva ≠ Investimento produtivo\nFunção: proteção contra crises\n\nSem reserva: crise → empréstimo emergencial\nCusto do empréstimo emergencial: 6-10%/mês\n\nReserva cobre: 3 meses de custo fixo mínimo', raciocinio: 'A reserva não compete com projetos produtivos — tem função diferente. Compare o custo de NÃO ter reserva (juros do empréstimo emergencial) com o custo de ter (rendimento abaixo do projeto).' },
       
       contexto: 'O Projeto C (Tesouro Selic R$10.000) tem ROI muito inferior aos projetos produtivos. Por que ele ainda deve fazer parte da carteira de Tereza?',
       opcoes: [
@@ -159,7 +156,6 @@ const dossie = {
     },
     {
       id: 'c4',
-      dica: { titulo: 'Risco × Retorno no Investimento', formula: 'ROI alto + risco alto ≠ melhor escolha\n\nAnálise: probabilidade de atingir o retorno\n\nProjeto garantido (ROI 17%): P = 95%\nProjeto incerto (ROI 27%): P = 40-60%\n\nRetorno esperado = ROI × Probabilidade', raciocinio: 'Multiplique o ROI pela probabilidade de atingi-lo. Um projeto de 27% com 50% de probabilidade tem retorno esperado de 13,5% — inferior ao projeto de 17% com certeza.' },
       
       contexto: 'O Projeto D (Instagram Ads R$4.000) tem ROI de 27,5%/mês se a meta for atingida — o mais alto de todos. Por que não deve receber a maior parte do capital?',
       opcoes: [
@@ -173,7 +169,6 @@ const dossie = {
     },
     {
       id: 'c5',
-      dica: { titulo: 'Alocação Ideal de Carteira', formula: 'Critérios em ordem:\n1. Reserva de emergência (3 meses CF)\n2. Melhor ROI entre projetos seguros\n3. Projetos de risco médio com exposição limitada\n4. Projetos de alto risco: máx. 15-20% do capital\n\nNunca: concentrar tudo em um único ativo', raciocinio: 'A alocação ideal equilibra retorno e proteção. Primeiro garanta a reserva. Depois, escolha o projeto com melhor ROI/risco. Reserve uma fração pequena para projetos de risco alto.' },
       
       contexto: 'Qual a alocação ideal dos R$28.000 de Tereza, considerando ROI, risco, reserva de emergência e diversificação?',
       opcoes: [
@@ -186,6 +181,55 @@ const dossie = {
       explicacao: 'Alocação recomendada: R$12.000 no Projeto A (melhor ROI, baixo risco, payback 5,7 meses); R$10.000 no Projeto C (reserva essencial — 3 meses de custo fixo R$3.200 = mínimo R$9.600); R$4.000 no Projeto D (testar marketing com capital que pode perder sem comprometer o negócio); R$2.000 mantidos em conta para giro. Essa alocação: maximiza o retorno produtivo (câmara fria), protege a operação (reserva), e testa crescimento de clientes (marketing) com exposição controlada. O Projeto B (van) fica para quando gerar mais capital — payback mais longo e investimento maior não se justificam agora.',
     },
   ],
+};
+
+const DICAS = {
+  c1: {
+    titulo: `Custo de Oportunidade e Juros Compostos`,
+    formula: `Juros compostos: M = PV x (1 + i)^n
+Custo de Oportunidade = Retorno A - Retorno B
+Ex: R$28.000 no CDB 0.85%/mes por 12 meses:
+M = R$28.000 x (1.0085)^12 = R$30.964
+Lucro CDB = R$2.964`,
+    raciocinio: `Compare o retorno do CDB com o retorno do projeto produtivo no mesmo periodo. A diferenca e o custo de oportunidade de escolher o CDB.`,
+  },
+  c2: {
+    titulo: `ROI e Payback`,
+    formula: `ROI mensal = Lucro adicional / Investimento x 100
+Payback = Investimento / Lucro adicional mensal
+Ex: camara fria R$12.000, lucro R$2.100/mes
+ROI = R$2.100 / R$12.000 = 17.5%/mes
+Payback = R$12.000 / R$2.100 = 5.7 meses`,
+    raciocinio: `O ROI mensal do projeto produtivo deve ser comparado com a taxa do CDB (0.85%/mes). Se ROI maior que taxa CDB, o projeto e melhor.`,
+  },
+  c3: {
+    titulo: `Funcao da Reserva de Emergencia`,
+    formula: `Reserva nao e Investimento produtivo
+Funcao: protecao contra crises
+Sem reserva: crise -> emprestimo emergencial
+Custo emprestimo: 6-10%/mes
+Reserva cobre: 3 meses de custo fixo minimo`,
+    raciocinio: `A reserva nao compete com projetos produtivos - tem funcao diferente. Compare o custo de NAO ter reserva (juros do emprestimo) com o custo de ter (rendimento abaixo do projeto).`,
+  },
+  c4: {
+    titulo: `Risco x Retorno no Investimento`,
+    formula: `ROI alto + risco alto nao e melhor escolha
+Analise: probabilidade de atingir o retorno
+Projeto garantido (ROI 17%): P = 95%
+Projeto incerto (ROI 27%): P = 40-60%
+Retorno esperado = ROI x Probabilidade`,
+    raciocinio: `Multiplique o ROI pela probabilidade de atingi-lo. Um projeto de 27% com 50% de probabilidade tem retorno esperado de 13.5% - inferior ao de 17% com certeza.`,
+  },
+  c5: {
+    titulo: `Alocacao Ideal de Carteira`,
+    formula: `Criterios em ordem:
+1. Reserva de emergencia (3 meses CF)
+2. Melhor ROI entre projetos seguros
+3. Projetos de risco medio com exposicao limitada
+4. Alto risco: max 15-20% do capital
+Nunca: concentrar tudo em um unico ativo`,
+    raciocinio: `A alocacao ideal equilibra retorno e protecao. Primeiro garanta a reserva. Depois, escolha o projeto com melhor ROI/risco.`,
+  },
 };
 
 export default function MarmitariaConsultoriaInvestimentos() {
@@ -370,7 +414,7 @@ export default function MarmitariaConsultoriaInvestimentos() {
                   <p style={{ color: 'var(--text-main)', lineHeight: 1.6 }}>{q.contexto}</p>
                 </div>
                 {/* Dica contextual */}
-                {q.dica && !enviado && (
+                {DICAS[q.id] && !enviado && (
                   <div style={{ marginBottom: '0.75rem' }}>
                     <button
                       onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
@@ -381,11 +425,11 @@ export default function MarmitariaConsultoriaInvestimentos() {
                     </button>
                     {dicasAbertas[q.id] && (
                       <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
-                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
-                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {DICAS[q.id].titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{DICAS[q.id].formula}</pre>
                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
                           <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
-                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{DICAS[q.id].raciocinio}</p>
                         </div>
                       </div>
                     )}

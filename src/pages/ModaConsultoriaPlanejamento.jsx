@@ -88,7 +88,6 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
-      dica: { titulo: 'Mix de Produtos e Margem Ponderada', formula: 'MC% ponderada = Σ (MC% categoria × % faturamento)\n\nEx: Tendências (65% fat, MC 38%) + Básicos (35% fat, MC 52%)\nMC ponderada = 0,65×38 + 0,35×52 = 42,9%', raciocinio: 'A margem de contribuição do negócio depende do mix de produtos. Se você vende mais dos produtos de baixa margem, a MC total cai — mesmo que o faturamento suba.' },
       
       contexto: 'Giovanna investe 65% do orçamento em tendências e 35% em básicos. Com faturamento de R$22.000, CMV 58% e taxa histórica de liquidação de 25% das tendências, qual o impacto real na margem?',
       opcoes: [
@@ -102,7 +101,6 @@ const dossie = {
     },
     {
       id: 'c2',
-      dica: { titulo: 'Diagnóstico de Mês Negativo', formula: 'Lucro = MC − CF\nSe Lucro < 0 → MC não cobriu o CF\n\nDiagnóstico:\n• MC% caiu? (preço ou CMV pioraram)\n• CF subiu? (novos custos fixos)\n• Volume caiu? (menos vendas)\n• Combinação dos três?', raciocinio: 'Para diagnosticar um mês ruim, compare os três elementos: faturamento, MC% e custo fixo. Qual mudou mais em relação ao mês anterior? Esse é o culpado principal.' },
       
       contexto: 'Analisando o histórico, Maio foi o único mês negativo (−R$360) apesar de faturamento crescendo. Qual a causa mais provável?',
       opcoes: [
@@ -116,7 +114,6 @@ const dossie = {
     },
     {
       id: 'c3',
-      dica: { titulo: 'Giro de Estoque e PME', formula: 'Giro = CMV ÷ Estoque médio\nPME = 30 ÷ Giro (dias)\n\nEstoque ideal = Faturamento × MC% × 90 dias ÷ 30\nCapital imobilizado extra = Estoque atual − Estoque ideal', raciocinio: 'Calcule quanto do estoque atual excede o ideal para o nível de vendas. Esse excesso é capital imobilizado sem necessidade. Reduzir o estoque libera caixa sem reduzir as vendas.' },
       
       contexto: 'Giovanna tem R$38.000 em estoque mas o ideal seria R$28.000 (giro de 90 dias com faturamento atual). O que isso significa e como resolver?',
       opcoes: [
@@ -130,7 +127,6 @@ const dossie = {
     },
     {
       id: 'c4',
-      dica: { titulo: 'Padrão de Compras e Fluxo de Caixa', formula: 'Fluxo de caixa = Receita − Pagamentos no período\n\nCompras concentradas → saídas concentradas → sufoço\nCompras distribuídas → saídas regulares → estabilidade\n\nPlanejamento de compras: alinhar ao ciclo de vendas', raciocinio: 'Se as compras são feitas em grandes lotes irregulares mas as vendas são constantes, o caixa vai oscilar muito. A solução é distribuir as compras ao longo do mês conforme a demanda real.' },
       
       contexto: 'Olhando o histórico, qual o padrão de compras de Giovanna e como ele explica o "sufoço no caixa" que ela sente?',
       opcoes: [
@@ -144,7 +140,6 @@ const dossie = {
     },
     {
       id: 'c5',
-      dica: { titulo: 'Pré-requisitos para Segunda Unidade', formula: 'Checklist de expansão:\n✅ Lucro consistente há 6+ meses\n✅ Reserva = 6 meses de CF das 2 unidades\n✅ Processos documentados (sem depender do dono)\n✅ Demanda comprovada na nova localização\n✅ Payback < 24 meses', raciocinio: 'Expansão prematura é a causa mais comum de falência em moda. A segunda unidade deve ser aberta quando a primeira estiver sólida, com reserva e processos maduros — não quando o dono está animado.' },
       
       contexto: 'Giovanna quer abrir uma segunda unidade com investimento de R$45.000. Com base no diagnóstico completo, qual a recomendação do consultor?',
       opcoes: [
@@ -157,6 +152,51 @@ const dossie = {
       explicacao: 'Esta é a recomendação mais responsável. Abrir uma segunda loja com gestão de estoque desordenada e curva ABC invertida duplica os problemas, não as oportunidades. O consultor recomenda resolver primeiro: (1) Liquidar o excesso de R$10.000 (com desconto de 30% gera ~R$7.000 em caixa); (2) OTB mensal evita picos de compra; (3) Curva ABC melhora a margem em 6-9 pontos; (4) Só quando a margem real estiver consistente acima de 35% o negócio tem base sólida para crescer. Com uma unidade bem gerida gerando margem de 35%+, a segunda unidade se financiaria parcialmente com o próprio fluxo da primeira.',
     },
   ],
+};
+
+const DICAS = {
+  c1: {
+    titulo: `Mix de Produtos e Margem Ponderada`,
+    formula: `MC% ponderada = Soma(MC% categoria x % faturamento)
+Ex: Tendencias (65% fat, MC 38%) + Basicos (35% fat, MC 52%)
+MC ponderada = 0.65x38 + 0.35x52 = 42.9%`,
+    raciocinio: `A margem do negocio depende do mix. Se vender mais dos produtos de baixa margem, a MC total cai mesmo que o faturamento suba.`,
+  },
+  c2: {
+    titulo: `Diagnostico de Mes Negativo`,
+    formula: `Lucro = MC - CF
+Se Lucro menor que 0, MC nao cobriu o CF
+Diagnostico:
+- MC% caiu? (preco ou CMV pioraram)
+- CF subiu? (novos custos fixos)
+- Volume caiu? (menos vendas)`,
+    raciocinio: `Para diagnosticar um mes ruim, compare os tres elementos: faturamento, MC% e custo fixo. Qual mudou mais em relacao ao mes anterior? Esse e o culpado principal.`,
+  },
+  c3: {
+    titulo: `Giro de Estoque e PME`,
+    formula: `Giro = CMV / Estoque medio
+PME = 30 / Giro (dias)
+Estoque ideal = Faturamento x MC% x 90 dias / 30
+Capital imobilizado extra = Estoque atual - Estoque ideal`,
+    raciocinio: `Calcule quanto do estoque excede o ideal. Esse excesso e capital imobilizado sem necessidade. Reduzir o estoque libera caixa sem reduzir as vendas.`,
+  },
+  c4: {
+    titulo: `Padrao de Compras e Fluxo de Caixa`,
+    formula: `Fluxo de caixa = Receita - Pagamentos no periodo
+Compras concentradas -> saidas concentradas -> sufoco
+Compras distribuidas -> saidas regulares -> estabilidade`,
+    raciocinio: `Se as compras sao em grandes lotes irregulares mas as vendas sao constantes, o caixa vai oscilar muito. A solucao e distribuir as compras conforme a demanda real.`,
+  },
+  c5: {
+    titulo: `Pre-requisitos para Segunda Unidade`,
+    formula: `Checklist de expansao:
+- Lucro consistente ha 6+ meses
+- Reserva = 6 meses de CF das 2 unidades
+- Processos documentados
+- Demanda comprovada na nova localizacao
+- Payback menor que 24 meses`,
+    raciocinio: `Expansao prematura e a causa mais comum de falencia em moda. A segunda unidade deve ser aberta quando a primeira estiver solida, com reserva e processos maduros.`,
+  },
 };
 
 export default function ModaConsultoriaPlanejamento() {
@@ -360,7 +400,7 @@ export default function ModaConsultoriaPlanejamento() {
                   </div>
                 </div>
                                 {/* Dica contextual */}
-                {q.dica && !enviado && (
+                {DICAS[q.id] && !enviado && (
                   <div style={{ marginBottom: '0.75rem' }}>
                     <button
                       onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
@@ -371,11 +411,11 @@ export default function ModaConsultoriaPlanejamento() {
                     </button>
                     {dicasAbertas[q.id] && (
                       <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
-                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
-                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {DICAS[q.id].titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{DICAS[q.id].formula}</pre>
                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
                           <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
-                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{DICAS[q.id].raciocinio}</p>
                         </div>
                       </div>
                     )}

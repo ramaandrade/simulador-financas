@@ -82,7 +82,6 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
-      dica: { titulo: 'MC% e Custo Fixo — A Tesoura do Lucro', formula: 'MC% = (Receita − CV) ÷ Receita × 100\nLucro = MC − CF\n\nTesoura dupla:\n• MC% caindo (CVu sobe ou preço cai)\n• CF subindo (mais despesas fixas)\n→ Lucro comprimido pelos dois lados', raciocinio: 'Compare MC% e CF dos dois meses. Se MC% caiu E CF subiu ao mesmo tempo, o lucro cai muito mais rápido que o esperado. Identifique primeiro qual dos dois mudou mais.' },
       
       contexto: 'Em março, o faturamento cresceu 12,5% (de R$19.200 para R$21.600), mas o lucro caiu de R$2.570 para R$420. Qual indicador explica essa contradição?',
       opcoes: [
@@ -96,7 +95,6 @@ const dossie = {
     },
     {
       id: 'c2',
-      dica: { titulo: 'Ponto de Equilíbrio e Margem de Segurança', formula: 'PE = Custo Fixo ÷ MC%\nMargem de Segurança = (Fat. − PE) ÷ Fat. × 100\n\nSe MS < 10%: qualquer oscilação gera prejuízo\nSe MS < 20%: operação frágil\nSe MS > 25%: operação saudável', raciocinio: 'Calcule o PE com os dados de março. Subtraia do faturamento real. Divida pelo faturamento. Esse percentual é a margem de segurança — o quanto o faturamento pode cair antes de haver prejuízo.' },
       
       contexto: 'Calcule o Ponto de Equilíbrio de março (CF R$7.620, MC% 37,9%). Qual a margem de segurança? O que isso significa?',
       opcoes: [
@@ -110,7 +108,6 @@ const dossie = {
     },
     {
       id: 'c3',
-      dica: { titulo: 'Diagnóstico do CMV — O Que Mudou?', formula: 'CMV% = Custo Variável ÷ Faturamento × 100\n\nSe CMV% subiu, há 3 possibilidades:\n1. Ingredientes ficaram mais caros (sem reajuste)\n2. Desperdício aumentou\n3. Mix mudou para produtos mais caros\n\nAção: planilha de custo por item', raciocinio: 'Sem detalhar por ingrediente, é impossível saber a causa exata. A pergunta certa é: o custo total de ingredientes por marmita subiu? Se sim, houve alta de insumos — reajustar o preço.' },
       
       contexto: 'O custo variável de março foi R$13.420 para R$21.600 de faturamento (62,1% do faturamento). Em janeiro era 57,5%. O que provavelmente aconteceu e qual a ação correta?',
       opcoes: [
@@ -124,7 +121,6 @@ const dossie = {
     },
     {
       id: 'c4',
-      dica: { titulo: 'Impacto do Custo Fixo em Marmitas Necessárias', formula: 'MC unitária = Preço × MC%\nMarmitas para cobrir CF extra = ΔCF ÷ MC unitária\n\nEx: CF extra R$2.220, preço R$36, MC% 37,9%\nMC unitária = R$36 × 37,9% = R$13,64\nMarmitas extras = R$2.220 ÷ R$13,64 ≈ 163', raciocinio: 'Cada real de custo fixo extra exige mais vendas para ser coberto. Calcule quantas marmitas a mais precisam ser vendidas só para cobrir o novo custo — sem gerar lucro adicional.' },
       
       contexto: 'O CF saltou de R$5.400 (fev) para R$7.620 (mar), alta de R$2.220. Com MC% de 37,9%, quantas marmitas extras precisam ser vendidas por mês só para cobrir esse novo custo fixo? (Preço médio R$36)',
       opcoes: [
@@ -138,7 +134,6 @@ const dossie = {
     },
     {
       id: 'c5',
-      dica: { titulo: 'Ações Prioritárias do Consultor', formula: 'Ordem de prioridade:\n1. Restaurar MC% (reajustar preço ou reduzir CV)\n2. Auditar CF novo (manter só se demanda justificar)\n3. Monitorar PE mensalmente\n4. Constituir reserva de segurança\n\nNunca: aumentar faturamento sem antes restaurar a margem', raciocinio: 'Crescer com MC% baixa apenas acelera o problema. A primeira ação sempre é restaurar a margem — depois, buscar volume. A sequência errada (volume antes de margem) leva à falência rápida.' },
       
       contexto: 'Com base no diagnóstico completo, quais são as 2 ações prioritárias que Marcos deve tomar imediatamente?',
       opcoes: [
@@ -151,6 +146,54 @@ const dossie = {
       explicacao: 'As duas ações prioritárias corretas: (1) Reajuste de preço: com MC% em 37,9% e PE em R$20.105, Marcos opera sem segurança. Para restaurar MC% de 42%, com CV médio de R$22,35/marmita: novo preço = R$22,35 ÷ (1 − 0,42) = R$38,53. Comunicar reajuste de R$36 para R$38 (+5,6%) é palatável para cliente de marmita fitness. (2) Auditar o CF novo: os R$2.220 extras se justificam apenas se Marcos mantiver 763+ marmitas/mês. Se a demanda de março foi pontual (evento, campanha), deve desativar o custo variável fixo novo. Aumentar faturamento "a qualquer custo" sem resolver a MC% só acelera o prejuízo.',
     },
   ],
+};
+
+const DICAS = {
+  c1: {
+    titulo: `MC% e Custo Fixo - A Tesoura do Lucro`,
+    formula: `MC% = (Receita - CV) / Receita x 100
+Lucro = MC - CF
+Tesoura dupla:
+- MC% caindo (CVu sobe ou preco cai)
+- CF subindo (mais despesas fixas)
+-> Lucro comprimido pelos dois lados`,
+    raciocinio: `Compare MC% e CF dos dois meses. Se MC% caiu E CF subiu ao mesmo tempo, o lucro cai muito mais rapido que o esperado.`,
+  },
+  c2: {
+    titulo: `Ponto de Equilibrio e Margem de Seguranca`,
+    formula: `PE = Custo Fixo / MC%
+Margem de Seguranca = (Fat - PE) / Fat x 100
+Se MS menor que 10%: qualquer oscilacao gera prejuizo
+Se MS maior que 25%: operacao saudavel`,
+    raciocinio: `Calcule o PE com os dados do mes. Subtraia do faturamento real. Divida pelo faturamento. Esse percentual e quanto o faturamento pode cair antes de haver prejuizo.`,
+  },
+  c3: {
+    titulo: `Diagnostico do CMV`,
+    formula: `CMV% = Custo Variavel / Faturamento x 100
+Se CMV% subiu, ha 3 possibilidades:
+1. Ingredientes ficaram mais caros (sem reajuste)
+2. Desperdicio aumentou
+3. Mix mudou para produtos mais caros`,
+    raciocinio: `Sem detalhar por ingrediente, e impossivel saber a causa exata. A pergunta certa: o custo total por marmita subiu? Se sim, houve alta de insumos - reajustar o preco.`,
+  },
+  c4: {
+    titulo: `Impacto do Custo Fixo em Marmitas Necessarias`,
+    formula: `MC unitaria = Preco x MC%
+Marmitas para cobrir CF extra = DeltaCF / MC unitaria
+Ex: CF extra R$2.220, preco R$36, MC% 37.9%
+MC unitaria = R$36 x 37.9% = R$13,64
+Marmitas extras = R$2.220 / R$13,64 = 163`,
+    raciocinio: `Cada real de custo fixo extra exige mais vendas para ser coberto. Calcule quantas marmitas a mais precisam ser vendidas so para cobrir o novo custo - sem gerar lucro.`,
+  },
+  c5: {
+    titulo: `Acoes Prioritarias do Consultor`,
+    formula: `Ordem de prioridade:
+1. Restaurar MC% (reajustar preco ou reduzir CV)
+2. Auditar CF novo (manter so se demanda justificar)
+3. Monitorar PE mensalmente
+4. Constituir reserva de seguranca`,
+    raciocinio: `Crescer com MC% baixa apenas acelera o problema. A primeira acao e sempre restaurar a margem - depois buscar volume. A sequencia errada leva a falencia rapida.`,
+  },
 };
 
 export default function MarmitariaConsultoriaIndicadores() {
@@ -352,7 +395,7 @@ export default function MarmitariaConsultoriaIndicadores() {
                   <p style={{ color: 'var(--text-main)', lineHeight: 1.6 }}>{q.contexto}</p>
                 </div>
                 {/* Dica contextual */}
-                {q.dica && !enviado && (
+                {DICAS[q.id] && !enviado && (
                   <div style={{ marginBottom: '0.75rem' }}>
                     <button
                       onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
@@ -363,11 +406,11 @@ export default function MarmitariaConsultoriaIndicadores() {
                     </button>
                     {dicasAbertas[q.id] && (
                       <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
-                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
-                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {DICAS[q.id].titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{DICAS[q.id].formula}</pre>
                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
                           <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
-                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{DICAS[q.id].raciocinio}</p>
                         </div>
                       </div>
                     )}

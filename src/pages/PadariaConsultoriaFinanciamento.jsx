@@ -101,7 +101,6 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
-      dica: { titulo: 'Cálculo de PMT (Sistema Price)', formula: 'PMT = PV × [ i ÷ (1 − (1+i)^−n) ]\n\nCalcule a parcela mensal → multiplique pelo prazo → subtraia o capital financiado para encontrar os juros totais.', raciocinio: 'Compare o total pago com o valor do bem. Um bom financiamento não deve custar mais que 1,4× o valor original do bem.' },
       contexto: 'Proposta A: BNDES Finame, entrada R$19.000, financia R$76.000 em SAC a 1,15%. Calcule a primeira parcela, a última e o total pago. Por que a amortização constante importa?',
       opcoes: [
         { id: 'a', texto: 'Parcela inicial R$2.140, final R$1.281, total R$101.607. SAC reduz juros mês a mês e protege o fluxo futuro' },
@@ -114,7 +113,6 @@ const dossie = {
     },
     {
       id: 'c2',
-      dica: { titulo: 'Sistema SAC — Parcelas Decrescentes', formula: 'Amortização = PV ÷ n (fixa)\nJuros(k) = Saldo(k) × i\nParcela(k) = Amortização + Juros(k)\n\nSaldo cai a cada mês → juros caem → parcela cai.', raciocinio: 'No SAC a primeira parcela é a mais cara e a última é a mais barata. O total pago é menor que no Price para o mesmo prazo e taxa.' },
       contexto: 'Proposta B: Pronampe via Caixa, R$95.000 em Price a 1,38% em 48 meses, sem entrada. Qual a parcela e o total? Seu Zé tem limite suficiente no Pronampe?',
       opcoes: [
         { id: 'a', texto: 'Parcela R$2.721, total R$130.608. Limite Pronampe: R$100.800 (30% × R$336.000/ano). Aprovado!' },
@@ -127,7 +125,6 @@ const dossie = {
     },
     {
       id: 'c3',
-      dica: { titulo: 'BNDES Finame — Crédito Produtivo', formula: 'Compare o custo efetivo total (CET):\nCET = taxa nominal + IOF + tarifas\n\nPayback = Investimento ÷ Lucro extra mensal\nViabilidade: Payback < prazo do financiamento', raciocinio: 'Linhas BNDES têm taxa subsidiada mas exigem laudo técnico e podem ter prazo de análise de 30-60 dias. O custo menor justifica a burocracia maior para valores altos.' },
       contexto: 'Proposta C: Banco privado R$95.000 em Price a 3,1% em 36 meses. Qual o custo real e por que é a pior escolha?',
       opcoes: [
         { id: 'a', texto: 'Parcela R$3.792, total R$136.512. Apesar do prazo menor, taxa 2,7x maior que Finame gera custo exorbitante' },
@@ -163,6 +160,54 @@ const dossie = {
       explicacao: 'Proposta A é a recomendação clara: taxa 1,15% vs 1,38% (B) e 3,1% (C); SAC reduz saldo devedor mais rápido; equipamento credenciado BNDES tem garantia de qualidade. Para a entrada de R$19.000: Seu Zé fatura R$28.000/mês com lucro médio de ~R$4.500/mês. Recomendação: acumular R$19.000 em 4 meses (incluindo o São João que gera R$8.000-10.000 de lucro) e pedir ao banco para aguardar 4 meses o desembolso. A economia de R$15.000 em juros vs Proposta C justifica plenamente a espera.',
     },
   ],
+};
+
+const DICAS = {
+  c1: {
+    titulo: `PMT Price - Custo Real do Credito`,
+    formula: `PMT = PV x [i / (1 - (1+i)^-n)]
+Custo total = PMT x n
+Juros = Custo total - PV
+Multiplicador = Custo total / PV
+Acima de 1.5x: caro | Abaixo de 1.2x: razoavel`,
+    raciocinio: `Calcule o multiplicador: quantas vezes voce paga o valor do bem. Acima de 1.5x e caro para credito produtivo.`,
+  },
+  c2: {
+    titulo: `SAC vs Price - Comparacao`,
+    formula: `Price: parcelas iguais, amortizacao crescente
+SAC: amortizacao fixa, parcelas decrescentes
+Price: menor parcela inicial (mais confortavel)
+SAC: menor custo total (mais economico)
+Compare os totais pagos, nao so as parcelas`,
+    raciocinio: `Para quem tem caixa apertado no inicio: Price e mais facil. Para quem quer pagar menos no total: SAC e melhor.`,
+  },
+  c3: {
+    titulo: `BNDES Finame - Credito Produtivo`,
+    formula: `BNDES Finame: taxa subsidiada para equipamentos
+CET = taxa nominal + IOF + tarifas
+Payback = Investimento / Lucro extra mensal
+Viabilidade: Payback menor que prazo do financiamento
+Exige laudo tecnico: prazo 30-60 dias`,
+    raciocinio: `Linhas BNDES tem taxa subsidiada mas exigem laudo e tem prazo de analise maior. O custo menor justifica a burocracia para valores altos.`,
+  },
+  c4: {
+    titulo: `ROI e Payback do Investimento`,
+    formula: `Receita extra = capacidade adicional x preco medio
+Lucro extra = Receita extra x MC%
+ROI mensal = Lucro extra / Parcela x 100
+Payback = Parcela / Lucro extra (meses)`,
+    raciocinio: `Um investimento e viavel se o lucro extra mensal gerado superar a parcela. Quanto maior o excedente, mais segura e a decisao.`,
+  },
+  c5: {
+    titulo: `Decisao Final: 4 Criterios`,
+    formula: `Avalie em ordem:
+1. Custo total (CET) - menor ganha
+2. Capacidade da parcela no caixa mensal
+3. Elegibilidade e prazo de aprovacao
+4. Prazo x risco do negocio
+Recomendacao ideal = menor custo + parcela suportavel + aprovacao viavel`,
+    raciocinio: `Nunca recomendar so pela taxa sem verificar elegibilidade. A melhor taxa para quem nao se qualifica nao serve de nada.`,
+  },
 };
 
 export default function PadariaConsultoriaFinanciamento() {
@@ -372,7 +417,7 @@ export default function PadariaConsultoriaFinanciamento() {
                 </div>
                 
                 {/* Botão de dica contextual */}
-                {q.dica && !enviado && (
+                {DICAS[q.id] && !enviado && (
                   <div style={{ marginBottom: '0.75rem' }}>
                     <button
                       onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
@@ -393,11 +438,11 @@ export default function PadariaConsultoriaFinanciamento() {
                     </button>
                     {dicasAbertas[q.id] && (
                       <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
-                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
-                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {DICAS[q.id].titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{DICAS[q.id].formula}</pre>
                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
                           <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
-                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{DICAS[q.id].raciocinio}</p>
                         </div>
                       </div>
                     )}

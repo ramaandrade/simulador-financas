@@ -95,7 +95,6 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
-      dica: { titulo: 'Ponto de Equilíbrio (PE)', formula: 'PE (R$) = Custo Fixo ÷ MC%\nPE (unid.) = Custo Fixo ÷ MC unitária\n\nMC% = (Preço − CVu) ÷ Preço × 100\nMargem de Segurança = (Fat. − PE) ÷ Fat.', raciocinio: 'Calcule a MC unitária (preço − custo variável por unidade). Divida o custo fixo pela MC unitária para encontrar quantas unidades precisa vender para não ter prejuízo.' },
       
       contexto: 'Com os dados atuais (1.200 marmitas/mês, preço R$14, CVu R$6,50, CF R$3.200), qual o Ponto de Equilíbrio atual e a folga atual de segurança?',
       opcoes: [
@@ -109,7 +108,6 @@ const dossie = {
     },
     {
       id: 'c2',
-      dica: { titulo: 'Novo PE após mudança de custo fixo', formula: 'Novo PE = Novo CF ÷ MC%\nDelta PE = Novo PE − PE antigo\nDelta vendas necessárias = Delta PE ÷ Preço\n\nA expansão se justifica se:\nAumento de capacidade > Delta de vendas necessárias', raciocinio: 'Quando o custo fixo sobe, o PE sobe proporcionalmente. Calcule o novo PE e verifique se a nova capacidade produtiva consegue atingi-lo. Se a expansão não gerar vendas suficientes, o negócio piora.' },
       
       contexto: 'Se Cida contratar a ajudante e mudar para cozinha maior, o CF sobe para R$5.100. Qual o novo PE e qual o impacto na margem de segurança?',
       opcoes: [
@@ -123,7 +121,6 @@ const dossie = {
     },
     {
       id: 'c3',
-      dica: { titulo: 'Taxa de Crescimento Mensal', formula: 'Crescimento médio = (Receita final − Receita inicial) ÷ (n−1) períodos\n\nOu: Taxa composta = (Rfinal ÷ Rinicial)^(1/n) − 1\n\nProjeção futura = Receita atual × (1 + taxa)^meses', raciocinio: 'Use o crescimento médio dos últimos meses para projetar os próximos. Se o crescimento for irregular, use a média simples. Se for consistente, use a taxa composta (mais precisa).' },
       
       contexto: 'Analisando o histórico de 5 meses, qual a tendência de crescimento médio mensal da receita e o que ela indica para os próximos 3 meses?',
       opcoes: [
@@ -137,7 +134,6 @@ const dossie = {
     },
     {
       id: 'c4',
-      dica: { titulo: 'Análise de Custo × Receita', formula: 'Custo como % da receita = Custo Total ÷ Receita × 100\n\nSe % custo cresce enquanto receita cresce:\n→ Eficiência caindo (custos crescem mais que receita)\n\nIdeal: % custo constante ou caindo (ganho de escala)', raciocinio: 'Calcule o custo como percentual da receita em cada mês. Se essa porcentagem está crescendo, significa que os custos crescem mais rápido que as receitas — sinal de perda de eficiência.' },
       
       contexto: 'Os custos também vêm crescendo. De Jan a Mai, o custo total cresceu de R$11.800 para R$13.400. Isso é problema ou é normal?',
       opcoes: [
@@ -151,7 +147,6 @@ const dossie = {
     },
     {
       id: 'c5',
-      dica: { titulo: 'Framework de Decisão Estratégica', formula: 'Decisão de expansão: 3 critérios\n1. PE novo ≤ capacidade nova\n2. Reserva suficiente para mês ruim\n3. MC extra > custo fixo extra\n\nSó expandir quando os 3 forem ✅', raciocinio: 'Uma boa recomendação de consultor avalia os três critérios. Expansão prematura antes de ter reserva e demanda comprovada é a causa número 1 de falência de pequenos negócios.' },
       
       contexto: 'Qual a sua recomendação final como consultor para a Cida?',
       opcoes: [
@@ -167,6 +162,49 @@ const dossie = {
 };
 
 // ─── COMPONENTE ───────────────────────────────────────────────────────────────
+const DICAS = {
+  c1: {
+    titulo: `Ponto de Equilibrio`,
+    formula: `PE(R$) = Custo Fixo / MC%
+PE(unid) = Custo Fixo / MC unitaria
+MC% = (Preco - CVu) / Preco x 100
+Margem de Seguranca = (Fat - PE) / Fat`,
+    raciocinio: `Calcule a MC unitaria (preco menos custo variavel por unidade). Divida o custo fixo pela MC unitaria para encontrar quantas unidades precisa vender sem prejuizo.`,
+  },
+  c2: {
+    titulo: `Novo PE apos mudanca de Custo Fixo`,
+    formula: `Novo PE = Novo CF / MC%
+Delta PE = Novo PE - PE antigo
+Delta vendas = Delta PE / Preco
+Expansao se justifica se: aumento capacidade maior que delta vendas`,
+    raciocinio: `Quando o custo fixo sobe, o PE sobe proporcionalmente. Calcule o novo PE e verifique se a nova capacidade produtiva consegue atingi-lo.`,
+  },
+  c3: {
+    titulo: `Taxa de Crescimento Mensal`,
+    formula: `Crescimento medio = (Receita final - Receita inicial) / (n-1) periodos
+Taxa composta = (Rfinal / Rinicial)^(1/n) - 1
+Projecao = Receita atual x (1 + taxa)^meses`,
+    raciocinio: `Use o crescimento medio dos ultimos meses para projetar os proximos. Se irregular, use media simples. Se consistente, use taxa composta (mais precisa).`,
+  },
+  c4: {
+    titulo: `Analise Custo x Receita`,
+    formula: `Custo como % da receita = Custo Total / Receita x 100
+Se % custo cresce enquanto receita cresce:
+-> Eficiencia caindo (custos crescem mais que receita)
+Ideal: % custo constante ou caindo (ganho de escala)`,
+    raciocinio: `Calcule o custo como percentual da receita em cada mes. Se essa porcentagem esta crescendo, os custos crescem mais rapido que as receitas - sinal de perda de eficiencia.`,
+  },
+  c5: {
+    titulo: `Framework de Decisao Estrategica`,
+    formula: `Decisao de expansao - 3 criterios:
+1. PE novo menor ou igual a capacidade nova
+2. Reserva suficiente para mes ruim
+3. MC extra maior que custo fixo extra
+So expandir quando os 3 forem positivos`,
+    raciocinio: `Uma boa recomendacao avalia os tres criterios. Expansao prematura antes de ter reserva e demanda comprovada e a causa numero 1 de falencia de pequenos negocios.`,
+  },
+};
+
 export default function MarmitariaConsultoriaPlanejamento() {
   const navigate = useNavigate();
   const [secao, setSecao] = useState('teoria');
@@ -378,7 +416,7 @@ export default function MarmitariaConsultoriaPlanejamento() {
                   </div>
                 </div>
                                 {/* Dica contextual */}
-                {q.dica && !enviado && (
+                {DICAS[q.id] && !enviado && (
                   <div style={{ marginBottom: '0.75rem' }}>
                     <button
                       onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
@@ -389,11 +427,11 @@ export default function MarmitariaConsultoriaPlanejamento() {
                     </button>
                     {dicasAbertas[q.id] && (
                       <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
-                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
-                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {DICAS[q.id].titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{DICAS[q.id].formula}</pre>
                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
                           <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
-                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{DICAS[q.id].raciocinio}</p>
                         </div>
                       </div>
                     )}
