@@ -117,6 +117,8 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
+      dica: { titulo: 'Custo de Oportunidade e Juros Compostos', formula: 'Juros compostos: M = PV × (1 + i)^n\n\nCusto de Oportunidade = Retorno A − Retorno B\n\nEx: R$28.000 no CDB 0,85%/mês por 12 meses:\nM = R$28.000 × (1,0085)^12 = R$30.964\nLucro CDB = R$2.964', raciocinio: 'Compare o retorno do CDB com o retorno do projeto produtivo no mesmo período e com o mesmo capital. A diferença é o custo de oportunidade de escolher o CDB.' },
+      
       contexto: 'O marido quer colocar os R$28.000 todos no CDB a 0,85%/mês. Quanto isso renderá em 12 meses? Compare com o Projeto A (câmara fria) no mesmo período.',
       opcoes: [
         { id: 'a', texto: 'CDB: R$28.000 → R$30.964 (+R$2.964). Câmara fria R$12.000: +R$25.200 em 12 meses. O projeto produtivo é 8,5× mais rentável' },
@@ -129,6 +131,8 @@ const dossie = {
     },
     {
       id: 'c2',
+      dica: { titulo: 'ROI e Payback', formula: 'ROI mensal = Lucro adicional ÷ Investimento × 100\nPayback = Investimento ÷ Lucro adicional mensal\n\nEx: câmara fria R$12.000, lucro R$2.100/mês\nROI = R$2.100 ÷ R$12.000 = 17,5%/mês\nPayback = R$12.000 ÷ R$2.100 = 5,7 meses', raciocinio: 'O ROI mensal do projeto produtivo deve ser comparado com a taxa do CDB (0,85%/mês). Se ROI > taxa CDB, o projeto é melhor. Calcule ambos e mostre a diferença.' },
+      
       contexto: 'Compare o ROI e o Payback do Projeto A (câmara fria R$12.000 / R$2.100/mês) e do Projeto B (van R$22.000 / R$1.800/mês). Qual é melhor financeiramente?',
       opcoes: [
         { id: 'a', texto: 'Projeto A: ROI 17,5%/mês, Payback 5,7 meses. Projeto B: ROI 8,2%/mês, Payback 12,2 meses. A é muito superior em ambas as métricas' },
@@ -141,6 +145,8 @@ const dossie = {
     },
     {
       id: 'c3',
+      dica: { titulo: 'Função da Reserva de Emergência', formula: 'Reserva ≠ Investimento produtivo\nFunção: proteção contra crises\n\nSem reserva: crise → empréstimo emergencial\nCusto do empréstimo emergencial: 6-10%/mês\n\nReserva cobre: 3 meses de custo fixo mínimo', raciocinio: 'A reserva não compete com projetos produtivos — tem função diferente. Compare o custo de NÃO ter reserva (juros do empréstimo emergencial) com o custo de ter (rendimento abaixo do projeto).' },
+      
       contexto: 'O Projeto C (Tesouro Selic R$10.000) tem ROI muito inferior aos projetos produtivos. Por que ele ainda deve fazer parte da carteira de Tereza?',
       opcoes: [
         { id: 'a', texto: 'Não deve — ROI baixo nunca se justifica quando há projetos produtivos disponíveis' },
@@ -153,6 +159,8 @@ const dossie = {
     },
     {
       id: 'c4',
+      dica: { titulo: 'Risco × Retorno no Investimento', formula: 'ROI alto + risco alto ≠ melhor escolha\n\nAnálise: probabilidade de atingir o retorno\n\nProjeto garantido (ROI 17%): P = 95%\nProjeto incerto (ROI 27%): P = 40-60%\n\nRetorno esperado = ROI × Probabilidade', raciocinio: 'Multiplique o ROI pela probabilidade de atingi-lo. Um projeto de 27% com 50% de probabilidade tem retorno esperado de 13,5% — inferior ao projeto de 17% com certeza.' },
+      
       contexto: 'O Projeto D (Instagram Ads R$4.000) tem ROI de 27,5%/mês se a meta for atingida — o mais alto de todos. Por que não deve receber a maior parte do capital?',
       opcoes: [
         { id: 'a', texto: 'Porque ROI alto significa risco alto. Se a campanha não converter, perde R$4.000 sem retorno. É o único projeto sem resultado garantido' },
@@ -165,6 +173,8 @@ const dossie = {
     },
     {
       id: 'c5',
+      dica: { titulo: 'Alocação Ideal de Carteira', formula: 'Critérios em ordem:\n1. Reserva de emergência (3 meses CF)\n2. Melhor ROI entre projetos seguros\n3. Projetos de risco médio com exposição limitada\n4. Projetos de alto risco: máx. 15-20% do capital\n\nNunca: concentrar tudo em um único ativo', raciocinio: 'A alocação ideal equilibra retorno e proteção. Primeiro garanta a reserva. Depois, escolha o projeto com melhor ROI/risco. Reserve uma fração pequena para projetos de risco alto.' },
+      
       contexto: 'Qual a alocação ideal dos R$28.000 de Tereza, considerando ROI, risco, reserva de emergência e diversificação?',
       opcoes: [
         { id: 'a', texto: 'R$12.000 Projeto A + R$10.000 Projeto C + R$4.000 Projeto D + R$2.000 reserva em conta = alocação diversificada e eficiente' },
@@ -181,6 +191,7 @@ const dossie = {
 export default function MarmitariaConsultoriaInvestimentos() {
   const navigate = useNavigate();
   const [secao, setSecao] = useState('teoria');
+  const [dicasAbertas, setDicasAbertas] = useState({});
   const [exemploAtivo, setExemploAtivo] = useState('reinvestimento');
   const [expandido, setExpandido] = useState({});
   const [respostas, setRespostas] = useState({});
@@ -358,6 +369,28 @@ export default function MarmitariaConsultoriaInvestimentos() {
                   <span style={{ background: 'rgba(14,165,233,0.2)', color: '#7dd3fc', borderRadius: '0.4rem', padding: '0.2rem 0.6rem', fontWeight: 700, fontSize: '0.85rem', flexShrink: 0 }}>Q{idx + 1}</span>
                   <p style={{ color: 'var(--text-main)', lineHeight: 1.6 }}>{q.contexto}</p>
                 </div>
+                {/* Dica contextual */}
+                {q.dica && !enviado && (
+                  <div style={{ marginBottom: '0.75rem' }}>
+                    <button
+                      onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: dicasAbertas[q.id] ? 'rgba(250,204,21,0.12)' : 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.3)', borderRadius: '0.4rem', padding: '0.35rem 0.75rem', color: '#facc15', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
+                    >
+                      <Lightbulb size={13} />
+                      {dicasAbertas[q.id] ? 'Ocultar dica' : '💡 Ver fórmula e raciocínio'}
+                    </button>
+                    {dicasAbertas[q.id] && (
+                      <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                          <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   {q.opcoes.map(op => (
                     <button key={op.id} disabled={enviado} onClick={() => setRespostas(p => ({ ...p, [q.id]: op.id }))} style={{ padding: '0.875rem 1rem', borderRadius: '0.5rem', textAlign: 'left', fontSize: '0.875rem', cursor: enviado ? 'default' : 'pointer', border: respostas[q.id] === op.id ? `2px solid ${COR}` : '2px solid var(--border-color)', background: enviado ? op.id === q.correta ? 'rgba(34,197,94,0.1)' : respostas[q.id] === op.id ? 'rgba(239,68,68,0.1)' : 'transparent' : respostas[q.id] === op.id ? 'rgba(14,165,233,0.1)' : 'transparent', color: enviado ? op.id === q.correta ? '#22c55e' : respostas[q.id] === op.id ? '#ef4444' : 'var(--text-muted)' : respostas[q.id] === op.id ? '#7dd3fc' : 'var(--text-muted)', transition: 'all 0.15s', display: 'flex', alignItems: 'flex-start', gap: '0.5rem', lineHeight: 1.5 }}>

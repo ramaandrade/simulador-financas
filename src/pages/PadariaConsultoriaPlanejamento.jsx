@@ -91,6 +91,8 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
+      dica: { titulo: 'Ponto de Pedido — Gestão de Estoque', formula: 'Ponto de Pedido = Consumo diário × Lead time + Estoque de Segurança\n\nEstoque de Segurança = Consumo diário × Dias de variação\nLead time = prazo de entrega do fornecedor', raciocinio: 'O ponto de pedido é o nível de estoque que sinaliza "hora de pedir". Calcule: consumo diário × dias de entrega + segurança. Quando o estoque atingir esse nível, faça o pedido.' },
+      
       contexto: 'Com consumo de 12 sacos/dia de farinha, tempo de entrega de 4 dias e estoque de segurança de 25 sacos, qual o Ponto de Pedido? O que acontece se Seu Manoel ignorar isso?',
       opcoes: [
         { id: 'a', texto: 'PP = 73 sacos. Se ignorar, pode ficar sem farinha em datas críticas como São João' },
@@ -103,6 +105,8 @@ const dossie = {
     },
     {
       id: 'c2',
+      dica: { titulo: 'Sazonalidade e Variação Mensal', formula: 'Variação = (Mês pico − Mês vale) ÷ Média\n\nReserva mínima = CF × meses de variação\n\nIndice de sazonalidade = Mês ÷ Média anual\n→ > 1: acima da média (pico)\n→ < 1: abaixo da média (vale)', raciocinio: 'Calcule a diferença entre o melhor e o pior mês. Essa diferença precisa estar coberta pela reserva de emergência. Negócios com alta sazonalidade precisam de mais reserva.' },
+      
       contexto: 'Analisando o histórico de 8 meses, qual a variação entre o melhor e o pior mês e o que isso significa para o planejamento financeiro anual?',
       opcoes: [
         { id: 'a', texto: 'Variação de 144% (Fev R$340 vs Jun R$10.850). Exige reserva robusta para sustentar os meses fracos' },
@@ -115,6 +119,8 @@ const dossie = {
     },
     {
       id: 'c3',
+      dica: { titulo: 'Viabilidade de Expansão com Novo CF', formula: 'Receita extra = capacidade extra × preço médio\nMC extra = receita extra × MC%\nLucro extra = MC extra − CF adicional\n\nExpansão viável se: Lucro extra > 0\nPayback = CF adicional ÷ Lucro extra', raciocinio: 'Calcule quanto o novo equipamento gera de receita extra. Aplique a margem de contribuição. Subtraia o custo fixo adicional (financiamento + manutenção). Se sobrar lucro, a expansão é viável.' },
+      
       contexto: 'O segundo forno custa R$8.800 e aumenta a capacidade em 40% (principalmente bolos). O CF mensal sobe R$900 (energia + manutenção). Com faturamento médio atual de R$18.500, qual o payback do investimento?',
       opcoes: [
         { id: 'a', texto: 'Payback de 6 meses se a receita adicional cobrir o novo CF — mas precisa confirmar demanda antes' },
@@ -127,6 +133,8 @@ const dossie = {
     },
     {
       id: 'c4',
+      dica: { titulo: 'Reserva de Emergência Mínima', formula: 'Reserva mínima = CF × 3 meses\n\nOU\n\nReserva = (Mês pior − Mês médio) × 2\n\nManter em: CDB liquidez diária ou Tesouro Selic', raciocinio: 'A reserva cobre os meses ruins sem precisar de empréstimo emergencial. Se o pior mês gerou quase prejuízo, a reserva precisa cobrir pelo menos o custo fixo por 3 meses.' },
+      
       contexto: 'Fevereiro foi quase catastrófico (lucro R$340). Qual reserva mínima Seu Manoel deveria ter constituído nos meses anteriores para atravessar Fevereiro com tranquilidade?',
       opcoes: [
         { id: 'a', texto: 'Reserva de R$5.200 (1 mês de custo fixo) — suficiente para cobrir o pior cenário' },
@@ -139,6 +147,8 @@ const dossie = {
     },
     {
       id: 'c5',
+      dica: { titulo: 'Recomendação Completa de Consultor', formula: 'Estrutura da recomendação:\n1. Diagnóstico atual (PE, reserva, tendência)\n2. Viabilidade da expansão (payback, CF novo)\n3. Pré-requisito: reserva mínima constituída\n4. Sequência: reserva → depois expansão', raciocinio: 'A ordem importa: nunca recomendar expansão antes de constituir reserva. Se a reserva ainda não existe, o plano é: (1) poupar para a reserva, (2) expandir quando estiver coberto.' },
+      
       contexto: 'Qual é sua recomendação completa como consultor para Seu Manoel sobre o segundo forno e o planejamento do próximo ano?',
       opcoes: [
         { id: 'a', texto: 'Comprar o forno imediatamente aproveitando o bom momento — Janeiro é hora de investir' },
@@ -155,6 +165,7 @@ const dossie = {
 export default function PadariaConsultoriaPlanejamento() {
   const navigate = useNavigate();
   const [secao, setSecao] = useState('teoria');
+  const [dicasAbertas, setDicasAbertas] = useState({});
   const [exemploAtivo, setExemploAtivo] = useState('industria');
   const [expandido, setExpandido] = useState({});
   const [respostas, setRespostas] = useState({});
@@ -347,7 +358,29 @@ export default function PadariaConsultoriaPlanejamento() {
                     <p style={{ color: 'var(--text-main)', lineHeight: 1.6 }}>{q.contexto}</p>
                   </div>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '1rem' }}>
+                                {/* Dica contextual */}
+                {q.dica && !enviado && (
+                  <div style={{ marginBottom: '0.75rem' }}>
+                    <button
+                      onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: dicasAbertas[q.id] ? 'rgba(250,204,21,0.12)' : 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.3)', borderRadius: '0.4rem', padding: '0.35rem 0.75rem', color: '#facc15', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
+                    >
+                      <Lightbulb size={13} />
+                      {dicasAbertas[q.id] ? 'Ocultar dica' : '💡 Ver fórmula e raciocínio'}
+                    </button>
+                    {dicasAbertas[q.id] && (
+                      <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                          <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+<div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '1rem' }}>
                   {q.opcoes.map(op => (
                     <button key={op.id} disabled={enviado} onClick={() => setRespostas(p => ({ ...p, [q.id]: op.id }))} style={{ padding: '0.875rem 1rem', borderRadius: '0.5rem', textAlign: 'left', fontSize: '0.875rem', cursor: enviado ? 'default' : 'pointer', border: respostas[q.id] === op.id ? `2px solid ${COR}` : '2px solid var(--border-color)', background: enviado ? op.id === q.correta ? 'rgba(34,197,94,0.1)' : respostas[q.id] === op.id ? 'rgba(239,68,68,0.1)' : 'transparent' : respostas[q.id] === op.id ? 'rgba(168,85,247,0.1)' : 'transparent', color: enviado ? op.id === q.correta ? '#22c55e' : respostas[q.id] === op.id ? '#ef4444' : 'var(--text-muted)' : respostas[q.id] === op.id ? '#c084fc' : 'var(--text-muted)', transition: 'all 0.15s', display: 'flex', alignItems: 'flex-start', gap: '0.5rem', lineHeight: 1.5 }}>
                       {enviado && op.id === q.correta && <CheckCircle2 size={16} color="#22c55e" style={{ flexShrink: 0, marginTop: '2px' }} />}

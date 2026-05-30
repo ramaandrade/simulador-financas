@@ -113,6 +113,8 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
+      dica: { titulo: 'ROI e Payback — Eficiência do Capital', formula: 'ROI mensal = Lucro adicional ÷ Investimento × 100\nPayback = Investimento ÷ Lucro adicional mensal\n\nReferência:\nROI > 3%/mês: excelente vs Tesouro (0,85%)\nPayback < 12 meses: projeto rápido\nPayback > 24 meses: exige análise cuidadosa', raciocinio: 'Calcule ROI e Payback para cada projeto. O projeto com maior ROI mensal é o mais eficiente por real investido. Payback curto significa recuperar o capital rapidamente.' },
+      
       contexto: 'Calcule o ROI mensal e o Payback do Projeto A (linha de bolos R$8.000 / R$2.800/mês) e compare com o Tesouro Selic (0,85%/mês). Qual o custo de oportunidade de não fazer o Projeto A?',
       opcoes: [
         { id: 'a', texto: 'ROI Projeto A: 35%/mês. Payback: 2,9 meses. Custo de oportunidade em 12 meses: R$33.600 (projeto) − R$680 (RF) = R$32.920 deixados de ganhar' },
@@ -125,6 +127,8 @@ const dossie = {
     },
     {
       id: 'c2',
+      dica: { titulo: 'Projetos Complementares vs Excludentes', formula: 'Projetos excludentes: só um pode ser feito\n→ escolher o maior VPL\n\nProjetos complementares: se potencializam\n→ VPL conjunto > soma dos VPLs individuais\n→ Implementar em sequência lógica\n\nSinergia: o resultado conjunto é maior que as partes', raciocinio: 'Pergunte: "O projeto A muda o resultado do projeto B?" Se sim, são complementares. Analise o VPL dos dois juntos, não separadamente. A sinergia pode mudar completamente a decisão.' },
+      
       contexto: 'O Projeto A (bolos) e o Projeto B (expositor) são apontados como complementares. O que isso significa e como avaliá-los?',
       opcoes: [
         { id: 'a', texto: 'São excludentes — usar o dinheiro de A impede B. Escolher apenas o de maior ROI' },
@@ -137,6 +141,8 @@ const dossie = {
     },
     {
       id: 'c3',
+      dica: { titulo: 'Concentração de Capital e Risco', formula: 'Regra geral: nenhum projeto único deve consumir\nmais de 70-80% do capital disponível\n\nCapital remanescente mínimo:\n= 3 meses de custo fixo\n\nSe projeto consome > 80% capital:\n→ Verificar se reserva ainda está adequada', raciocinio: 'Um projeto com retorno alto mas que consome quase todo o capital deixa o negócio vulnerável. Calcule o capital remanescente após o investimento e verifique se cobre 3 meses de operação.' },
+      
       contexto: 'O Projeto D (franquia de gelato) tem o maior retorno absoluto (R$3.800/mês) mas exige R$35.000 (83% do capital). Por que ele pode ser a pior escolha apesar do maior lucro?',
       opcoes: [
         { id: 'a', texto: 'Porque ROI de 10,9%/mês é inferior ao do Projeto A (35%/mês) — mesmo gerando mais reais, é menos eficiente por real investido' },
@@ -149,6 +155,8 @@ const dossie = {
     },
     {
       id: 'c4',
+      dica: { titulo: 'Por que Tesouro não compete com Projetos Produtivos', formula: 'Reserva de emergência: função = proteção\nProjeto produtivo: função = crescimento\n\nComparação correta:\nSem reserva + crise: empréstimo a 8%/mês\nCom reserva (0,85%): evita custo de 8%\n\nROI real da reserva = custo evitado', raciocinio: 'A reserva não é comparada pelo retorno — é comparada pelo custo de não tê-la. Se uma crise forçar empréstimo emergencial, o custo mensal (8%) elimina meses de lucro. A reserva é um seguro.' },
+      
       contexto: 'Por que o Projeto C (Tesouro R$12.000) não deve ser comparado com os outros projetos pelo ROI?',
       opcoes: [
         { id: 'a', texto: 'Porque o Tesouro tem retorno garantido enquanto os outros não — a comparação seria injusta' },
@@ -161,6 +169,8 @@ const dossie = {
     },
     {
       id: 'c5',
+      dica: { titulo: 'Sequência de Alocação com Sinergia', formula: 'Sequência inteligente:\n1. Projeto de melhor ROI primeiro\n2. Esperar payback parcial (2-3 meses)\n3. Usar lucro extra para financiar projeto complementar\n\nBenefício: projeto B é parcialmente financiado\npelo lucro extra gerado pelo projeto A', raciocinio: 'Implementar o projeto de maior ROI primeiro gera caixa que financia o próximo. Isso evita comprometer todo o capital de uma vez e permite validar cada projeto antes de avançar.' },
+      
       contexto: 'Qual a alocação ideal dos R$42.000 de Dona Fátima, considerando ROI, risco, sinergia entre projetos e reserva de emergência?',
       opcoes: [
         { id: 'a', texto: 'R$35.000 Projeto D + R$7.000 reserva — maximizar o maior retorno absoluto' },
@@ -177,6 +187,7 @@ const dossie = {
 export default function PadariaConsultoriaInvestimentos() {
   const navigate = useNavigate();
   const [secao, setSecao] = useState('teoria');
+  const [dicasAbertas, setDicasAbertas] = useState({});
   const [exemploAtivo, setExemploAtivo] = useState('expositor');
   const [expandido, setExpandido] = useState({});
   const [respostas, setRespostas] = useState({});
@@ -354,6 +365,28 @@ export default function PadariaConsultoriaInvestimentos() {
                   <span style={{ background: 'rgba(14,165,233,0.2)', color: '#7dd3fc', borderRadius: '0.4rem', padding: '0.2rem 0.6rem', fontWeight: 700, fontSize: '0.85rem', flexShrink: 0 }}>Q{idx + 1}</span>
                   <p style={{ color: 'var(--text-main)', lineHeight: 1.6 }}>{q.contexto}</p>
                 </div>
+                {/* Dica contextual */}
+                {q.dica && !enviado && (
+                  <div style={{ marginBottom: '0.75rem' }}>
+                    <button
+                      onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: dicasAbertas[q.id] ? 'rgba(250,204,21,0.12)' : 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.3)', borderRadius: '0.4rem', padding: '0.35rem 0.75rem', color: '#facc15', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
+                    >
+                      <Lightbulb size={13} />
+                      {dicasAbertas[q.id] ? 'Ocultar dica' : '💡 Ver fórmula e raciocínio'}
+                    </button>
+                    {dicasAbertas[q.id] && (
+                      <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                          <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   {q.opcoes.map(op => (
                     <button key={op.id} disabled={enviado} onClick={() => setRespostas(p => ({ ...p, [q.id]: op.id }))} style={{ padding: '0.875rem 1rem', borderRadius: '0.5rem', textAlign: 'left', fontSize: '0.875rem', cursor: enviado ? 'default' : 'pointer', border: respostas[q.id] === op.id ? `2px solid ${COR}` : '2px solid var(--border-color)', background: enviado ? op.id === q.correta ? 'rgba(34,197,94,0.1)' : respostas[q.id] === op.id ? 'rgba(239,68,68,0.1)' : 'transparent' : respostas[q.id] === op.id ? 'rgba(14,165,233,0.1)' : 'transparent', color: enviado ? op.id === q.correta ? '#22c55e' : respostas[q.id] === op.id ? '#ef4444' : 'var(--text-muted)' : respostas[q.id] === op.id ? '#7dd3fc' : 'var(--text-muted)', transition: 'all 0.15s', display: 'flex', alignItems: 'flex-start', gap: '0.5rem', lineHeight: 1.5 }}>

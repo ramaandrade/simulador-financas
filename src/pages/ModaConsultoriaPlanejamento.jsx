@@ -88,6 +88,8 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
+      dica: { titulo: 'Mix de Produtos e Margem Ponderada', formula: 'MC% ponderada = Σ (MC% categoria × % faturamento)\n\nEx: Tendências (65% fat, MC 38%) + Básicos (35% fat, MC 52%)\nMC ponderada = 0,65×38 + 0,35×52 = 42,9%', raciocinio: 'A margem de contribuição do negócio depende do mix de produtos. Se você vende mais dos produtos de baixa margem, a MC total cai — mesmo que o faturamento suba.' },
+      
       contexto: 'Giovanna investe 65% do orçamento em tendências e 35% em básicos. Com faturamento de R$22.000, CMV 58% e taxa histórica de liquidação de 25% das tendências, qual o impacto real na margem?',
       opcoes: [
         { id: 'a', texto: 'Impacto irrelevante — liquidação é normal e já está precificada no markup' },
@@ -100,6 +102,8 @@ const dossie = {
     },
     {
       id: 'c2',
+      dica: { titulo: 'Diagnóstico de Mês Negativo', formula: 'Lucro = MC − CF\nSe Lucro < 0 → MC não cobriu o CF\n\nDiagnóstico:\n• MC% caiu? (preço ou CMV pioraram)\n• CF subiu? (novos custos fixos)\n• Volume caiu? (menos vendas)\n• Combinação dos três?', raciocinio: 'Para diagnosticar um mês ruim, compare os três elementos: faturamento, MC% e custo fixo. Qual mudou mais em relação ao mês anterior? Esse é o culpado principal.' },
+      
       contexto: 'Analisando o histórico, Maio foi o único mês negativo (−R$360) apesar de faturamento crescendo. Qual a causa mais provável?',
       opcoes: [
         { id: 'a', texto: 'Queda de vendas em Maio — o mês foi fraco' },
@@ -112,6 +116,8 @@ const dossie = {
     },
     {
       id: 'c3',
+      dica: { titulo: 'Giro de Estoque e PME', formula: 'Giro = CMV ÷ Estoque médio\nPME = 30 ÷ Giro (dias)\n\nEstoque ideal = Faturamento × MC% × 90 dias ÷ 30\nCapital imobilizado extra = Estoque atual − Estoque ideal', raciocinio: 'Calcule quanto do estoque atual excede o ideal para o nível de vendas. Esse excesso é capital imobilizado sem necessidade. Reduzir o estoque libera caixa sem reduzir as vendas.' },
+      
       contexto: 'Giovanna tem R$38.000 em estoque mas o ideal seria R$28.000 (giro de 90 dias com faturamento atual). O que isso significa e como resolver?',
       opcoes: [
         { id: 'a', texto: 'R$10.000 em excesso de estoque. Não é urgente — o produto não vence' },
@@ -124,6 +130,8 @@ const dossie = {
     },
     {
       id: 'c4',
+      dica: { titulo: 'Padrão de Compras e Fluxo de Caixa', formula: 'Fluxo de caixa = Receita − Pagamentos no período\n\nCompras concentradas → saídas concentradas → sufoço\nCompras distribuídas → saídas regulares → estabilidade\n\nPlanejamento de compras: alinhar ao ciclo de vendas', raciocinio: 'Se as compras são feitas em grandes lotes irregulares mas as vendas são constantes, o caixa vai oscilar muito. A solução é distribuir as compras ao longo do mês conforme a demanda real.' },
+      
       contexto: 'Olhando o histórico, qual o padrão de compras de Giovanna e como ele explica o "sufoço no caixa" que ela sente?',
       opcoes: [
         { id: 'a', texto: 'Ela compra sempre no mesmo valor — não há padrão problemático' },
@@ -136,6 +144,8 @@ const dossie = {
     },
     {
       id: 'c5',
+      dica: { titulo: 'Pré-requisitos para Segunda Unidade', formula: 'Checklist de expansão:\n✅ Lucro consistente há 6+ meses\n✅ Reserva = 6 meses de CF das 2 unidades\n✅ Processos documentados (sem depender do dono)\n✅ Demanda comprovada na nova localização\n✅ Payback < 24 meses', raciocinio: 'Expansão prematura é a causa mais comum de falência em moda. A segunda unidade deve ser aberta quando a primeira estiver sólida, com reserva e processos maduros — não quando o dono está animado.' },
+      
       contexto: 'Giovanna quer abrir uma segunda unidade com investimento de R$45.000. Com base no diagnóstico completo, qual a recomendação do consultor?',
       opcoes: [
         { id: 'a', texto: 'Abrir imediatamente — faturamento crescendo e segunda loja vai dobrar a receita' },
@@ -152,6 +162,7 @@ const dossie = {
 export default function ModaConsultoriaPlanejamento() {
   const navigate = useNavigate();
   const [secao, setSecao] = useState('teoria');
+  const [dicasAbertas, setDicasAbertas] = useState({});
   const [exemploAtivo, setExemploAtivo] = useState('industria');
   const [expandido, setExpandido] = useState({});
   const [respostas, setRespostas] = useState({});
@@ -348,7 +359,29 @@ export default function ModaConsultoriaPlanejamento() {
                     <p style={{ color: 'var(--text-main)', lineHeight: 1.6 }}>{q.contexto}</p>
                   </div>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '1rem' }}>
+                                {/* Dica contextual */}
+                {q.dica && !enviado && (
+                  <div style={{ marginBottom: '0.75rem' }}>
+                    <button
+                      onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: dicasAbertas[q.id] ? 'rgba(250,204,21,0.12)' : 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.3)', borderRadius: '0.4rem', padding: '0.35rem 0.75rem', color: '#facc15', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
+                    >
+                      <Lightbulb size={13} />
+                      {dicasAbertas[q.id] ? 'Ocultar dica' : '💡 Ver fórmula e raciocínio'}
+                    </button>
+                    {dicasAbertas[q.id] && (
+                      <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                          <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+<div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '1rem' }}>
                   {q.opcoes.map(op => (
                     <button key={op.id} disabled={enviado} onClick={() => setRespostas(p => ({ ...p, [q.id]: op.id }))} style={{ padding: '0.875rem 1rem', borderRadius: '0.5rem', textAlign: 'left', fontSize: '0.875rem', cursor: enviado ? 'default' : 'pointer', border: respostas[q.id] === op.id ? `2px solid ${COR}` : '2px solid var(--border-color)', background: enviado ? op.id === q.correta ? 'rgba(34,197,94,0.1)' : respostas[q.id] === op.id ? 'rgba(239,68,68,0.1)' : 'transparent' : respostas[q.id] === op.id ? 'rgba(168,85,247,0.1)' : 'transparent', color: enviado ? op.id === q.correta ? '#22c55e' : respostas[q.id] === op.id ? '#ef4444' : 'var(--text-muted)' : respostas[q.id] === op.id ? '#c084fc' : 'var(--text-muted)', transition: 'all 0.15s', display: 'flex', alignItems: 'flex-start', gap: '0.5rem', lineHeight: 1.5 }}>
                       {enviado && op.id === q.correta && <CheckCircle2 size={16} color="#22c55e" style={{ flexShrink: 0, marginTop: '2px' }} />}

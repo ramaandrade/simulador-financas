@@ -109,6 +109,8 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
+      dica: { titulo: 'CAC e LTV — A Régua do Marketing', formula: 'CAC = Investimento ÷ Novos clientes\nLTV = Ticket × Frequência/mês × Retenção × Margem\n\nRelação saudável: LTV ≥ 3 × CAC\n\nEx: CAC = R$95, LTV = R$453\nLTV/CAC = 4,8 → saudável ✅', raciocinio: 'Calcule CAC e LTV separadamente. Divida LTV pelo CAC. Se o resultado for menor que 3, cada cliente novo destrói valor — o custo de aquisição não é recuperado pelo valor gerado.' },
+      
       contexto: 'Calcule o CAC e o LTV do Projeto A (Meta Ads R$9.000, 95 clientes novos, ticket R$115, margem 40%, retenção 7 meses, frequência 1,4×/mês). A relação LTV/CAC é saudável?',
       opcoes: [
         { id: 'a', texto: 'CAC = R$94,7. LTV = R$453. LTV/CAC = 4,8 → Saudável (> 3). Projeto A gera valor por cliente' },
@@ -121,6 +123,8 @@ const dossie = {
     },
     {
       id: 'c2',
+      dica: { titulo: 'Horizonte Temporal: Marketing vs Infraestrutura', formula: 'Marketing (curto prazo):\nImpacto em 1-3 meses, depois cessa\nRetorno = LTV × Clientes adquiridos\n\nInfraestrutura (longo prazo):\nGera lucro por 60+ meses\nRetorno = Lucro extra × Prazo\n\nComparar no mesmo horizonte temporal', raciocinio: 'Compare marketing e infraestrutura no mesmo prazo. Em 12 meses, marketing pode parecer melhor. Em 36 meses, infraestrutura geralmente supera. A decisão depende do horizonte de planejamento.' },
+      
       contexto: 'Compare o Projeto A (marketing) com o Projeto B (expositor R$14.000 / R$2.100/mês). Qual tem melhor ROI no horizonte de 12 meses? E em 36 meses?',
       opcoes: [
         { id: 'a', texto: 'Em 12m: A gera R$43.016 de LTV vs B R$25.200. Projeto A é melhor no curto prazo. Em 36m: B gera R$75.600 vs A R$43.016. Projeto B supera no longo prazo' },
@@ -133,6 +137,8 @@ const dossie = {
     },
     {
       id: 'c3',
+      dica: { titulo: 'Urgência da Reserva de Emergência', formula: 'Sem reserva: vulnerabilidade total\n\nCusto de crise sem reserva:\nEmpréstimo emergencial: 6-10%/mês\nCusto anual: 72-120% ao ano\n\nReserva em Tesouro (0,85%/mês):\nCusto da proteção: R$68/mês por R$8.000\nVs custo evitado: R$480-800/mês em juros', raciocinio: 'Com custo fixo de R$7.200 e zero de reserva, uma crise de 1 mês pode forçar empréstimo de R$5.000-6.000 a 8%/mês = R$400/mês de juros. A reserva de R$8.000 custa R$0 líquido em comparação.' },
+      
       contexto: 'Vitória atualmente não tem reserva de emergência. O Projeto D (Tesouro R$8.000) tem ROI de apenas 0,85%/mês. Por que é o projeto mais urgente?',
       opcoes: [
         { id: 'a', texto: 'Porque Vitória tem custo fixo de R$7.200/mês e zero de reserva. Um mês fraco de vendas ou equipamento quebrado pode forçar empréstimo a 6%/mês — R$432/mês de juros evitados pela reserva' },
@@ -145,6 +151,8 @@ const dossie = {
     },
     {
       id: 'c4',
+      dica: { titulo: 'Impacto do CRM no LTV das Clientes Existentes', formula: 'Frequência atual: F\nFrequência nova: F × (1 + aumento%)\nAumento por cliente: ΔF × Ticket × Margem\n\nImpacto total: Aumento por cliente × Base clientes\nPayback = Investimento CRM ÷ Impacto mensal', raciocinio: 'O CRM trabalha sobre clientes que já existem — sem custo de aquisição. Calcule o aumento de frequência, multiplique pelo ticket e pela margem, e depois por toda a base de clientes.' },
+      
       contexto: 'O Projeto C (CRM R$3.500) aumenta a frequência das 180 clientes existentes em 35%. Com ticket R$115, margem 40% e frequência atual 1,4×/mês, qual o impacto mensal? Vale o investimento?',
       opcoes: [
         { id: 'a', texto: 'Aumento de 0,49 visitas/mês por cliente × 180 clientes × R$115 × 40% = R$4.049/mês extra. Payback: R$3.500 ÷ R$4.049 = 0,86 meses → Melhor ROI de todos os projetos' },
@@ -157,6 +165,8 @@ const dossie = {
     },
     {
       id: 'c5',
+      dica: { titulo: 'Sequência Ótima de Alocação', formula: 'Princípio: urgência primeiro, depois ROI\n\n1. Reserva (urgente + proteção)\n2. Maior ROI com risco baixo\n3. Projeto complementar\n4. Marketing (maior ROI mas risco)\n\nUsar lucro dos projetos 1-3 para financiar 4', raciocinio: 'A sequência correta considera urgência (reserva zero é urgência máxima), depois ROI. Não adianta ter o maior ROI do mercado se uma crise destrói o negócio antes do retorno chegar.' },
+      
       contexto: 'Qual a alocação ideal dos R$32.000 de Vitória, considerando urgência, ROI, horizonte de tempo e diversificação?',
       opcoes: [
         { id: 'a', texto: 'R$9.000 Projeto A + R$14.000 Projeto B + R$3.500 Projeto C + R$8.000 Projeto D — todos simultaneamente' },
@@ -173,6 +183,7 @@ const dossie = {
 export default function ModaConsultoriaInvestimentos() {
   const navigate = useNavigate();
   const [secao, setSecao] = useState('teoria');
+  const [dicasAbertas, setDicasAbertas] = useState({});
   const [exemploAtivo, setExemploAtivo] = useState('instagram');
   const [expandido, setExpandido] = useState({});
   const [respostas, setRespostas] = useState({});
@@ -377,6 +388,28 @@ export default function ModaConsultoriaInvestimentos() {
                   <span style={{ background: 'rgba(14,165,233,0.2)', color: '#7dd3fc', borderRadius: '0.4rem', padding: '0.2rem 0.6rem', fontWeight: 700, fontSize: '0.85rem', flexShrink: 0 }}>Q{idx + 1}</span>
                   <p style={{ color: 'var(--text-main)', lineHeight: 1.6 }}>{q.contexto}</p>
                 </div>
+                {/* Dica contextual */}
+                {q.dica && !enviado && (
+                  <div style={{ marginBottom: '0.75rem' }}>
+                    <button
+                      onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: dicasAbertas[q.id] ? 'rgba(250,204,21,0.12)' : 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.3)', borderRadius: '0.4rem', padding: '0.35rem 0.75rem', color: '#facc15', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
+                    >
+                      <Lightbulb size={13} />
+                      {dicasAbertas[q.id] ? 'Ocultar dica' : '💡 Ver fórmula e raciocínio'}
+                    </button>
+                    {dicasAbertas[q.id] && (
+                      <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                          <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   {q.opcoes.map(op => (
                     <button key={op.id} disabled={enviado} onClick={() => setRespostas(p => ({ ...p, [q.id]: op.id }))} style={{ padding: '0.875rem 1rem', borderRadius: '0.5rem', textAlign: 'left', fontSize: '0.875rem', cursor: enviado ? 'default' : 'pointer', border: respostas[q.id] === op.id ? `2px solid ${COR}` : '2px solid var(--border-color)', background: enviado ? op.id === q.correta ? 'rgba(34,197,94,0.1)' : respostas[q.id] === op.id ? 'rgba(239,68,68,0.1)' : 'transparent' : respostas[q.id] === op.id ? 'rgba(14,165,233,0.1)' : 'transparent', color: enviado ? op.id === q.correta ? '#22c55e' : respostas[q.id] === op.id ? '#ef4444' : 'var(--text-muted)' : respostas[q.id] === op.id ? '#7dd3fc' : 'var(--text-muted)', transition: 'all 0.15s', display: 'flex', alignItems: 'flex-start', gap: '0.5rem', lineHeight: 1.5 }}>

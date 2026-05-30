@@ -58,6 +58,8 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
+      dica: { titulo: 'MC% por Categoria de Produto', formula: 'MC% categoria = (Receita − CV) ÷ Receita × 100\n\nPeso no faturamento = Receita categoria ÷ Total\n\nMC ponderada = Σ (MC% cat. × Peso cat.)\n\nCategoria problemática: alto peso + baixa MC%', raciocinio: 'Calcule a MC% de cada categoria separadamente. Multiplique pelo peso no faturamento. Some tudo para a MC ponderada total. A categoria com maior peso e menor MC% é a prioridade de melhoria.' },
+      
       contexto: 'Calcule a MC% de cada categoria. Qual categoria tem o maior peso no faturamento (44%) mas a menor MC%? Qual tem o menor peso mas a maior MC%?',
       opcoes: [
         { id: 'a', texto: 'Pão: MC% = 28% (maior peso, menor MC%). Bebidas: MC% = 70% (segundo maior em faturamento, MC% excelente). Confeitaria: MC% = 60%. Salgados: MC% = 55%' },
@@ -70,6 +72,8 @@ const dossie = {
     },
     {
       id: 'c2',
+      dica: { titulo: 'PE e Margem de Segurança do Mix Completo', formula: 'PE = CF ÷ MC% ponderada\nMargem de Segurança = (Fat − PE) ÷ Fat × 100\nLucro = Fat × MC% ponderada − CF\n\nDados: CF = R$23.000, Fat = R$84.000\nCalcule MC% ponderada primeiro, depois PE', raciocinio: 'Use a MC% ponderada (calculada na Q1) para encontrar o PE. Se a margem de segurança for alta, a padaria tem folga. Se for baixa, qualquer mês ruim gera prejuízo.' },
+      
       contexto: 'O faturamento total é R$84.000 e o custo fixo é R$23.000. Calcule a MC% ponderada do mix e o PE. A padaria está saudável?',
       opcoes: [
         { id: 'a', texto: 'MC total = R$38.260. MC% ponderada = 45,5%. PE = R$50.549. Faturamento R$84.000 → margem segurança 39,8% — saudável' },
@@ -82,6 +86,8 @@ const dossie = {
     },
     {
       id: 'c3',
+      dica: { titulo: 'Ticket Médio e Estratégia de Combo', formula: 'Ticket atual = Faturamento ÷ Clientes\nTicket meta = Receita necessária ÷ Clientes\n\nImpacto de combo:\nClientes que aderem × Ticket extra = Receita extra\nMC extra = Receita extra × MC% combo\n\nIdeal: combo com itens de alta MC%', raciocinio: 'O combo deve sempre incluir itens de alta margem (café, torta) como âncora. Calcule quantos clientes precisariam adotar o combo para atingir o ticket médio desejado.' },
+      
       contexto: 'O ticket médio geral da padaria é R$9,79 (R$84.000 ÷ 8.580 clientes). Mas o ticket médio de confeitaria é R$20,59 (R$14.000 ÷ 680 clientes). Qual a estratégia para aumentar o ticket geral para R$12,00?',
       opcoes: [
         { id: 'a', texto: 'Aumentar os preços de todos os produtos em 22,6% para atingir R$12,00 de ticket' },
@@ -94,6 +100,8 @@ const dossie = {
     },
     {
       id: 'c4',
+      dica: { titulo: 'ROI de Investimento em Área de Café', formula: 'ROI mensal = Lucro extra ÷ Investimento × 100\nPayback = Investimento ÷ Lucro extra mensal\n\nLucro extra = Receita extra × MC% bebidas\n\nMC% bebidas (café): geralmente 60-70%\nMaior MC% = maior ROI por real investido', raciocinio: 'Invista onde a MC% é mais alta. Bebidas têm MC% muito superior ao pão — cada R$ investido em área de café gera mais lucro que o mesmo R$ investido em produção de pão.' },
+      
       contexto: 'Se Sebastiana investir R$8.000 para montar uma pequena área de café especial (máquina expresso + treinamento), e com isso aumentar as vendas de bebidas de R$18.000 para R$26.000/mês, qual o impacto no lucro?',
       opcoes: [
         { id: 'a', texto: 'Bebidas sobem R$8.000, com MC% 70% → MC extra = R$5.600/mês. Payback: R$8.000 ÷ R$5.600 = 1,4 meses. ROI = 70%/mês. Melhor investimento disponível' },
@@ -106,6 +114,8 @@ const dossie = {
     },
     {
       id: 'c5',
+      dica: { titulo: 'Estratégia de Rebalanceamento de Mix', formula: 'Cenário atual: MC ponderada = X%\nCenário meta: aumentar peso das categorias de alta MC%\n\nGanho de MC = (MC% nova − MC% atual) × Faturamento\n\nMeta: mover 10-15% do faturamento de pão → bebidas/confeitaria', raciocinio: 'Não é necessário vender menos pão — é necessário vender mais dos produtos de alta margem. O pão continua como isca; o café e a confeitaria pagam as contas.' },
+      
       contexto: 'Diagnóstico final: qual a principal recomendação estratégica para Sebastiana, considerando todos os KPIs analisados?',
       opcoes: [
         { id: 'a', texto: 'Reduzir preço do pão para atrair mais clientes e elevar o faturamento pela quantidade' },
@@ -122,6 +132,7 @@ const dossie = {
 export default function PadariaConsultoriaIndicadores() {
   const navigate = useNavigate();
   const [secao, setSecao] = useState('teoria');
+  const [dicasAbertas, setDicasAbertas] = useState({});
   const [expandido, setExpandido] = useState({});
   const [respostas, setRespostas] = useState({});
   const [enviado, setEnviado] = useState(false);
@@ -319,6 +330,28 @@ export default function PadariaConsultoriaIndicadores() {
                   <span style={{ background: 'rgba(139,92,246,0.2)', color: '#c4b5fd', borderRadius: '0.4rem', padding: '0.2rem 0.6rem', fontWeight: 700, fontSize: '0.85rem', flexShrink: 0 }}>Q{idx + 1}</span>
                   <p style={{ color: 'var(--text-main)', lineHeight: 1.6 }}>{q.contexto}</p>
                 </div>
+                {/* Dica contextual */}
+                {q.dica && !enviado && (
+                  <div style={{ marginBottom: '0.75rem' }}>
+                    <button
+                      onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: dicasAbertas[q.id] ? 'rgba(250,204,21,0.12)' : 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.3)', borderRadius: '0.4rem', padding: '0.35rem 0.75rem', color: '#facc15', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
+                    >
+                      <Lightbulb size={13} />
+                      {dicasAbertas[q.id] ? 'Ocultar dica' : '💡 Ver fórmula e raciocínio'}
+                    </button>
+                    {dicasAbertas[q.id] && (
+                      <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                          <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   {q.opcoes.map(op => (
                     <button key={op.id} disabled={enviado} onClick={() => setRespostas(p => ({ ...p, [q.id]: op.id }))} style={{ padding: '0.875rem 1rem', borderRadius: '0.5rem', textAlign: 'left', fontSize: '0.875rem', cursor: enviado ? 'default' : 'pointer', border: respostas[q.id] === op.id ? `2px solid ${COR}` : '2px solid var(--border-color)', background: enviado ? op.id === q.correta ? 'rgba(34,197,94,0.1)' : respostas[q.id] === op.id ? 'rgba(239,68,68,0.1)' : 'transparent' : respostas[q.id] === op.id ? 'rgba(139,92,246,0.1)' : 'transparent', color: enviado ? op.id === q.correta ? '#22c55e' : respostas[q.id] === op.id ? '#ef4444' : 'var(--text-muted)' : respostas[q.id] === op.id ? '#c4b5fd' : 'var(--text-muted)', transition: 'all 0.15s', display: 'flex', alignItems: 'flex-start', gap: '0.5rem', lineHeight: 1.5 }}>

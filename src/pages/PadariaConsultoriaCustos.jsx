@@ -302,6 +302,27 @@ export default function PadariaConsultoriaCustos() {
             </p>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2rem' }}>
+
+                {/* Dica de classificação de custos */}
+                <div style={{ marginBottom: '1.5rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.75rem' }}>
+                  <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span>🧮</span> Guia de Classificação: Como Saber a Categoria?
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem', marginBottom: '0.75rem' }}>
+                    {[
+                      { cat: '📌 Custo Fixo', cor: '#6366f1', def: 'Não muda com o volume produzido. Pago todo mês igual.', ex: 'Aluguel, salário fixo, contador' },
+                      { cat: '🔄 Custo Variável', cor: '#22c55e', def: 'Cresce proporcionalmente às vendas. Zero produção = zero custo.', ex: 'Ingredientes, embalagens, comissão' },
+                      { cat: '💸 Despesa', cor: '#f59e0b', def: 'Gasto necessário mas não ligado diretamente à produção.', ex: 'Marketing, taxa de cartão, imposto' },
+                    ].map((k, i) => (
+                      <div key={i} style={{ background: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: '0.5rem', borderLeft: \`3px solid \${k.cor}\` }}>
+                        <div style={{ fontWeight: 700, color: k.cor, marginBottom: '0.3rem', fontSize: '0.82rem' }}>{k.cat}</div>
+                        <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>{k.def}</div>
+                        <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>Ex: {k.ex}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>💬 <strong style={{ color: '#fbbf24' }}>Teste rápido:</strong> "Se eu não produzir nada esse mês, esse gasto some?" Se sim → variável. Se não → fixo. Se é indireto → despesa.</p>
+                </div>
             {itensDesafio.map((item, idx) => (
               <div key={item.id} className="glass-panel" style={{ padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', borderLeft: enviado ? respostas[item.id] === item.correto ? '4px solid #22c55e' : '4px solid #ef4444' : '4px solid var(--border-color)', transition: 'all 0.3s' }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', flex: 1 }}>

@@ -82,6 +82,8 @@ const dossie = {
   perguntasConsultoria: [
     {
       id: 'c1',
+      dica: { titulo: 'MC% e Custo Fixo — A Tesoura do Lucro', formula: 'MC% = (Receita − CV) ÷ Receita × 100\nLucro = MC − CF\n\nTesoura dupla:\n• MC% caindo (CVu sobe ou preço cai)\n• CF subindo (mais despesas fixas)\n→ Lucro comprimido pelos dois lados', raciocinio: 'Compare MC% e CF dos dois meses. Se MC% caiu E CF subiu ao mesmo tempo, o lucro cai muito mais rápido que o esperado. Identifique primeiro qual dos dois mudou mais.' },
+      
       contexto: 'Em março, o faturamento cresceu 12,5% (de R$19.200 para R$21.600), mas o lucro caiu de R$2.570 para R$420. Qual indicador explica essa contradição?',
       opcoes: [
         { id: 'a', texto: 'A MC% caiu de 41,5% (Fev) para 37,9% (Mar) E o CF subiu 41% (de R$5.400 para R$7.620). Tesoura dupla: mais vendas com margem menor e custo fixo maior' },
@@ -94,6 +96,8 @@ const dossie = {
     },
     {
       id: 'c2',
+      dica: { titulo: 'Ponto de Equilíbrio e Margem de Segurança', formula: 'PE = Custo Fixo ÷ MC%\nMargem de Segurança = (Fat. − PE) ÷ Fat. × 100\n\nSe MS < 10%: qualquer oscilação gera prejuízo\nSe MS < 20%: operação frágil\nSe MS > 25%: operação saudável', raciocinio: 'Calcule o PE com os dados de março. Subtraia do faturamento real. Divida pelo faturamento. Esse percentual é a margem de segurança — o quanto o faturamento pode cair antes de haver prejuízo.' },
+      
       contexto: 'Calcule o Ponto de Equilíbrio de março (CF R$7.620, MC% 37,9%). Qual a margem de segurança? O que isso significa?',
       opcoes: [
         { id: 'a', texto: 'PE = R$20.105. Margem de segurança = 7%. Marcos está operando perigosamente perto do limite — qualquer queda de 7% no faturamento gera prejuízo' },
@@ -106,6 +110,8 @@ const dossie = {
     },
     {
       id: 'c3',
+      dica: { titulo: 'Diagnóstico do CMV — O Que Mudou?', formula: 'CMV% = Custo Variável ÷ Faturamento × 100\n\nSe CMV% subiu, há 3 possibilidades:\n1. Ingredientes ficaram mais caros (sem reajuste)\n2. Desperdício aumentou\n3. Mix mudou para produtos mais caros\n\nAção: planilha de custo por item', raciocinio: 'Sem detalhar por ingrediente, é impossível saber a causa exata. A pergunta certa é: o custo total de ingredientes por marmita subiu? Se sim, houve alta de insumos — reajustar o preço.' },
+      
       contexto: 'O custo variável de março foi R$13.420 para R$21.600 de faturamento (62,1% do faturamento). Em janeiro era 57,5%. O que provavelmente aconteceu e qual a ação correta?',
       opcoes: [
         { id: 'a', texto: 'Ingredientes subiram e Marcos não reajustou o preço. Ação: calcular novo preço pelo Markup Divisor e comunicar reajuste aos clientes' },
@@ -118,6 +124,8 @@ const dossie = {
     },
     {
       id: 'c4',
+      dica: { titulo: 'Impacto do Custo Fixo em Marmitas Necessárias', formula: 'MC unitária = Preço × MC%\nMarmitas para cobrir CF extra = ΔCF ÷ MC unitária\n\nEx: CF extra R$2.220, preço R$36, MC% 37,9%\nMC unitária = R$36 × 37,9% = R$13,64\nMarmitas extras = R$2.220 ÷ R$13,64 ≈ 163', raciocinio: 'Cada real de custo fixo extra exige mais vendas para ser coberto. Calcule quantas marmitas a mais precisam ser vendidas só para cobrir o novo custo — sem gerar lucro adicional.' },
+      
       contexto: 'O CF saltou de R$5.400 (fev) para R$7.620 (mar), alta de R$2.220. Com MC% de 37,9%, quantas marmitas extras precisam ser vendidas por mês só para cobrir esse novo custo fixo? (Preço médio R$36)',
       opcoes: [
         { id: 'a', texto: 'MC unitária = R$36 × 37,9% = R$13,64. Marmitas extras necessárias = R$2.220 ÷ R$13,64 = 163 marmitas/mês só para cobrir o novo CF' },
@@ -130,6 +138,8 @@ const dossie = {
     },
     {
       id: 'c5',
+      dica: { titulo: 'Ações Prioritárias do Consultor', formula: 'Ordem de prioridade:\n1. Restaurar MC% (reajustar preço ou reduzir CV)\n2. Auditar CF novo (manter só se demanda justificar)\n3. Monitorar PE mensalmente\n4. Constituir reserva de segurança\n\nNunca: aumentar faturamento sem antes restaurar a margem', raciocinio: 'Crescer com MC% baixa apenas acelera o problema. A primeira ação sempre é restaurar a margem — depois, buscar volume. A sequência errada (volume antes de margem) leva à falência rápida.' },
+      
       contexto: 'Com base no diagnóstico completo, quais são as 2 ações prioritárias que Marcos deve tomar imediatamente?',
       opcoes: [
         { id: 'a', texto: '(1) Cortar o funcionário contratado em março para restaurar o CF de R$5.400; (2) Não mexer no preço para não perder clientes' },
@@ -146,6 +156,7 @@ const dossie = {
 export default function MarmitariaConsultoriaIndicadores() {
   const navigate = useNavigate();
   const [secao, setSecao] = useState('teoria');
+  const [dicasAbertas, setDicasAbertas] = useState({});
   const [exemploAtivo, setExemploAtivo] = useState('saudavel');
   const [expandido, setExpandido] = useState({});
   const [respostas, setRespostas] = useState({});
@@ -340,6 +351,28 @@ export default function MarmitariaConsultoriaIndicadores() {
                   <span style={{ background: 'rgba(139,92,246,0.2)', color: '#c4b5fd', borderRadius: '0.4rem', padding: '0.2rem 0.6rem', fontWeight: 700, fontSize: '0.85rem', flexShrink: 0 }}>Q{idx + 1}</span>
                   <p style={{ color: 'var(--text-main)', lineHeight: 1.6 }}>{q.contexto}</p>
                 </div>
+                {/* Dica contextual */}
+                {q.dica && !enviado && (
+                  <div style={{ marginBottom: '0.75rem' }}>
+                    <button
+                      onClick={() => setDicasAbertas(prev => ({ ...prev, [q.id]: !prev[q.id] }))}
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: dicasAbertas[q.id] ? 'rgba(250,204,21,0.12)' : 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.3)', borderRadius: '0.4rem', padding: '0.35rem 0.75rem', color: '#facc15', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
+                    >
+                      <Lightbulb size={13} />
+                      {dicasAbertas[q.id] ? 'Ocultar dica' : '💡 Ver fórmula e raciocínio'}
+                    </button>
+                    {dicasAbertas[q.id] && (
+                      <div style={{ marginTop: '0.75rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.6rem' }}>
+                        <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>🧮 {q.dica.titulo}</div>
+                        <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '0.4rem', fontFamily: 'monospace', fontSize: '0.8rem', color: '#fcd34d', whiteSpace: 'pre-wrap', marginBottom: '0.75rem', lineHeight: 1.7 }}>{q.dica.formula}</pre>
+                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                          <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>💬</span>
+                          <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>{q.dica.raciocinio}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   {q.opcoes.map(op => (
                     <button key={op.id} disabled={enviado} onClick={() => setRespostas(p => ({ ...p, [q.id]: op.id }))} style={{ padding: '0.875rem 1rem', borderRadius: '0.5rem', textAlign: 'left', fontSize: '0.875rem', cursor: enviado ? 'default' : 'pointer', border: respostas[q.id] === op.id ? `2px solid ${COR}` : '2px solid var(--border-color)', background: enviado ? op.id === q.correta ? 'rgba(34,197,94,0.1)' : respostas[q.id] === op.id ? 'rgba(239,68,68,0.1)' : 'transparent' : respostas[q.id] === op.id ? 'rgba(139,92,246,0.1)' : 'transparent', color: enviado ? op.id === q.correta ? '#22c55e' : respostas[q.id] === op.id ? '#ef4444' : 'var(--text-muted)' : respostas[q.id] === op.id ? '#c4b5fd' : 'var(--text-muted)', transition: 'all 0.15s', display: 'flex', alignItems: 'flex-start', gap: '0.5rem', lineHeight: 1.5 }}>
