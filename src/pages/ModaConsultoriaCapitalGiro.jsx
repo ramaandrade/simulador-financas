@@ -35,6 +35,7 @@ const exemplos = [
 const questoes = [
   {
     id: 'q1',
+    dica: { titulo: 'Ciclo Operacional e Financeiro', formula: 'CO = PME + PMR\nCF = CO − PMP\n\nPME = dias em estoque\nPMR = dias para receber\nPMP = prazo que o fornecedor dá\n\nCF positivo → precisa financiar\nCF negativo → recebe antes de pagar', raciocinio: 'Some PME + PMR para o ciclo operacional. Subtraia PMP. O resultado positivo é quantos dias você financia com capital próprio.' },
     enunciado: 'Uma loja de moda tem PME=90 dias, PMR=30 dias (parcelamento) e PMP=30 dias (fornecedor Brás). Qual a NCG para faturamento de R$800/dia?',
     opcoes: [
       { id: 'a', texto: 'R$ 24.000 — apenas o PMR de 30 dias importa' },
@@ -47,6 +48,7 @@ const questoes = [
   },
   {
     id: 'q2',
+    dica: { titulo: 'NCG — Necessidade de Capital de Giro', formula: 'NCG = Ciclo Financeiro × Faturamento Diário\nFaturamento diário = Faturamento mensal ÷ 30\n\nEx: CF=27 dias, fat/dia=R$600\nNCG = 27 × R$600 = R$16.200', raciocinio: 'A NCG é quanto dinheiro precisa estar no caixa para a empresa continuar operando sem empréstimo. Multiplique o CF pelo faturamento diário.' },
     enunciado: 'Por que o varejo de moda tem o pior ciclo financeiro entre os setores estudados?',
     opcoes: [
       { id: 'a', texto: 'Porque as margens são menores que em outros setores' },
@@ -59,6 +61,7 @@ const questoes = [
   },
   {
     id: 'q3',
+    dica: { titulo: 'Estratégia de Redução da NCG', formula: 'Para reduzir NCG, reduza o CF:\n→ Reduza PME (menos estoque)\n→ Reduza PMR (receba mais rápido)\n→ Aumente PMP (negocie mais prazo)\n\nImpacto: cada dia reduzido no CF\n= faturamento diário liberado em caixa', raciocinio: 'A alavanca mais poderosa é aquela que mais contribui para o CF alto. Se o PMR é 30 dias, reduzi-lo é mais impactante do que reduzir o PME de 2 dias.' },
     enunciado: 'Qual estratégia MAIS reduz o CF de uma loja de moda?',
     opcoes: [
       { id: 'a', texto: 'Oferecer desconto de 5% para pagamento à vista (reduz PMR)' },
@@ -71,6 +74,7 @@ const questoes = [
   },
   {
     id: 'q4',
+    dica: { titulo: 'Impacto do Canal de Venda no CF', formula: 'iFood: PMR ≈ 30 dias\nPix direto: PMR = 0 dias\n\nCom iFood: CF = PME + 30 − PMP\nCom Pix: CF = PME + 0 − PMP\n\nDiferença = 30 dias × faturamento diário\n= capital liberado ao migrar para Pix', raciocinio: 'Calcule a NCG nos dois cenários. A diferença é o capital que seria liberado ao abandonar o marketplace. Compare esse benefício com a perda de clientes do iFood.' },
     enunciado: 'Uma loja decide aceitar apenas Pix (sem parcelamento). O PMR cai de 30 para 0 dias. Com PME=120 e PMP=30, qual o novo CF e a variação na NCG (faturamento R$600/dia)?',
     opcoes: [
       { id: 'a', texto: 'CF cai de 120 para 90 dias → libera R$18.000 de capital' },
@@ -83,6 +87,7 @@ const questoes = [
   },
   {
     id: 'q5',
+    dica: { titulo: 'Ciclo Financeiro Negativo', formula: 'CF negativo = PMP > CO\n\nSignifica: o fornecedor financia mais tempo\ndo que o ciclo operacional total\n\nResultado: você recebe antes de pagar\n→ o negócio gera caixa automaticamente\n→ pode crescer sem capital externo', raciocinio: 'CF negativo não é ruim — é o melhor cenário possível. Padarias com venda no balcão + compra parcelada têm isso naturalmente.' },
     enunciado: 'Uma loja de roupas tem CF de +120 dias e está crescendo 20% ao mês em faturamento. Por que isso pode ser perigoso?',
     opcoes: [
       { id: 'a', texto: 'Não é perigoso — crescimento é sempre positivo' },

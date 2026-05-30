@@ -122,6 +122,29 @@ const exemplos = [
 // ─────────────────────────────────────────────
 // DESAFIO DE CONSULTORIA
 // ─────────────────────────────────────────────
+
+                {/* Guia de classificação */}
+                <div style={{ marginBottom: '1.5rem', padding: '1rem 1.25rem', background: 'rgba(250,204,21,0.06)', border: '1px solid rgba(250,204,21,0.2)', borderRadius: '0.75rem' }}>
+                  <div style={{ fontWeight: 700, color: '#facc15', marginBottom: '0.75rem', fontSize: '0.875rem' }}>
+                    💡 Guia de Classificação: Como Decidir?
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.75rem', marginBottom: '0.75rem' }}>
+                    {[
+                      { cat: '📌 Custo Fixo', cor: '#6366f1', def: 'Não muda com o volume produzido. Pago todo mês igual.', ex: 'Aluguel, salário, contador' },
+                      { cat: '🔄 Custo Variável', cor: '#22c55e', def: 'Cresce com as vendas. Zero produção = zero custo.', ex: 'Ingredientes, embalagem, comissão' },
+                      { cat: '💸 Despesa', cor: '#f59e0b', def: 'Necessário mas indireto à produção.', ex: 'Marketing, imposto, taxa cartão' },
+                    ].map((k, i) => (
+                      <div key={i} style={{ background: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: '0.5rem', borderLeft: `3px solid ${k.cor}` }}>
+                        <div style={{ fontWeight: 700, color: k.cor, marginBottom: '0.3rem', fontSize: '0.8rem' }}>{k.cat}</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>{k.def}</div>
+                        <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>Ex: {k.ex}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                    💬 <strong style={{ color: '#fbbf24' }}>Teste rápido:</strong> "Se eu não produzir nada esse mês, esse gasto some?" Sim → variável. Não → fixo. É indireto → despesa.
+                  </p>
+                </div>
 const itensDesafio = [
   { id: 'a', desc: 'Farinha de trigo (por quilo, ingrediente)', correto: 'variavel' },
   { id: 'b', desc: 'Aluguel do forno industrial', correto: 'fixo' },
